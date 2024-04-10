@@ -16,6 +16,9 @@
             <label for="username">Password: </label><br>
             <input type="password" name="password" id="password" placeholder="Enter pasword...">
         </div>
+        <div id="errorBox">
+        
+        </div>
         <button type="submit">Login</button>
     </form>
 
@@ -42,7 +45,15 @@
             })
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
+
+            if(responseData.code === 0) {
+                window.location.href = "http://localhost:3000";
+            }
+            else {
+                document.getElementById('errorBox')
+                    .textContent = responseData.message;
+            }
         })
     </script>
 </body>

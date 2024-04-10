@@ -4,9 +4,9 @@ function getUsers() {
     return users;
 }
 
-function verifyLogin(username, password) {
+function verifyLoginService(username, password) {
     const verified = users.find(user => username === user.username && password === user.password);
     return verified;
 }
 
-module.exports = { getUsers, verifyLogin };
+module.exports = { getUsers, verifyLoginService };

@@ -1,4 +1,4 @@
-const { getUsers, verifyLogin } = require('../service/user.service');
+const { getUsers, verifyLoginService } = require('../service/user.service');
 
 class authController {
     login(req, res) {
@@ -10,7 +10,7 @@ class authController {
         const { username, password } = req.body;
         console.log(req.body);
         console.log(username, password);
-        const isVerified = verifyLogin(username, password);
+        const isVerified = verifyLoginService(username, password);
         if(isVerified) {
             res.json({code: 0, message: "Login successfully"});
         }
