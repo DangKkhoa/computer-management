@@ -7,15 +7,43 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form action="">
+    <form id="loginForm">
         <div>
             <label for="username">Username: </label><br>
-            <input type="text" name="username" id="" placeholder="Enter username...">
+            <input type="text" name="username" id="username" placeholder="Enter username...">
         </div>
         <div>
             <label for="username">Password: </label><br>
-            <input type="password" name="password" id="" placeholder="Enter pasword...">
+            <input type="password" name="password" id="password" placeholder="Enter pasword...">
         </div>
+        <button type="submit">Login</button>
     </form>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const userData = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            console.log(userData);
+
+            const response = await fetch('http://localhost:3000/login/verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+
+            const responseData = await response.json();
+            console.log(responseData);
+        })
+    </script>
 </body>
 </html>
