@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form id="loginForm">
+    <form id="loginForm" action="/login" method="POST">
         <div>
             <label for="username">Username: </label><br>
             <input type="text" name="username" id="username" placeholder="Enter username...">
@@ -23,38 +23,38 @@
     </form>
 
     <script>
-        const loginForm = document.getElementById('loginForm');
+        // const loginForm = document.getElementById('loginForm');
         
 
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // loginForm.addEventListener('submit', async (e) => {
+        //     e.preventDefault();
             
-            const userData = {
-                username: document.getElementById('username').value,
-                password: document.getElementById('password').value
-            };
+        //     const userData = {
+        //         username: document.getElementById('username').value,
+        //         password: document.getElementById('password').value
+        //     };
 
-            console.log(userData);
+        //     console.log(userData);
 
-            const response = await fetch('http://localhost:3000/login/verify', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            })
+        //     const response = await fetch('http://localhost:3000/login/verify', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(userData)
+        //     })
 
-            const responseData = await response.json();
-            // console.log(responseData);
+        //     const responseData = await response.json();
+        //     // console.log(responseData);
 
-            if(responseData.code === 0) {
-                window.location.href = "http://localhost:3000";
-            }
-            else {
-                document.getElementById('errorBox')
-                    .textContent = responseData.message;
-            }
-        })
+        //     if(responseData.code === 0) {
+        //         window.location.href = "http://localhost:3000";
+        //     }
+        //     else {
+        //         document.getElementById('errorBox')
+        //             .textContent = responseData.message;
+        //     }
+        // })
     </script>
 </body>
 </html>
