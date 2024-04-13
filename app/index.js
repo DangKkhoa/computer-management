@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const session = require('express-session')
 const passport = require('passport');
+const flash = require('connect-flash');
+const nocache = require('nocache');
 // Routes
 const productRouter = require('./route/product.route')
 const userRouter = require('./route/user.route');
@@ -17,7 +19,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
-
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(nocache());
 app.use(session({
     secret: 'hello',
     resave: false,
@@ -25,9 +28,13 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/login', authRouter);
 
+app.use(flash());
+
+
+app.use('/auth', authRouter);
 app.use(authMiddleware);
+
 
 app.use('/products', productRouter);
 app.use('/staffs', userRouter);

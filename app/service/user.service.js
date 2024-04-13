@@ -5,6 +5,7 @@ function getUsers() {
 }
 
 function verifyLoginService(username, password) {
+    
     const verified = users.find(user => username === user.username && password === user.password);
     return verified;
 }

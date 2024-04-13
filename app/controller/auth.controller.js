@@ -1,51 +1,43 @@
-const { getUsers, verifyLoginService } = require('../service/user.service');
+// const { getUsers, verifyLoginService } = require('../service/user.service');
+const { verifyLoginService } = require('../service/user.service');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const initializePassport = require('../config/passport.config');
+
+initializePassport(passport, verifyLoginService);
 
 class authController {
     login(req, res) {
-        res.render('login');
+        if(!req.user) {
+            return res.render('login', { message: req.flash('error')});
+        }
+        
+        return res.redirect('/');
     }
-
     handleLogin(req, res, next) {
-        // const users = getUsers();
-        passport.authenticate('local', (err, user, info) => {
-            if (err) {
-                return next(err);
+        passport.authenticate('local', {
+            successRedirect: true,
+        }, (err, user, info) => {
+            if(err) return next(err);
+            if(!user) {
+                return res.json({code: 1, message: 'User does not exist'});
             }
-            if (!user) {
-                return res.render('login', { message: 'Invalid username or password' });
-            }
+            
             req.logIn(user, (err) => {
-                if (err) {
-                    return next(err);
-                }
-                // req.session.user = user.username;
-                return res.redirect('/');
-            });
+                if(err) return next(err);
+                return res.json({code: 0, message: 'Login successfully'});
+            })
         })(req, res, next);
     }
-}
 
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-        const isVerified = verifyLoginService(username, password);
-        if (isVerified) {
-            return done(null, { username: username });
-        } else {
-            return done(null, false, { message: 'Incorrect username or password' });
-        }
+    logout(req, res, next) {
+        req.logout((err) => {
+            if (err) { 
+                return next(err); 
+            }
+            
+            return res.redirect('/auth/login');
+        })
     }
-));
-
-passport.serializeUser((user, done) => {
-    done(null, user.username);
-});
-
-passport.deserializeUser((username, done) => {
-    // Here you might fetch user from database or other session storage
-    done(null, { username: username });
-});
-
+}
 
 module.exports = new authController;
