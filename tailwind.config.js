@@ -1,10 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: 'jit',
   content: [
-    "../views/*"
+    "./app/views/*"
   ],
   theme: {
-    
+    container: {
+      center: true,
+    },
     extend: {
       
     },

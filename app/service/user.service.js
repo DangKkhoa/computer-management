@@ -6,8 +6,11 @@ function getUsers() {
 
 function verifyLoginService(username, password) {
     
-    const verified = users.find(user => username === user.username && password === user.password);
-    return verified;
+    const user = users.find(u => username === u.username && password === u.password);
+    if(user) {
+        const {password, ...userData} = user;
+        return userData;
+    }
 }
 
 module.exports = { getUsers, verifyLoginService };

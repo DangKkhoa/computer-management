@@ -1,42 +1,42 @@
 // const { getUsers, verifyLoginService } = require('../service/user.service');
 const { verifyLoginService } = require('../service/user.service');
-const passport = require('passport');
-const initializePassport = require('../config/passport.config');
+// const passport = require('passport');
+// const initializePassport = require('../config/passport.config');
 
-initializePassport(passport, verifyLoginService);
+// initializePassport(passport, verifyLoginService);
 
 class authController {
     login(req, res) {
         if(!req.user) {
-            return res.render('login', { message: req.flash('error')});
+            return res.render('login');
         }
         
         return res.redirect('/');
     }
-    handleLogin(req, res, next) {
-        passport.authenticate('local', {
-            successRedirect: true,
-        }, (err, user, info) => {
-            if(err) return next(err);
-            if(!user) {
-                return res.json({code: 1, message: 'User does not exist'});
-            }
-            
-            req.logIn(user, (err) => {
-                if(err) return next(err);
-                return res.json({code: 0, message: 'Login successfully'});
-            })
-        })(req, res, next);
+    handleLogin(req, res) {
+        const { username, password } = req.body;
+        const user = verifyLoginService(username, password);
+
+        if(!username || !password) {
+            return res.json({ code: 1, message: 'Username and Password cannot be empty' });
+        }
+
+        if(user) {
+            req.session.user = user;
+            return res.json({ code: 0, message: 'Login successfully' });
+        }
+        else {
+            return res.json({ code: 2, message: 'Wrong Username or Password'});
+        }
+
+
+
     }
 
     logout(req, res, next) {
-        req.logout((err) => {
-            if (err) { 
-                return next(err); 
-            }
-            
-            return res.redirect('/auth/login');
-        })
+        req.session.destroy();
+
+        res.redirect('/auth/login');
     }
 }
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-css": "tailwindcss build app/src/style.css -o app/public/style.css",
+    "build-css": "tailwindcss build -i app/public/css/input.css -o app/public/css/output.css",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app/index.js"
   },

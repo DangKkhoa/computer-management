@@ -4,9 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <style>
+        li {
+            margin-bottom: 30px;
+        }
+        
+        a {
+            display: block;
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        a:hover {
+
+        }
+    </style>
+
 </head>
-<body>
-    fsdafsdafsdfsdafsad
+<body class="h-screen bg-slate-200">
+    <div class="container">
+        <header class="fixed h-full w-64 bg-white flex flex-col justify-between">
+            <div class="user-image flex-none p-4">
+                <img src="/images/user.png" alt="" class="w-10">
+            </div>
+            <hr class="h-1 m-2">
+            <nav class="flex grow h-1/2 py-6 px-3" >
+                <ul class="flex flex-col w-full">
+                    <li><a href="#" class="hover:text-cyan-600">Products</a></li>
+                    <li><a href="#" class="hover:text-cyan-600">Customers</a></li>
+                    <li><a href="#" class="hover:text-cyan-600">Orders</a></li>
+                    <li><a href="#" class="hover:text-cyan-600">Sale history</a></li>
+                </ul>
+            </nav>
+            <div class="logout flex-none p-4">
+                <a href="/auth/logout" class="hover:text-cyan-600">Log out</a>
+            </div>
+        </header>
+    </div>
+    
+    <main>
+
+    </main>
     
 </body>
 </html>
