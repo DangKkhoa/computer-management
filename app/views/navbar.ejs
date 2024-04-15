@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <nav class="flex flex-col justify-between h-full w-full" >
+        <div class="user-image flex-none p-4">
+            <a href="#">
+                <img src="/images/user.png" alt="" class="w-10">
+            </a>
+        </div>
+        <hr class="h-1 mx-2">
+        <ul class="flex flex-col grow py-6">
+            <li class="list-item px-3 border-l-2 border-slate-300 hover:border-l-2 hover:border-slate-600">
+                <a href="/" class="link block p-2 text-slate-500 hover:text-black text-lg">
+                    Home
+                </a>
+            </li>
+            <li class="list-item px-3 border-l-2 border-slate-300 hover:border-l-2 hover:border-slate-600">
+                <a href="/products" class="link block p-2 text-slate-500 hover:text-black text-lg">
+                    Products
+                </a>
+            </li>
+            <li class="list-item px-3 border-l-2 border-slate-300 hover:border-l-2 hover:border-slate-600">
+                <a href="/customers" class="link block p-2 text-slate-600 hover:text-black text-lg">
+                    Customers
+                </a>
+            </li>
+            <li class="list-item px-3 border-l-2 border-slate-300 hover:border-l-2 hover:border-slate-600">
+                <a href="/orders" class="link block p-2 text-slate-500 hover:text-black text-lg">
+                    Orders
+                </a>
+            </li>
+            <li class="list-item px-3 border-l-2 border-slate-300 hover:border-l-2 hover:border-slate-600">
+                <a href="/sale-history" class="link block p-2 text-slate-500 hover:text-black text-lg">
+                    Sale History
+                </a>
+            </li>
+        </ul>
+    
+        <div class="logout flex-none p-4">
+            <a href="/auth/logout" class="text-slate-500 hover:text-black text-lg">Log out</a>
+        </div>
+    
+        <script>
+            const links = document.querySelectorAll('.link');
+            Array.from(links).forEach((link) => {
+                const path = link.getAttribute('href').split('/')[1];
+                const current_path = window.location.pathname.split('/')[1];
+                
+                if(path === current_path) {
+                    link.classList.add('text-sky-500');
+                    link.parentElement.classList.remove('border-slate-300');
+                    link.classList.remove('hover:text-black')
+                    link.parentElement.classList.remove('hover:border-slate-600')
+                    link.parentElement.classList.add('border-sky-500');
+                    console.log(link.parentElement.classList)
+                }
+                else {
+                    link.classList.remove('text-sky-500');
+                    link.parentElement.classList.remove('border-sky-500');
+                    link.parentElement.classList.add('border-slate-300');
+                }
+            })
+        </script>
+    </nav>
+</body>
+</html>
+
+
