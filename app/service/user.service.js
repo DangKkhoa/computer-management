@@ -1,7 +1,16 @@
 const users = require('../model/user.model');
 
 function getUsers() {
-    return users;
+    const usersNotAdmin = []
+    users.forEach((u) => {
+        if(u.role !== 'ADMIN') {
+            usersNotAdmin.push(u);
+        }
+    })
+
+    return usersNotAdmin;
+    
+    // console.log(usersNotAdmin);
 }
 
 function verifyLoginService(username, password) {

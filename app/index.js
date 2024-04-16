@@ -8,7 +8,7 @@ const productRouter = require('./route/product.route')
 const userRouter = require('./route/user.route');
 const authRouter = require('./route/auth.route');
 const homeRouter = require('./route/home.route');
-const authMiddleware = require('./middleware/auth.middleware');
+const { isLoggedIn, roleAuth } = require('./middleware/auth.middleware');
 
 
 
@@ -17,8 +17,9 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(nocache());
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
     secret: 'secret_key',
     resave: false,
@@ -27,11 +28,10 @@ app.use(session({
 
 
 app.use('/auth', authRouter);
-app.use(authMiddleware);
-
+app.use(isLoggedIn);
 
 app.use('/products', productRouter);
-app.use('/staffs', userRouter);
+app.use('/staffs', roleAuth, userRouter);
 app.use('/', homeRouter);
 
 

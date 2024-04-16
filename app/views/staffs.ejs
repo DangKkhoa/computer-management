@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staffs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-        </tr>
-        <% users.forEach(u =>{ %>
-            <tr>
-                <td><%= u.username %></td>
-                <td><%= u.password %></td>
-            </tr>
-        <% }) %>
-    </table>
+<body class="h-screen bg-slate-200">
+    <div class="container">
+        <%- include('navbar') %>
+        <main class="ml-64">
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                </tr>
+                <% users.forEach(u =>{ %>
+                    <tr>
+                        <td><%= u.username %></td>
+                        <td><%= u.password %></td>
+                    </tr>
+                <% }) %>
+            </table>
+        </main>
+    </div>
 </body>
 </html>

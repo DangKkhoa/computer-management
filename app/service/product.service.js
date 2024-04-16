@@ -12,5 +12,10 @@ function getProductById(productId) {
     }
 }
 
+function deleteProductById(productId) {
+    const productToDelete = getProductById(productId);
+    return productToDelete;
+}
+
 // console.log(products)
-module.exports = { getProducts, getProductById };
+module.exports = { getProducts, getProductById, deleteProductById };
