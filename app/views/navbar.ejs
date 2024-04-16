@@ -4,9 +4,18 @@
     <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="fixed h-full w-64 bg-white">
+    <button class="toggle-nav-btn block lg:hidden fixed top-4 left-4" onclick="openNav()">
+        <div class="w-5 h-1 bg-black mb-1"></div>
+        <div class="w-5 h-1 bg-black mb-1"></div>
+        <div class="w-5 h-1 bg-black "></div>
+    </button>
+    <header class="hidden md:block fixed  h-full w-full md:w-64 bg-white" id="navBar" ">
+        
         <nav class="flex flex-col justify-between h-full w-full">
-            <div class="user-image flex-none my-3 mx-2 hover:bg-slate-100 p-2 hover:rounded-xl">
+            <button class="md:hidden block absolute right-4" onclick="closeNav()">
+                <span class="font-bold text-4xl">&times;</span>
+            </button>
+            <div class="user-image flex-none mt-8 mb-2 mx-2 hover:bg-slate-100 p-2 hover:rounded-xl">
                 <a href="/profile?id=<%= user.id %>" class="flex items-center ">
                     <img src="/images/user.png" alt="" class="w-10">
                     <p class="ml-3"><%= user.username %></p>
@@ -110,6 +119,20 @@
                 link.parentElement.classList.remove('bg-sky-200', 'rounded-xl');
             }
         })
+
+        const navBar = document.getElementById('navBar');
+        function openNav() {
+            
+            console.log(navBar);
+            navBar.classList.remove('hidden');
+            navBar.classList.add('block');
+
+        }
+
+        function closeNav() {
+            navBar.classList.add('hidden');
+            navBar.classList.remove('block');
+        }
     </script>
 </body>
 </html>
