@@ -1,4 +1,4 @@
-const { getProducts, getProductById, deleteProductById } = require('../service/product.service');
+const { getProducts, getProductById, deleteProductById, deleteProductsById } = require('../service/product.service');
 
 class productController {
     index(req, res) {
@@ -18,6 +18,17 @@ class productController {
         const productToDelete = deleteProductById(productID);
         res.send(`Delete product ${JSON.stringify(productToDelete)}`)
     }
+
+    deleteProducts(req, res) {
+        const productIds = req.body.product_ids;
+        const products = deleteProductsById(productIds);
+        if(products) {
+            res.json({code: 0, message: 'Delete products successfully'});
+        }
+        else {
+            res.json({code: 1, message: 'Cannot delete products now. Please try again later'});
+        }
+    }   
 }
 
 

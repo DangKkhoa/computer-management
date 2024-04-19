@@ -3,19 +3,19 @@
 <head>
     <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <button class="toggle-nav-btn block lg:hidden fixed top-4 left-4" onclick="openNav()">
+<body class="h-screen">
+    <button class="toggle-nav-btn block md:hidden fixed top-4 left-4" onclick="openNav()">
         <div class="w-5 h-1 bg-black mb-1"></div>
         <div class="w-5 h-1 bg-black mb-1"></div>
         <div class="w-5 h-1 bg-black "></div>
     </button>
-    <header class="hidden md:block fixed  h-full w-full md:w-64 bg-white" id="navBar" ">
+    <header class="hidden md:block fixed  h-full w-full md:w-64 bg-white overflow-auto" id="navBar">
         
         <nav class="flex flex-col justify-between h-full w-full">
             <button class="md:hidden block absolute right-4" onclick="closeNav()">
                 <span class="font-bold text-4xl">&times;</span>
             </button>
-            <div class="user-image flex-none mt-8 mb-2 mx-2 hover:bg-slate-100 p-2 hover:rounded-xl">
+            <div class="user-image flex-none md:my-4 my-8 mx-2 hover:bg-slate-100 p-2 hover:rounded-lg">
                 <a href="/profile?id=<%= user.id %>" class="flex items-center ">
                     <img src="/images/user.png" alt="" class="w-10">
                     <p class="ml-3"><%= user.username %></p>
@@ -26,65 +26,56 @@
             <div class="nav-items grow py-6">
                 <ul class="flex flex-col gap-3">
                     <% if(user.role === 'ADMIN') {%>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-house"></i> Home
                             </a>
                         </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/products" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-computer"></i> Products
                             </a>
                         </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
-                            <a href="/customers" class="link block py-4 px-2 text-slate-600 hover:text-black text-lg">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
+                            <a href="/customers" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-user-tag"></i> Customers
                             </a>
                         </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/orders" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-cart-plus"></i> Orders
                             </a>
                         </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/staffs" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-people-group"></i> Staffs
                             </a>
                         </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/sale-history" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-clock-rotate-left"></i> Sale History
                             </a>
                         </li>
                     <% } else { %>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-house"></i> Home
                             </a>
                         </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/products" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-computer"></i> Products
                             </a>
                         </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/customers" class="link block py-4 px-2 text-slate-600 hover:text-black text-lg">
                                 <i class="fa-solid fa-user-tag"></i> Customers
-                            </a>
-                        </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
-                            <a href="/orders" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
-                                <i class="fa-solid fa-cart-plus"></i> Orders
-                            </a>
-                        </li>
-                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-xl">
+                            </a>uxl">
                             <a href="/sale-history" class="link block p-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-clock-rotate-left"></i> Sale History
                             </a>
                         </li>
                     <% } %>
-        
-        
                 </ul>
             </div>
             
@@ -109,14 +100,14 @@
             
             if(path === current_path) {
                 link.classList.add('text-sky-700');
-                link.parentElement.classList.add('bg-sky-200', 'rounded-xl');
+                link.parentElement.classList.add('bg-sky-200', 'rounded-lg');
                 link.classList.remove('hover:text-black')
                 link.parentElement.classList.remove('hover:bg-slate-100')
                 // console.log(link.parentElement.classList)
             }
             else {
                 link.classList.remove('text-sky-700');
-                link.parentElement.classList.remove('bg-sky-200', 'rounded-xl');
+                link.parentElement.classList.remove('bg-sky-200', 'rounded-lg');
             }
         })
 

@@ -5,24 +5,170 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        th {
+            text-align: left;
+        }
+
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width:calc(100% - 256px);
+            }
+        }
+    </style>
+   
 </head>
-<body class="h-screen bg-slate-200">
-    <div class="container">
+<body class="h-screen bg-slate-200 w-screen">
+    <div class="container-xl flex h-full ">
         <%- include('navbar') %>
-    <main class="ml-64">
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-            </tr>
-            <% products.forEach(p =>{ %>
-                <tr>
-                    <td><%= p.name %></td>
-                    <td><%= p.price %></td>
-                </tr>
-            <% }) %>
-        </table>
-    </main>
+        
+        <main class="md:ml-64 h-full">
+            
+            <div class="px-12 py-10 w-full h-full grid grid-rows-5 gap-y-6 ">
+                
+                <div class="bg-white row-span-1">
+                    <form action="" class="flex justify-center items-center h-full w-full px-10 gap-x-2">
+                        <div class="">
+                            <input type="text" class="border border-gray-300 p-3 outline-none w-full" placeholder="Enter product name/id..." name="product_name">
+                        </div>
+                        
+                        <div class="">
+                            <select name="type" id="" class="p-3 outline-none bg-slate-100 w-full">
+                                <option value="">Select type</option>
+                                <option value="all">All</option>
+                                <option value="office">Office computer</option>
+                                <option value="gaming">Gaming computer</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="Macbook">Macbook</option>
+                                <option value="Component">Pc/Laptop components</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            
+                            <select name="price" id="" class="p-3 outline-none bg-slate-100 w-full">
+                                <option value="">Select price</option>
+                                <option value="10000000"> < 10.000.000</option>
+                                <option value="20000000">10.000.000 - 20.000.000 VND</option>
+                                <option value="30000000">20.000.000 - 30.000.000 VND</option>
+                                <option value="40000000">30.000.000 - 40.000.000 VND</option>
+                                <option value="50000000">40.000.000 - 50.000.000 VND</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="py-3 px-6 bg-sky-500 text-white ">Submit <i class="fa-solid fa-arrow-right"></i></button>
+                    </form>
+                </div>
+                <div class="product-table-container px-10 py-5 bg-white row-span-4 overflow-auto">
+                    <table class="w-full">
+                        <div class="float-right mb-10">
+                            <button class="px-6 py-3 bg-red-200 text-white pointer-events-none" id="delete-btn">Delete (<span id="delete-quantity">0</span>)</button>
+                            <button href="" class="px-6 py-3 bg-sky-500 text-white">+ Add</button>
+                        </div>
+                        <thead>
+                            <tr class="border-b border-slate-300">
+                                <th class="p-5">Choose</th>
+                                <th class=" p-5">Id</th>
+                                <th class=" w-1/4">Name</th>
+                                <th class="">Import price</th>
+                                <th class="">Retail price</th>
+                                <th class="">Import date</th>
+                                <th class="">Quantity in stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                       <tbody>
+                        <% products.forEach(p =>{ %>
+
+                            <tr class="border-b border-slate-300" data-id="<%= p.id %>">
+                                <td class="p-5">
+                                    <form action="">
+                                        <input type="checkbox" name="product_id" id="" value="<%= p.id %>">
+                                    </form>
+                                </td>
+                                <td class=" p-5"><%= p.id %></td>
+                                <td class=" w-1/4" ><%= p.name %></td>
+                                <td class=" "><%= p.import_price %></td>
+                                <td class=" "><%= p.retail_price %></td>
+                                <td class=" "><%= p.import_date %></td>
+                                <td class=" "><%= p.quantity_in_stock %></td>
+                                <td class="">
+                                    <a href="">Del</a>
+                                    <a href="">Edit</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </main>
     </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('input[name="product_id"]');
+        const deleteProductsBtn = document.getElementById('delete-btn');
+        let checkedItems = []
+        checkboxes.forEach((box) => {
+            box.addEventListener('click', () => {
+                if(box.checked == true) {
+                    console.log(`click ${box.value}`);
+                    checkedItems.push(parseInt(box.value));
+                }
+                else {
+                    console.log(`unclick ${box.value}`);
+                    checkedItems.pop();
+                }
+
+                if(checkedItems.length > 0) {
+                    deleteProductsBtn.classList.add('bg-red-500');
+                    deleteProductsBtn.classList.remove('pointer-events-none');
+                    document.getElementById('delete-quantity').textContent = checkedItems.length;
+                }
+                else {
+                    deleteProductsBtn.classList.remove('bg-red-500');
+                    deleteProductsBtn.classList.add('pointer-events-none');
+                    document.getElementById('delete-quantity').textContent = 0; 
+                }
+                // console.log(checkedItems)
+
+                
+            })
+
+        })
+
+        deleteProductsBtn.addEventListener('click', async (e) => {
+            console.log(checkedItems);
+            console.log(`delete ${checkedItems.length} products`);
+            const response = await fetch('http://localhost:3000/products/delete', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({product_ids: checkedItems})
+            })
+
+            const responseData = await response.json();
+
+            if(responseData.code === 0) {
+                const tbody = document.querySelector('tbody');
+                const rows = tbody.querySelectorAll('tr');
+
+                rows.forEach(row => {
+                    const rowId = row.getAttribute('data-id');
+                    
+                    if(checkedItems.includes(parseInt(rowId))) {
+                        tbody.removeChild(row);
+                    }
+                })
+                
+            }   
+
+        })
+        
+
+    </script>
 </body>
 </html>

@@ -13,16 +13,16 @@ class authController {
         
         return res.redirect('/');
     }
-    handleLogin(req, res) {
+    async handleLogin(req, res) {
         const { username, password } = req.body;
-        const user = verifyLoginService(username, password);
-
+        const user = await verifyLoginService(username, password);
         if(!username || !password) {
             return res.json({ code: 1, message: 'Username and Password cannot be empty' });
         }
 
         if(user) {
             req.session.user = user;
+            console.log(req.session.user);
             return res.json({ code: 0, message: 'Login successfully' });
         }
         else {

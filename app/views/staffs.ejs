@@ -5,24 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staffs</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <style>
+        
+        #staff-detail-content tr td {
+            padding: 5px;
+        }
+        #staff-detail-content tr td:nth-child(odd) {
+            text-align: left;
+        }
+
+        #staff-detail-content tr td:nth-child(even) {
+            text-align: right;
+        }
+    </style>
 </head>
-<body class="h-screen bg-slate-200">
-    <div class="container">
+<body class="h-screen bg-slate-200 w-screen">
+    <div class="container-xl flex w-full h-full">
         <%- include('navbar') %>
-        <main class="ml-64">
-            <table>
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                </tr>
-                <% users.forEach(u =>{ %>
-                    <tr>
-                        <td><%= u.username %></td>
-                        <td><%= u.password %></td>
-                    </tr>
-                <% }) %>
-            </table>
+        <main class="md:ml-64 w-full h-full p-10 flex flex-col items-center">
+            <form action="/staffs/search" class="mb-4 w-1/2 flex">
+                <input type="text" name="name" class="p-3 rounded-s-lg outline-none w-full" placeholder="Enter staff name...">
+                <button class="bg-white pr-2 rounded-e-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+            <div class="grid grid-cols-3 w-full h-full gap-4">
+                <div class=" bg-white col-span-3 h-full p-8 rounded-lg shadow-xl" id="staff-grid">
+                    <div class="w-full">
+                        <span class="text-2xl">Staffs</span>
+                        <a href="/staffs/add" class="float-right bg-sky-500 px-6 py-3 text-white" style="border-radius: 4px;"><span class="font-semibold">&plus;</span> Add staff</a>
+                    </div>
+
+                    <div id="staffTables" class="w-full mt-10 overflow-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-slate-300">
+                                    <th class="p-4">Id</th>
+                                    <th class="p-4">Username</th>
+                                    <th class="p-4">Fullname</th>
+                                    <th class="p-4">Email</th>
+                                    <th class="p-4">Role</th>
+                                    <th class="p-4">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach(u =>{ %>
+                                    <tr class="staff-info border-b border-slate-300 hover:bg-slate-100 hover:cursor-pointer" data-id="<%= u.user_id %>">
+                                        <td class="text-center p-4"><%= u.user_id %></td>
+                                        <td class="text-center p-4"><%= u.username %></td>
+                                        <td class="text-center p-4"><%= u.fullname %></td>
+                                        <td class="text-center p-4"><%= u.email %></td>
+                                        <td class="text-center p-4 text-green-500"><%= u.role %></td>
+                                        <td class="text-center">
+                                            <a href="/staffs/delete/<%= u.id %>" class="mr-3 text-red-500">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                            <a href="/staffs/update?id=<%= u.id %>" class="text-amber-500">
+                                                <i class="fa-solid fa-user-pen"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class=" bg-white w-full h-full hidden px-3 rounded-lg shadow-xl" id="staff-detail">
+                    <div class="w-full mb-4">
+                        <button class="font-extrabold text-3xl block lg:hidden" onclick="closeDetail()">&LeftArrow;</button>
+                        <button class="float-right font-bold text-2xl hidden lg:block" id="close-detail-btn" onclick="closeDetail()">&times;</button>
+                    </div>
+                    <div class="w-full lg:mt-10">
+                        <div class="user-img max-w-52 mb-4 mx-auto">
+                            <img src="/images/cat.jpg" alt="" class="rounded-full">
+                        </div>
+                        <div class="w-full my-2">
+                            <p class="text-center text-lg font-semibold" id="fullname"></p>
+                            <p class="text-center text-slate-500" id="username"></p>
+
+                        </div>
+                        <table class="w-full">
+                            <thead>
+                                <tr class="">
+                                    <!-- <th class="col-span-2 text-center">Id</th> -->
+                                    <!-- <th>Username</th> -->
+                                    <!-- <th>Email</th>
+                                    <th>Role</th> -->
+                                </tr>
+                            </thead>
+                            <tbody id="staff-detail-content">
+                                
+                                <tr>
+                                    <td class="text-left text-">Email:</td>
+                                    <td class="text-right">email@email.com</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">Phone number:</td>
+                                    <td class="text-right">0123456789</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-left">Date join:</td>
+                                    <td class="text-right">18/3/2024</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">Date of birth:</td>
+                                    <td class="text-right">28/09/2003</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
+
+    <script src="/js/staffs.js">
+        
+    </script>
 </body>
 </html>

@@ -17,5 +17,16 @@ function deleteProductById(productId) {
     return productToDelete;
 }
 
+function deleteProductsById(Ids) {
+    let productsById = [];
+    products.forEach(p => {
+        if(Ids.includes(p.id)) {
+            productsById.push(p);
+        }
+    })
+
+    return productsById;
+}
+
 // console.log(products)
-module.exports = { getProducts, getProductById, deleteProductById };
+module.exports = { getProducts, getProductById, deleteProductById, deleteProductsById };

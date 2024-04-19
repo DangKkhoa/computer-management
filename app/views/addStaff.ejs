@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add staff</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+</head>
+<body class="w-screen h-screen bg-slate-200">
+    <div class="container-xl flex h-full">
+        <%- include('navbar') %>
+        <main class="md:ml-64 p-5 w-full ">
+            <div class=" h-fit w-full p-5">
+                <div class="">
+                    <a href="/staffs">Staffs</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="" class="text-sky-500">Add staff</a>
+                </div>
+                <div class=" bg-white w-full mt-10 p-10 rounded-lg shadow-md" >
+                    <form id="add-staff-form" method="" action="">
+                        <div class="grid grid-cols-2 grid-rows-3 px-5 mb-5 gap-4">
+                            <div>
+                                <label for="fullname" class="block">Fullname:</label>
+                                <input type="text" name="fullname" id="fullname" class="w-full border border-slate-300 p-2 outline-none rounded-md" placeholder="Nguyen Van A">
+                            </div>
+                            
+                            <div  >
+                                <label for="email" class="block">Email:</label>
+                                <input type="email" name="email" id="email" class="w-full border border-slate-300 p-2 outline-none rounded-md" placeholder="username@gmail.com">
+                            </div>
+                            <div class="mt-5">
+                                <label for="phone" class="block">Phone number:</label>
+                                <input type="text" name="phone" id="phone" class="border border-slate-300 p-2 outline-none rounded-md" placeholder="0223345867">
+                            </div>
+                            <div class="mt-5">
+                                <label for="date_of_birth" class="block">Date of birth:</label>
+                                <input type="text" name="date_of_birth" id="date_of_birth" class="border border-slate-300 p-2 outline-none rounded-md" placeholder="dd/mm/yyyy">
+                            </div>
+                            
+                            <div class="mt-5 col-span-1">
+                                <p>Select role:</p>
+                                <div>
+                                    <select name="role" id="role" class="p-2 outline-none rounded-md">
+                                        <option value="BASIC">Basic</option>
+                                        <option value="ADMIN">Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-5 col-span-1">
+                                <p>Gender:</p>
+                                <div>
+                                    <select name="gender" id="gender" class="p-2 outline-none rounded-md">
+                                        <option value="Male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="mt-5 px-6 py-3 bg-green-500 text-white w-fit hover:bg-green-600" id="submit-form-btn" type="submit" style="border-radius: 4px;">Save</button>
+                        </div>
+
+                        
+                    </form>
+
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    <script>
+        const addStaffForm = document.getElementById('add-staff-form');
+        const submitBtn = document.getElementById('submit-form-btn');
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const sendingData = {
+                fullname: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                date_of_birth: document.getElementById('date_of_birth').value,
+                role: document.getElementById('role').value,
+                gender: document.getElementById('gender').value
+            }
+
+            console.log(sendingData);
+
+        })
+    </script>
+</body>
+</html>

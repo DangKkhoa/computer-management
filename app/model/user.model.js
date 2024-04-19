@@ -1,9 +1,60 @@
-let users = [
-    {id: 1, username: 'admin', password: 'admin', email: 'admin@gmail.com', role: "ADMIN"},
-    {id: 2, username: 'user1', password: '123456789', email: 'user1@gmail.com', role: "BASIC"},
-    {id: 3, username: 'user2', password: '123456789', email: 'user2@gmail.com', role: "BASIC"},
-    {id: 4, username: 'user3', password: '123456789', email: 'user3@gmail.com', role: "ADMIN"},
-    {id: 5, username: 'user4', password: '123456789', email: 'user4@gmail.com', role: "BASIC"}
-];
+const con = require('../database/db');
 
-module.exports = users;
+
+async function getUserByUsername(username) {
+    const selectQuery = 'SELECT * FROM user WHERE username = ?';
+    const param = [username];
+    try {
+        const [result] = await con.query(selectQuery, param);
+        return result;
+    } 
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+    
+}
+
+async function getUsersNotAdmin() {
+    const selectQuery = 'SELECT * FROM user WHERE NOT role = ?';
+    const param = ['ADMIN'];
+    try {
+        const [result] = await con.query(selectQuery, param);
+        return result;
+    } 
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+}
+
+async function getUserById(id) {
+    const selectQuery = 'SELECT * FROM user WHERE user_id = ?';
+    const userId = parseInt(id);
+    const param = [userId];
+    try {
+        const [result] = await con.query(selectQuery, param);
+        return result;
+    } 
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+}
+
+async function getUsersByName(name) {
+    const selectQuery = 'SELECT * FROM user WHERE fullname LIKE ?';
+    
+    const param = ['%' + name + '%'];
+    try {
+        const [result] = await con.query(selectQuery, param);
+        return result;
+    } 
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+}
+
+
+module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName };

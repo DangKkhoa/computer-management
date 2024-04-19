@@ -10,6 +10,7 @@ exports.isLoggedIn = (req, res, next) => {
 
 exports.roleAuth = (req, res, next) => {
     const user = req.session.user;
+    
     if(user.role === 'ADMIN') {
         return next();
     }
