@@ -1,4 +1,4 @@
-const { getUsers, getUserWithId, getUsersByNameService } = require('../service/user.service');
+const { getUsers, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService } = require('../service/user.service');
 
 class userController {
     async index(req, res) {
@@ -7,9 +7,16 @@ class userController {
         res.render('staffs', {users: users, user: req.session.user});
     }
 
-    delete(req, res) {
+    async delete(req, res) {
         const userId = req.params.id;
-        res.send(`Delete user with id=${userId}`);
+        const isDeleted = deleteUserByIdService(parseInt(userId));
+        
+        if(isDeleted) {
+            res.json({code: 0, message: 'Staff deleted successfully'});
+        }
+        else {
+            res.json({code: 1, message: 'Cannot delete staff. Please try agin'});
+        }
     }
 
     async detail(req, res) {
@@ -47,6 +54,21 @@ class userController {
 
     add(req, res) {
         res.render('addStaff', {user: req.session.user});
+    }
+
+    async handleAdd(req, res) {
+        const { fullname, email, phone, date_of_birth, role, gender } = req.body;
+        const isSuccessful = await addStaffService(fullname, email, phone, date_of_birth, role, gender);
+        // console.log(isSuccessful);
+        // if(isSuccessful) {
+        //     res.json({code: 0, message: 'Staff added successfully'});
+        // }
+        // else {
+        //     res.json({code: 1, message: 'Cannot add staff. Please check the information and try again'});
+
+        // }
+
+        return res.json(isSuccessful);
     }
 
     

@@ -1,6 +1,7 @@
 const staffInfo = document.querySelectorAll('.staff-info');
 const staffDetail = document.getElementById('staff-detail');
 const staffGrid = document.getElementById('staff-grid');
+
 staffInfo.forEach((s) => {
     s.addEventListener('click', async (e) => {
         const id = s.getAttribute('data-id');
@@ -32,7 +33,7 @@ staffInfo.forEach((s) => {
         const td3 = document.createElement('td');
         const td4 = document.createElement('td');
         td3.textContent = 'Phone number:';
-        td4.textContent = `${responseData.phone}`;
+        td4.textContent = `${!responseData.phone ? '' : responseData.phone}`;
         tr2.appendChild(td3);
         tr2.appendChild(td4);
 
@@ -40,7 +41,7 @@ staffInfo.forEach((s) => {
         const td5 = document.createElement('td');
         const td6 = document.createElement('td');
         td5.textContent = 'Date of birth:';
-        td6.textContent = `${responseData.date_of_birth}`;
+        td6.textContent = `${!responseData.date_of_birth ? '' : responseData.date_of_birth}`;
         tr3.appendChild(td5);
         tr3.appendChild(td6);
         staffDetailContent.replaceChildren(tr1, tr2, tr3);

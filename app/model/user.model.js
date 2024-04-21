@@ -1,9 +1,23 @@
 const con = require('../database/db');
-
+// const { addStaffService } = require('../service/user.service');
 
 async function getUserByUsername(username) {
     const selectQuery = 'SELECT * FROM user WHERE username = ?';
     const param = [username];
+    try {
+        const [result] = await con.query(selectQuery, param);
+        return result;
+    } 
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+    
+}
+
+async function getUserByEmail(email) {
+    const selectQuery = 'SELECT * FROM user WHERE email = ?';
+    const param = [email];
     try {
         const [result] = await con.query(selectQuery, param);
         return result;
@@ -56,5 +70,33 @@ async function getUsersByName(name) {
     }
 }
 
+async function addStaff(fullname, email, username, password, phone, date_of_birth, role, gender) {
 
-module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName };
+    
+    const selectResult = await getUserByEmail(email);
+    if(selectResult.length == 0) {
+        try {
+            const insertQuery = 'INSERT INTO `user`(`email`, `password`, `username`, `fullname`, `role`, `phone`, `gender`) VALUES (?, ?, ?, ?, ?, ?, ?)'
+            const insertParams = [email, password, username, fullname, role, phone, gender];
+            const [insertResult] = await con.query(insertQuery, insertParams);
+            return insertResult;
+        }
+        catch(err) {
+            console.error(err);
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+async function deleteUserById(id) {
+    const deleteQuery = 'DELETE FROM user WHERE user_id = ?';
+    const deleteParam = [id];
+    const [deleteResult] = await con.query(deleteQuery, deleteParam);
+    return deleteResult;
+}
+
+
+module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail };

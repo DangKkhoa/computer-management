@@ -1,34 +1,41 @@
-const { getProducts, getProductById, deleteProductById, deleteProductsById } = require('../service/product.service');
+const { getProductsService, getProductByIdService } = require('../service/product.service');
 
 class productController {
-    index(req, res) {
-        let products = getProducts();
+    async index(req, res) {
+        let products = await getProductsService();
+        console.log(products)
         res.render('products', {products: products, user: req.session.user});
     }
 
-    update(req, res) {
-        const productID = req.params.id;
-        const product = getProductById(productID);
-        console.log(`Update product`);
-        res.send(`Update product ${JSON.stringify(product)}`);
+    async detail(req, res) {
+        const productId = req.params.id;
+        const product = await getProductByIdService(productId);
+        res.render('productDetail', {user: req.session.user, product: product});
     }
 
-    delete(req, res) {
-        const productID = req.params.id;
-        const productToDelete = deleteProductById(productID);
-        res.send(`Delete product ${JSON.stringify(productToDelete)}`)
-    }
+    // update(req, res) {
+    //     const productID = req.params.id;
+    //     const product = getProductById(productID);
+    //     console.log(`Update product`);
+    //     res.send(`Update product ${JSON.stringify(product)}`);
+    // }
 
-    deleteProducts(req, res) {
-        const productIds = req.body.product_ids;
-        const products = deleteProductsById(productIds);
-        if(products) {
-            res.json({code: 0, message: 'Delete products successfully'});
-        }
-        else {
-            res.json({code: 1, message: 'Cannot delete products now. Please try again later'});
-        }
-    }   
+    // delete(req, res) {
+    //     const productID = req.params.id;
+    //     const productToDelete = deleteProductById(productID);
+    //     res.send(`Delete product ${JSON.stringify(productToDelete)}`)
+    // }
+
+    // deleteProducts(req, res) {
+    //     const productIds = req.body.product_ids;
+    //     const products = deleteProductsById(productIds);
+    //     if(products) {
+    //         res.json({code: 0, message: 'Delete products successfully'});
+    //     }
+    //     else {
+    //         res.json({code: 1, message: 'Cannot delete products now. Please try again later'});
+    //     }
+    // }   
 }
 
 

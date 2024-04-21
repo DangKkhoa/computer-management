@@ -7,7 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
     <style>
-        
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width: calc(100% - 256px);
+            }
+        }
         #staff-detail-content tr td {
             padding: 5px;
         }
@@ -21,9 +28,13 @@
     </style>
 </head>
 <body class="h-screen bg-slate-200 w-screen">
-    <div class="container-xl flex w-full h-full">
+    
+    <div class="container-xl flex w-full h-full" id="container">
+        
         <%- include('navbar') %>
-        <main class="md:ml-64 w-full h-full p-10 flex flex-col items-center">
+        
+        <main class="md:ml-64 h-full p-10 flex flex-col items-center">
+            
             <form action="/staffs/search" class="mb-4 w-1/2 flex">
                 <input type="text" name="name" class="p-3 rounded-s-lg outline-none w-full" placeholder="Enter staff name...">
                 <button class="bg-white pr-2 rounded-e-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -32,7 +43,7 @@
                 <div class=" bg-white col-span-3 h-full p-8 rounded-lg shadow-xl" id="staff-grid">
                     <div class="w-full">
                         <span class="text-2xl">Staffs</span>
-                        <a href="/staffs/add" class="float-right bg-sky-500 px-6 py-3 text-white" style="border-radius: 4px;"><span class="font-semibold">&plus;</span> Add staff</a>
+                        <a href="/staffs/add" class="float-right bg-sky-500 px-6 py-3 text-white rounded" ><span class="font-semibold">&plus;</span> Add staff</a>
                     </div>
 
                     <div id="staffTables" class="w-full mt-10 overflow-auto">
@@ -49,19 +60,22 @@
                             </thead>
                             <tbody>
                                 <% users.forEach(u =>{ %>
-                                    <tr class="staff-info border-b border-slate-300 hover:bg-slate-100 hover:cursor-pointer" data-id="<%= u.user_id %>">
+                                    <tr class=" border-b border-slate-300 hover:bg-slate-100" data-id="<%= u.user_id %>" id="<%= u.user_id %>">
                                         <td class="text-center p-4"><%= u.user_id %></td>
                                         <td class="text-center p-4"><%= u.username %></td>
                                         <td class="text-center p-4"><%= u.fullname %></td>
                                         <td class="text-center p-4"><%= u.email %></td>
                                         <td class="text-center p-4 text-green-500"><%= u.role %></td>
                                         <td class="text-center">
-                                            <a href="/staffs/delete/<%= u.id %>" class="mr-3 text-red-500">
+                                            <button class="delete-btn mr-3 text-red-500" data-id="<%= u.user_id %>" data-name="<%= u.fullname %>">
                                                 <i class="fa-solid fa-trash"></i>
-                                            </a>
-                                            <a href="/staffs/update?id=<%= u.id %>" class="text-amber-500">
+                                            </button>
+                                            <button class="edit-btn mr-3 text-amber-500" data-id="<%= u.user_id %>">
                                                 <i class="fa-solid fa-user-pen"></i>
-                                            </a>
+                                            </button>
+                                            <button class="staff-info text-violet-500" data-id="<%= u.user_id %>">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 <% }) %>
@@ -88,10 +102,7 @@
                         <table class="w-full">
                             <thead>
                                 <tr class="">
-                                    <!-- <th class="col-span-2 text-center">Id</th> -->
-                                    <!-- <th>Username</th> -->
-                                    <!-- <th>Email</th>
-                                    <th>Role</th> -->
+                                    
                                 </tr>
                             </thead>
                             <tbody id="staff-detail-content">
@@ -121,8 +132,45 @@
         </main>
     </div>
 
-    <script src="/js/staffs.js">
-        
+    <!-- Warning Modal-->
+    <div id="delete-warning-model" class="hidden absolute bg-white w-full sm:w-1/2 lg:w-1/3 h-1/2 p-3 left-0 right-0 top-0 bottom-0 mx-auto  my-auto rounded-lg shadow-lg z-50 ">
+        <button class="float-end font-bold text-xl" onclick="closeModal()">&times;</button>
+        <div class="w-full mt-20 h-fit flex flex-col justify-center items-center gap-y-8">
+            <p class="text-md">Delete <span id="fullname-display" class="text-sky-600 font-bold">name</span> from staff list?</p>
+            <button class="bg-red-500 text-white px-6 py-3 rounded text-md" id="confirm-delete-btn">Confirm</button>
+        </div>
+    </div>
+
+    <script src="/js/staffs.js"></script>
+    <script>
+        const deleteBtn = document.querySelectorAll('.delete-btn');
+        const confirmBtn = document.getElementById('confirm-delete-btn');
+        const modal = document.getElementById('delete-warning-model');
+        const container = document.getElementById('container');
+        function closeModal() {
+            modal.classList.add('hidden');
+            container.classList.remove('opacity-50', 'pointer-event-none')
+        }
+        deleteBtn.forEach((btn) => {
+            btn.addEventListener('click',  () => {
+                const userId = btn.getAttribute('data-id');
+                const fullname = btn.getAttribute('data-name');
+                console.log(userId);
+                modal.classList.remove('hidden');
+                container.classList.add('opacity-50', 'pointer-event-none');
+                document.getElementById('fullname-display').textContent = fullname;
+                
+                confirmBtn.addEventListener('click', async () => {
+                    const response = await fetch(`http://localhost:3000/staffs/delete/${userId}`);
+                    const responseData = await response.json()
+                    if(responseData.code === 0) {
+                        closeModal();
+                        document.getElementById(userId).remove();
+                    }
+                    
+                })
+            })
+        })
     </script>
 </body>
 </html>

@@ -6,9 +6,7 @@
     <title>Products</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        th {
-            text-align: left;
-        }
+        
 
         main {
             width: 100%;
@@ -62,10 +60,12 @@
                 </div>
                 <div class="product-table-container px-10 py-5 bg-white row-span-4 overflow-auto">
                     <table class="w-full">
-                        <div class="float-right mb-10">
-                            <button class="px-6 py-3 bg-red-200 text-white pointer-events-none" id="delete-btn">Delete (<span id="delete-quantity">0</span>)</button>
-                            <button href="" class="px-6 py-3 bg-sky-500 text-white">+ Add</button>
-                        </div>
+                        <% if(user.role === 'ADMIN') { %>
+                            <div class="float-right mb-10">
+                                <button class="px-6 py-3 bg-red-200 text-white pointer-events-none" id="delete-btn">Delete (<span id="delete-quantity">0</span>)</button>
+                                <button href="" class="px-6 py-3 bg-sky-500 text-white">+ Add</button>
+                            </div>
+                        <% } %>
                         <thead>
                             <tr class="border-b border-slate-300">
                                 <th class="p-5">Choose</th>
@@ -75,29 +75,36 @@
                                 <th class="">Retail price</th>
                                 <th class="">Import date</th>
                                 <th class="">Quantity in stock</th>
-                                <th>Actions</th>
+                                <% if(user.role === 'ADMIN') { %>
+                                    <th>Action</th>
+                                <% } %>
                             </tr>
                         </thead>
                        <tbody>
                         <% products.forEach(p =>{ %>
-
+                            
                             <tr class="border-b border-slate-300" data-id="<%= p.id %>">
-                                <td class="p-5">
+                                <td class="text-center p-5">
                                     <form action="">
-                                        <input type="checkbox" name="product_id" id="" value="<%= p.id %>">
+                                        <input type="checkbox" name="product_id" id="" value="<%= p.product_id %>">
                                     </form>
                                 </td>
-                                <td class=" p-5"><%= p.id %></td>
-                                <td class=" w-1/4" ><%= p.name %></td>
-                                <td class=" "><%= p.import_price %></td>
-                                <td class=" "><%= p.retail_price %></td>
-                                <td class=" "><%= p.import_date %></td>
-                                <td class=" "><%= p.quantity_in_stock %></td>
-                                <td class="">
-                                    <a href="">Del</a>
-                                    <a href="">Edit</a>
+                                <td class="text-center p-5"><%= p.product_id %></td>
+                                <td class="text-center" ><%= p.product_name %></td>
+                                <td class="text-center "><%= p.import_price %></td>
+                                <td class="text-center "><%= p.retail_price %></td>
+                                <td class="text-center "><%= p.import_date.toLocaleDateString('en-GB') %></td>
+                                <td class="text-center "><%= p.quantity_in_stock %></td>
+                                <% if(user.role === 'ADMIN') { %>
+                                <td class="text-center">
+                                    <a href="/products/view/<%= p.product_id %>">
+                                        View
+                                    </a>
                                 </td>
+                                <% } %>
                             </tr>
+                            
+                            
                         <% }) %>
                         </tbody>
                     </table>

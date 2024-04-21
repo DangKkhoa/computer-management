@@ -30,7 +30,8 @@ CREATE TABLE `product` (
     `manufacturer` VARCHAR(50) COLLATE utf8_unicode_ci,
     `import_price` INT NOT NULL,
     `retail_price` INT NOT NULL,
-    `import_date` DATE NOT NULL
+    `import_date` DATE NOT NULL,
+    `quantity_in_stock` INT NOT NULL
 );
 
 CREATE TABLE `order` (
@@ -52,23 +53,23 @@ CREATE TABLE `order_detail` (
     FOREIGN KEY (`order_id`) REFERENCES `order`(`order_id`)
 );
 
-INSERT INTO `user`(`user_id`, `email`, `password`, `username`, `fullname`, `role`) VALUES (1, 'admin@gmail.com', '$2b$10$0otS0j0SjFchlI4SXU3tmeCeKpZo5x1SB5uOjPBshLOwB9vKLk9u2', 'admin', N'Trần Ad Min', 'ADMIN');
-INSERT INTO `user`(`user_id`, `email`, `password`, `username`, `fullname`, `role`) VALUES (2, 'testuser@gmail.com', '$2b$10$tnntuHpL/HdRBIiIQnmRwuPKvB8bRyJAWM306Ky1ESmrOzNLVBHAW', 'testuser', N'Tét Du Sờ', 'BASIC');
+INSERT INTO `user`(`user_id`, `email`, `password`, `username`, `fullname`, `role`, `gender`) VALUES (1, 'admin@gmail.com', '$2b$10$0otS0j0SjFchlI4SXU3tmeCeKpZo5x1SB5uOjPBshLOwB9vKLk9u2', 'admin', N'Trần Ad Min', 'ADMIN', 'Male');
+INSERT INTO `user`(`user_id`, `email`, `password`, `username`, `fullname`, `role`, `gender`) VALUES (2, 'testuser@gmail.com', '$2b$10$tnntuHpL/HdRBIiIQnmRwuPKvB8bRyJAWM306Ky1ESmrOzNLVBHAW', 'testuser', N'Tét Du Sờ', 'BASIC', 'Female');
 
 ALTER TABLE `user` 
 MODIFY `user_id` int AUTO_INCREMENT, AUTO_INCREMENT = 3;
 COMMIT;
 
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`)
-VALUES (1, 'PC Home Office', 'PC/Office', 'pc.jpg', 'Dell', 400, 600, '2024-2-1');
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`)
-VALUES (2, 'Asus Gaming PC', 'PC/Gaming', 'pc.jpg', 'Asus', 800, 1050, '2024-3-14');
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`)
-VALUES (3, 'Laptop Gaming Asus Tuf', 'Laptop/Gaming', 'asus-tuf.jpg', 'Asus', 1000, 1200, '2024-4-1');
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`)
-VALUES (4, 'Macbook air M2', 'Laptop/Macbook', 'macbook-air-m2.jpg', 'Apple', 1099, 1299, '2024-4-18');
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`)
-VALUES (5, 'Macbook pro M1', 'Laptop/Macbook', 'macbook-pro-m1.jpg', 'Apple', 1999, 2299, '2024-3-28');
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (1, 'PC Home Office', 'PC/Office', 'pc.jpg', 'Dell', 400, 600, '2024-2-1', 20);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (2, 'Asus Gaming PC', 'PC/Gaming', 'asus-gaming-pc.jpg', 'Asus', 800, 1050, '2024-3-14', 14);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (3, 'Laptop Gaming Asus Tuf', 'Laptop/Gaming', 'asus-tuf-gaming.jpg', 'Asus', 1000, 1200, '2024-4-1', 15);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (4, 'Macbook air M2', 'Laptop/Macbook', 'macbook-air-m2.jpg', 'Apple', 1099, 1299, '2024-4-18', 5);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (5, 'Macbook pro M1', 'Laptop/Macbook', 'macbook-pro-m1.jpg', 'Apple', 1999, 2299, '2024-3-28', 3);
 
 ALTER TABLE `product` 
 MODIFY `product_id` int AUTO_INCREMENT, AUTO_INCREMENT = 6;

@@ -16,8 +16,10 @@
                 <span class="font-bold text-4xl">&times;</span>
             </button>
             <div class="user-image flex-none md:my-4 my-8 mx-2 hover:bg-slate-100 p-2 hover:rounded-lg">
-                <a href="/profile?id=<%= user.id %>" class="flex items-center ">
-                    <img src="/images/user.png" alt="" class="w-10">
+                <a href="/profile?id=<%= user.id %>" class="flex items-center">
+                    
+                    <img src="/images/user.png" alt="" class="w-10 border border-white">
+                    <div class="relative bg-green-400 w-3 h-3 rounded-full right-3 top-3 border border-white"></div>
                     <p class="ml-3"><%= user.username %></p>
                     
                 </a>
@@ -68,13 +70,23 @@
                             </a>
                         </li>
                         <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
-                            <a href="/customers" class="link block py-4 px-2 text-slate-600 hover:text-black text-lg">
+                            <a href="/customers" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-user-tag"></i> Customers
-                            </a>uxl">
+                            </a>
+                            
+                        </li>
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
+                            <a href="/orders" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
+                                <i class="fa-solid fa-cart-plus"></i> Orders
+                            </a>
+                        </li>
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/sale-history" class="link block p-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-clock-rotate-left"></i> Sale History
                             </a>
+                            
                         </li>
+                        
                     <% } %>
                 </ul>
             </div>

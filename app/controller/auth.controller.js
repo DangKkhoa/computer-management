@@ -14,19 +14,18 @@ class authController {
         return res.redirect('/');
     }
     async handleLogin(req, res) {
-        const { username, password } = req.body;
-        const user = await verifyLoginService(username, password);
-        if(!username || !password) {
-            return res.json({ code: 1, message: 'Username and Password cannot be empty' });
+        const { email, password } = req.body;
+        const user = await verifyLoginService(email, password);
+        if(!email || !password) {
+            return res.json({ code: 1, message: 'Email and Password cannot be empty' });
         }
 
         if(user) {
             req.session.user = user;
-            console.log(req.session.user);
             return res.json({ code: 0, message: 'Login successfully' });
         }
         else {
-            return res.json({ code: 2, message: 'Wrong Username or Password'});
+            return res.json({ code: 2, message: 'Wrong Email or Password'});
         }
 
 
