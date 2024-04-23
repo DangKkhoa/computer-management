@@ -24,7 +24,7 @@ async function deleteProductsService(productIds) {
 
 }
 
-async function addProductService(productName, category, manufacturer, importPrice, retailPrice, productImage, quantity) {
+async function addProductService(productName, category, manufacturer, ram, ssd, importPrice, retailPrice, productImage, quantity) {
     if(!productName || !importPrice || !retailPrice || !productImage || !quantity) {
         return false;
     }
@@ -38,7 +38,7 @@ async function addProductService(productName, category, manufacturer, importPric
     const year = date.getFullYear();
     const importDate = `${year}-${month}-${day}`;
     console.log(importDate);
-    const addResult = await addProduct(productName, category, manufacturer, numericImportPrice, numericRetailPrice, importDate, imageFile, quantity);
+    const addResult = await addProduct(productName, category, manufacturer, ram, ssd, numericImportPrice, numericRetailPrice, importDate, imageFile, quantity);
     return addResult;
 }
 // console.log(products)

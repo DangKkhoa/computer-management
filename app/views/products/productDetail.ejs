@@ -32,8 +32,9 @@
         <%- include('../navbar') %>
         
         <main class="md:ml-64 p-5 h-full">
-            <div class="bg-white w-full h-full grid grid-cols-2 gap-x-4 p-5 rounded-lg">
-                <div class="rounded-lg w-full h-full border border-slate-300">
+            <div class="bg-white w-full h-full grid grid-cols-2 gap-x-4 p-2 rounded">
+                <div class="rounded-lg w-full h-full ">
+                    <a href="/inventory" class="ml-2"><i class="fa-solid fa-arrow-left"></i></a>
                     <img src="/images/products/<%= product.product_image %>" alt="" class="rounded-lg">
                 </div>
                 <div class="h-full col-span-1  w-full px-5 overflow-auto">
@@ -41,38 +42,49 @@
                         <table class="w-full h-full">
                             <tbody>
                                 <tr>
-                                    <td>
+                                    <td colspan="2">
                                         <p class="text-4xl text-sky-500"><%= product.product_name %></p>
                                         <p class="text-gray-500">Id: <%= product.product_id %></p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Category</td>
+                                    <td class="font-semibold">Category</td>
                                     <td class="text-right"><%= product.category %></td>
                                 </tr>
                                 <tr>
-                                    <td>Manufacturer</td>
+                                    <td class="font-semibold">Manufacturer</td>
                                     <td class="text-right"><%= product.manufacturer %></td>
                                 </tr>
                                 <tr>
-                                    <td>Import price ($)</td>
+                                    <td class="font-semibold">Ram</td>
+                                    <td class="text-right"><%= product.ram + 'GB' %></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">SSD</td>
+                                    <td class="text-right"><%= product.ssd + 'GB' %></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Import price ($)</td>
                                     <td class="text-right"><input type="text" name="importPrice" id="import-price" class="text-right" value="<%= product.import_price %>"></td>
                                 </tr>
                                 <tr>
-                                    <td>Retail price ($)</td>
+                                    <td class="font-semibold">Retail price ($)</td>
                                     <td class="text-right"><input type="text" name="retailPrice" id="retail-price" class="text-right"  value="<%= product.retail_price %>"></td>
                                 </tr>
                                 <tr>
-                                    <td>Import date</td>
-                                    <td class="text-right"><input type="text" name="importDate" id="import-date" class="text-right" value="<%= product.import_date.toLocaleDateString('en-GB') %>"></td>
+                                    <td class="font-semibold">Import date</td>
+                                    <td class="text-right"><%= product.import_date.toLocaleDateString('en-GB') %></td>
                                 </tr>
                                 <tr>
-                                    <td>Quantity in stock</td>
+                                    <td class="font-semibold">Last update</td>
+                                    <td class="text-right"><%= product.last_update_date == null ? '' : product.last_update_date.toLocaleDateString('en-GB') %></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold">Quantity in stock</td>
                                     <td class="text-right"><input type="text" name="quantity" class="text-right"  id="quantity-in-stock" value="<%= product.quantity_in_stock %>"></td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        
+                                    <td class="font-semibold">
                                         <input type="file" name="" id="" accept="image/*" class="w-full">
                                     </td>
                                 </tr>

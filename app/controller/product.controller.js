@@ -43,8 +43,8 @@ class productController {
     }  
     
     async handleAdd(req, res) {
-        const {productName, category, manufacturer, importPrice, retailPrice, quantity} = req.body;
-        const isAdded = await addProductService(productName, category, manufacturer, importPrice, retailPrice, req.file, quantity);
+        const {productName, category, manufacturer, ram, ssd, importPrice, retailPrice, quantity} = req.body;
+        const isAdded = await addProductService(productName, category, manufacturer, ram, ssd, importPrice, retailPrice, req.file, quantity);
 
         if(isAdded) {
             return res.redirect('/inventory');

@@ -28,9 +28,12 @@ CREATE TABLE `product` (
     `category` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULl,
     `product_image` VARCHAR(50) COLLATE utf8_unicode_ci,
     `manufacturer` VARCHAR(50) COLLATE utf8_unicode_ci,
+    `ram` INT NOT NULL,
+    `ssd` INT NOT NULL,
     `import_price` INT NOT NULL,
     `retail_price` INT NOT NULL,
     `import_date` DATE NOT NULL,
+    `last_update_date` DATE DEFAULT NULL,
     `quantity_in_stock` INT NOT NULL
 );
 
@@ -60,16 +63,16 @@ ALTER TABLE `user`
 MODIFY `user_id` int AUTO_INCREMENT, AUTO_INCREMENT = 3;
 COMMIT;
 
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
-VALUES (1, 'PC Home Office', 'PC/Office', 'pc.jpg', 'Dell', 400, 600, '2024-2-1', 20);
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
-VALUES (2, 'Asus Gaming PC', 'PC/Gaming', 'asus-gaming-pc.jpg', 'Asus', 800, 1050, '2024-3-14', 14);
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
-VALUES (3, 'Laptop Gaming Asus Tuf', 'Laptop/Gaming', 'asus-tuf-gaming.jpg', 'Asus', 1000, 1200, '2024-4-1', 15);
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
-VALUES (4, 'Macbook air M2', 'Laptop/Macbook', 'macbook-air-m2.jpg', 'Apple', 1099, 1299, '2024-4-18', 5);
-INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
-VALUES (5, 'Macbook pro M1', 'Laptop/Macbook', 'macbook-pro-m1.jpg', 'Apple', 1999, 2299, '2024-3-28', 3);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `ram`, `ssd`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (1, 'PC Home Office', 'PC/Office', 'pc.jpg', 'Dell', 8, 256, 400, 600, '2024-2-1', 20);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `ram`, `ssd`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (2, 'Asus Gaming PC', 'PC/Gaming', 'asus-gaming-pc.jpg', 'Asus', 16, 256, 900, 1150, '2024-3-14', 8);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `ram`, `ssd`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (3, 'Laptop Gaming Asus Tuf', 'Laptop/Gaming', 'asus-tuf-gaming.jpg', 'Asus', 8, 512, 1000, 1200, '2024-4-1', 15);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `ram`, `ssd`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (4, 'Macbook air M2', 'Laptop/Macbook', 'macbook-air-m2.jpg', 'Apple', 8, 256, 1199, 1399, '2024-4-18', 5);
+INSERT INTO `product`(`product_id`, `product_name`, `category`, `product_image`, `manufacturer`, `ram`, `ssd`, `import_price`, `retail_price`, `import_date`, `quantity_in_stock`)
+VALUES (5, 'Macbook pro M1', 'Laptop/Macbook', 'macbook-pro-m1.jpg', 'Apple', 16, 512, 1999, 2299, '2024-3-28', 3);
 
 ALTER TABLE `product` 
 MODIFY `product_id` int AUTO_INCREMENT, AUTO_INCREMENT = 6;

@@ -9,7 +9,7 @@ const con = require('../database/db');
 
 async function getProducts() {
     try {
-        const selectQuery = 'SELECT * FROM product';
+        const selectQuery = 'SELECT * FROM product ORDER BY import_date DESC';
         const [result] = await con.query(selectQuery);
         return result;
     }
@@ -70,14 +70,14 @@ async function deleteProducts(proudctIds) {
     }
 }
 
-async function addProduct(productName, category, manufacturer, importPrice, retailPrice, importDate, productImage, quantity) {
+async function addProduct(productName, category, manufacturer, ram, ssd, importPrice, retailPrice, importDate, productImage, quantity) {
     try {
         const insertQuery = `INSERT INTO product
-                        (product_name, category, product_image, manufacturer, import_price,
+                        (product_name, category, product_image, manufacturer, ram, ssd, import_price,
                         retail_price, import_date, quantity_in_stock)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     `
-        const insertParam = [productName, category, productImage, manufacturer, importPrice, retailPrice, importDate, quantity];
+        const insertParam = [productName, category, productImage, manufacturer, ram, ssd, importPrice, retailPrice, importDate, quantity];
         const [insertResult] = await con.query(insertQuery, insertParam);
         if(insertResult.affectedRows > 0) {
             return true;

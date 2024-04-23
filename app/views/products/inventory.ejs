@@ -25,9 +25,9 @@
         
         <main class="md:ml-64 h-full">
             
-            <div class="px-5 py-10 w-full h-full grid grid-rows-5 gap-y-6 ">
+            <div class="p-5 w-full h-full grid grid-rows-5 gap-y-6 ">
                 
-                <div class="bg-white row-span-1 rounded-lg">
+                <div class="bg-white row-span-1 rounded">
                     <form action="" class="flex justify-between items-center h-full w-full px-10 gap-x-2">
                         <div class="">
                             <input type="text" class="border border-gray-300 p-3 outline-none w-full rounded" placeholder="Enter product name/id..." name="product_name">
@@ -58,15 +58,15 @@
                         <button type="submit" class="py-3 px-6 bg-sky-500 text-white rounded ">Submit</button>
                     </form>
                 </div>
-                <div class="product-table-container p-5 bg-white row-span-4 overflow-auto rounded-lg">
+                <div class="product-table-container p-5 bg-white row-span-4  rounded overflow-auto">
                     <% if(user.role === 'ADMIN') { %>
-                        <div class="mb-10 w-full">
+                        <div class="mb-10 w-full ">
                             <button class="px-6 py-3 bg-red-200 text-white pointer-events-none rounded" id="delete-btn">Delete (<span id="delete-quantity">0</span>)</button>
                             <a href="/inventory/add" class="bg-sky-500 px-6 py-3 float-right text-white rounded">+ Add</a>
                         </div>
                     <% } %>
+                    
                     <table class="w-full">
-                        
                         <thead>
                             <tr class="border-b border-slate-300">
                                 <% if(user.role === 'ADMIN') { %>
@@ -77,15 +77,14 @@
                                 <th class="">Category</th>
                                 <th class="">Price</th>
                                 <th class="">Import date</th>
-                                <th class="">Quantity in stock</th>
+                                <th class="">Quantity</th>
                                 <% if(user.role === 'ADMIN') { %>
                                     <th>Action</th>
                                 <% } %>
                             </tr>
                         </thead>
-                       <tbody>
+                        <tbody>
                         <% products.forEach((p, index) =>{ %>
-                            
                             <tr class="border-b border-slate-300" data-id="<%= p.product_id %>">
                                 <% if(user.role === 'ADMIN') { %> 
                                     <td class="text-center p-5">
@@ -108,11 +107,10 @@
                                 </td>
                                 <% } %>
                             </tr>
-                            
-                            
                         <% }) %>
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
             
