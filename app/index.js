@@ -30,7 +30,7 @@ app.use(session({
 app.use('/auth', authRouter);
 app.use(isLoggedIn);
 
-app.use('/products', productRouter);
+app.use('/inventory', productRouter);
 app.use('/staffs', roleAuth, userRouter);
 app.use('/', homeRouter);
 

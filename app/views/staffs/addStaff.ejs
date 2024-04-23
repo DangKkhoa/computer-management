@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add staff</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <style>
+        
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width:calc(100% - 256px);
+            }
+        }
+        
+        
+    </style>
+
+</head>
+<body class="h-screen bg-slate-200">
+    <div class="container-xl flex h-full">
+        <%- include('../navbar') %>
+        
+        <main class="md:ml-64 p-10" >
+            <div id="message-box" class="absolute bg-transparent right-4 p-2 top-4 w-fit text-white">
+
+            </div>
+            <div class="w-full h-full bg-white grid grid-rows-5 px-10 py-5">
+                <div class="row-span-1">
+                    <a href="/staffs" class="text-3xl font-extrabold"><span>&leftarrow;</span></a>
+                    <p class="text-5xl text-sky-500">Add new staff</p>
+                </div>
+                <div class="row-span-3 w-full grid grid-cols-2 gap-4">
+                    <div class="col-span-1">
+                        <label for="fullname" class="block">Full name:</label>
+                        <input type="text" class="border border-slate-300 w-3/4 p-2 outline-none" id="fullname" placeholder="Nguyen Van A">
+                        <div class="text-red-500" id="fullname-missing-message" hidden>
+                            Fullname cannot be empty
+                        </div>
+                    </div>
+                    <div class="col-span-1">
+                        <label for="email" class="block">Email address:</label>
+                        <input type="text" class="border border-slate-300 w-3/4 p-2" id="email" placeholder="example@gmail.com">
+                        <div class="text-red-500" id="email-missing-message" hidden>
+                            Email address cannot be empty
+                        </div>
+                    </div>
+                    <div>
+                        <label for="phone" class="block">Phone number:</label>
+                        <input type="text" class="border border-slate-300 w-1/2 p-2 outline-none" id="phone" placeholder="0123456789">
+                    </div>
+                    <div>
+                        <label for="date_of_birth" class="block">Date of Birth:</label>
+                        <input type="text" class="border border-slate-300 w-1/2 p-2 outline-none" id="date_of_birth" placeholder="dd/mm/yyyy">
+                    </div>
+                    <div>
+                        <label for="role" class="block">Role:</label>
+                        <select name="role" id="role" class="p-2 outline-none">
+                            <option value="BASIC">Basic</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="role" class="block">Gender:</label>
+                        <select name="gender" id="gender" class="p-2 outline-none">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="row-span-1 col-span-full self-end">
+                    <button class="px-6 py-3 bg-green-500 text-white" id="sending-data-btn">Save</button>
+                </div>
+                
+            </div>
+            
+            
+        </main>
+    </div>
+    
+    <script>
+        
+        const messageBox = document.getElementById('message-box');
+        function hideMessageBox(code) {
+            let sec = 3;
+            const intervalId = setInterval(function() {
+                sec--;
+                if(sec == 0) {
+                    if(code === 0) {
+                        messageBox.classList.remove('bg-green-500');
+                        
+                    }
+                    else {
+                        messageBox.classList.remove('bg-red-500');
+                    }
+
+                    messageBox.classList.add('bg-trasparent');
+                    messageBox.textContent = '';
+                    clearInterval(intervalId);
+                }
+
+            }, 1000);
+        }
+        function showMessage(code, message) {
+            
+            if(code === 0) {
+                messageBox.classList.remove('bg-transparent')
+                messageBox.classList.add('bg-green-500');
+                messageBox.textContent = message;
+                hideMessageBox(code);
+            }
+            else {
+                messageBox.classList.remove('bg-transparent')
+                messageBox.classList.add('bg-red-500');
+                messageBox.textContent = message;
+                hideMessageBox(code);
+            }
+            
+        }
+        
+
+        document.getElementById('sending-data-btn')
+            .addEventListener('click', async (e) => {
+                e.preventDefault();
+
+                const fullnameInput = document.getElementById('fullname');
+                const emailInput = document.getElementById('email');
+                const phoneInput = document.getElementById('phone');
+                const dateOfBirthInput = document.getElementById('date_of_birth');
+                const roleInput = document.getElementById('role');
+                const genderInput = document.getElementById('gender');
+
+                if(!fullnameInput.value) {
+                    fullnameInput.classList.add('border-2', 'border-red-500');
+                    document.getElementById('fullname-missing-message').hidden = false;
+                    
+                }
+                if(!emailInput.value) {
+                    emailInput.classList.add('border-2', 'border-red-500');
+                    document.getElementById('email-missing-message').hidden = false;
+                    return ;
+                }
+                
+                fullnameInput.classList.remove('border-2', 'border-red-500');
+                emailInput.classList.remove('border-2', 'border-red-500');
+                document.getElementById('fullname-missing-message').hidden = true;
+                document.getElementById('email-missing-message').hidden = true;
+                const staffData = {
+                    fullname: fullnameInput.value,
+                    email: emailInput.value,
+                    phone: phoneInput.value,
+                    dateOfBirth: dateOfBirthInput.value,
+                    role: roleInput.value,
+                    gender: genderInput.value
+                };
+
+                const response = await fetch('http://localhost:3000/staffs/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(staffData)
+                })
+
+                const responseData = await response.json();
+                console.log(responseData);
+
+                showMessage(responseData.code, responseData.message);
+            })
+    </script>
+</body>
+</html>

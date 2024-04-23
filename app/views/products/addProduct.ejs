@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <style>
+        
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width:calc(100% - 256px);
+            }
+        }
+        
+        
+    </style>
+
+</head>
+<body class="h-screen bg-slate-200">
+    <div class="container-xl flex h-full">
+        <%- include('../navbar') %>
+        
+        <main class="md:ml-64 flex justify-center items-center p-5 h-full" >
+            <% if(errorMessage.length > 0) {%>
+                <div id="message-box" class="absolute right-4 p-2 top-4 w-fit text-xl text-white bg-red-500">
+                    <%= errorMessage %>
+                </div>
+            <% } %>
+            
+            <div class="w-full h-full bg-white rounded-lg shadow-lg">
+                
+                <form action="/inventory/add" method="POST" enctype="multipart/form-data" class="grid grid-rows-6 px-10 py-5 h-full">
+                    <div class="row-span-1">
+                        <a href="/products"  class="text-3xl font-extrabold"><span>&leftarrow;</span></a>
+                        <p class="text-5xl text-sky-500">Add new product</p>
+                    </div>
+                    <div class="row-span-3 w-full grid grid-cols-2 gap-4 h-full">
+                        <div class="col-span-1 row-span-1">
+                            <label for="productName" class="block font-bold mb-1">Product name:</label>
+                            <input type="text" name="productName" class="border border-slate-300 w-3/4 p-2 outline-none" id="product-name" placeholder="eg: Macbook Pro M1">
+                        </div>
+                        <div class="col-span-1 row-span-1">
+                            <label for="quantity" class="block font-bold mb-1">Quantity:</label>
+                            <input type="text" name="quantity" class="border border-slate-300 w-3/4 p-2 outline-none" id="quantity" placeholder="eg: 10">
+                        </div>
+                        <div class="col-span-1 row-span-1">
+                            <label for="category" class="block font-bold mb-1">Category:</label>
+                            <select name="category" id="category" class="p-2 outline-none">
+                                <option value="PC/Office">PC/Office</option>
+                                <option value="PC/Gaming">PC/Gaming</option>
+                                <option value="Laptop/Office">Laptop/Office</option>
+                                <option value="Laptop/Gaming">Laptop/Gaming</option>
+                                <option value="Macbook">Macbook</option>
+                                <option value="Component">Component</option>
+                            </select>
+                        </div>
+                        <div class="col-span-1 row-span-1">
+                            <label for="manufacturer" class="block font-bold mb-1">Manufacturer:</label>
+                            <select name="manufacturer" id="manufacturer" class="p-2 outline-none">
+                                <option value="Dell">Dell</option>
+                                <option value="Asus">Asus</option>
+                                <option value="Acer">Acer</option>
+                                <option value="HP">HP</option>
+                                <option value="Corsair">Corsair</option>
+                                <option value="Apple">Apple</option>
+                                <option value="Samsung">Samsung</option>
+                                <option value="Kingston">Kingston</option>
+                            </select>
+                        </div>
+                        <div class="row-span-1">
+                            <label for="import-price" class="block font-bold mb-1">Import price ($):</label>
+                            <input type="text" name="importPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="import-price" placeholder="eg: 400">
+                        </div>
+                        <div class="row-span-1">
+                            <label for="retail-price" class="block font-bold mb-1">Retail price ($):</label>
+                            <input type="text" name="retailPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="retail-price" placeholder="eg: 600">
+                        </div>
+                        <div class="row-span-1">
+                            <label for="product-image" class="block font-bold mb-1">Image:</label>
+                            <input type="file" accept="image/*" name="productImage" id="product-image">
+                        </div>
+                    </div>
+                    <div class="row-span-2 col-span-full self-end">
+                        <button class="px-6 py-3 bg-green-500 text-white" id="sending-data-btn">Save</button>
+                    </div>
+                </form>
+
+                
+            </div>
+            
+            
+        </main>
+    </div>
+    
+    <script>
+        function hideMessage() {
+            document.getElementById('message-box').hidden = true;
+        }
+        
+        let sec = 2;
+        const intervalId = setInterval(function() {
+            sec --;
+            if(sec == 0) {
+                clearInterval(intervalId);
+                document.getElementById('message-box').hidden = true;
+            }
+        }, 1000)
+    </script>
+</body>
+</html>

@@ -15,6 +15,6 @@ exports.roleAuth = (req, res, next) => {
         return next();
     }
 
-    return res.status(403).send('<h1>Forbidden!</h1>');
+    return res.status(403).json({message: 'FORBIDDEN'});
 
 }

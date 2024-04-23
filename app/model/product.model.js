@@ -30,7 +30,69 @@ async function getProductById(id) {
     }
 }
 
+async function updateProduct(id, name, category, manufacturer, importPrice, retailPrice, importDate, quantity) {
+    try {
+        const updateQuery = `UPDATE product SET
+            product_name = ?, category = ?, manufacturer = ?, import_price = ?, 
+            retail_price = ?, import_date = ?, quantity_in_stock = ? 
+            WHERE product_id = ?
+        `;
+        const updateParam = [name, category, manufacturer, importPrice, retailPrice, importDate, quantity, id];
+        const [updateResult] = await con.query(updateQuery, updateParam);
+        if(updateResult.affectedRows > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+}
+
+async function deleteProducts(proudctIds) {
+    try {
+        const deleteQuery = 'DELETE FROM product WHERE product_id IN (?)';
+        const deleteParam = [proudctIds];
+        const [deleteResult] = await con.query(deleteQuery, deleteParam);
+        if(deleteResult.affectedRows > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+}
+
+async function addProduct(productName, category, manufacturer, importPrice, retailPrice, importDate, productImage, quantity) {
+    try {
+        const insertQuery = `INSERT INTO product
+                        (product_name, category, product_image, manufacturer, import_price,
+                        retail_price, import_date, quantity_in_stock)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    `
+        const insertParam = [productName, category, productImage, manufacturer, importPrice, retailPrice, importDate, quantity];
+        const [insertResult] = await con.query(insertQuery, insertParam);
+        if(insertResult.affectedRows > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+        
+    }
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+}
 
 
-module.exports = { getProducts, getProductById };
+module.exports = { getProducts, getProductById, updateProduct, deleteProducts, addProduct };
 

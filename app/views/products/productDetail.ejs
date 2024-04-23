@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <style>
+        
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width:calc(100% - 256px);
+            }
+        }
+        
+        
+        input:focus {
+            padding: 0 4px;
+            text-align: left;
+        }
+        
+    </style>
+
+</head>
+<body class="h-screen bg-slate-200">
+    <div class="container-xl flex h-full">
+        <%- include('../navbar') %>
+        
+        <main class="md:ml-64 p-5 h-full">
+            <div class="bg-white w-full h-full grid grid-cols-2 gap-x-4 p-5 rounded-lg">
+                <div class="rounded-lg w-full h-full border border-slate-300">
+                    <img src="/images/products/<%= product.product_image %>" alt="" class="rounded-lg">
+                </div>
+                <div class="h-full col-span-1  w-full px-5 overflow-auto">
+                    <% if(user.role === 'ADMIN') { %>
+                        <table class="w-full h-full">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="text-4xl text-sky-500"><%= product.product_name %></p>
+                                        <p class="text-gray-500">Id: <%= product.product_id %></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Category</td>
+                                    <td class="text-right"><%= product.category %></td>
+                                </tr>
+                                <tr>
+                                    <td>Manufacturer</td>
+                                    <td class="text-right"><%= product.manufacturer %></td>
+                                </tr>
+                                <tr>
+                                    <td>Import price ($)</td>
+                                    <td class="text-right"><input type="text" name="importPrice" id="import-price" class="text-right" value="<%= product.import_price %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>Retail price ($)</td>
+                                    <td class="text-right"><input type="text" name="retailPrice" id="retail-price" class="text-right"  value="<%= product.retail_price %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>Import date</td>
+                                    <td class="text-right"><input type="text" name="importDate" id="import-date" class="text-right" value="<%= product.import_date.toLocaleDateString('en-GB') %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>Quantity in stock</td>
+                                    <td class="text-right"><input type="text" name="quantity" class="text-right"  id="quantity-in-stock" value="<%= product.quantity_in_stock %>"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        
+                                        <input type="file" name="" id="" accept="image/*" class="w-full">
+                                    </td>
+                                </tr>
+                                <tr class="w-full">
+                                    <td colspan="2" class="text-right">
+                                        <button class="px-6 py-3 rounded bg-green-500 text-white" id="sending-data-btn" data-id="<%= product.product_id %>">Save</button>
+                                    </td>
+                                </tr>
+                                </form>
+                            </tbody>
+                        </table>
+                    <% } else {%>
+
+                        <table class="w-full h-full">
+                            <tbody>
+
+                                <tr>
+                                    <td>Product name</td>
+                                    <td class="text-right"><%= product.product_name %></td>
+                                </tr>
+                                <tr>
+                                    <td>Category</td>
+                                    <td class="text-right"><%= product.category %></td>
+                                </tr>
+                                <tr>
+                                    <td>Manufacturer</td>
+                                    <td class="text-right"><%= product.manufacturer %></td>
+                                </tr>
+                                <tr>
+                                    <td>Import price ($)</td>
+                                    <td class="text-right"><%= product.import_price %></td>
+                                </tr>
+                                <tr>
+                                    <td>Retail price ($)</td>
+                                    <td class="text-right"><%= product.retail_price %></td>
+                                </tr>
+                                <tr>
+                                    <td>Import date</td>
+                                    <td class="text-right"><%= product.import_date.toLocaleDateString('en-GB') %></td>
+                                </tr>
+                                <tr>
+                                    <td>Quantity in stock</td>
+                                    <td><%= product.quantity_in_stock %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <% } %>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    
+    <script>
+        // const sendingBtn = document.getElementById('sending-data-btn')
+        // sendingBtn.addEventListener('click', async (e) => {
+        //     e.preventDefault();
+        //     const productName = document.getElementById('product-name').value;
+        //     const category = document.getElementById('category').value;
+        //     const manufacturer = document.getElementById('manufacturer').value;
+        //     const importPrice = document.getElementById('import-price').value;
+        //     const retailPrice = document.getElementById('retail-price').value;
+        //     const importDate = document.getElementById('import-date').value;
+        //     const quantity = document.getElementById('quantity-in-stock').value;
+            
+        //     const newProductData = {
+        //         productName: productName,
+        //         category: category,
+        //         manufacturer: manufacturer,
+        //         importPrice: importPrice,
+        //         retailPrice: retailPrice,
+        //         importDate: importDate,
+        //         quantity: quantity
+        //     };
+        //     console.log(newProductData);
+        //     const proudctId = sendingBtn.getAttribute('data-id');
+        //     const response = await fetch(`http://localhost:3000/products/update/${proudctId}`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(newProductData)
+        //     });
+
+        //     const responseData = await response.json();
+        //     console.log(responseData)
+
+        // })    
+    </script>
+</body>
+</html>

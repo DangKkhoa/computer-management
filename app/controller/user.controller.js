@@ -4,7 +4,7 @@ class userController {
     async index(req, res) {
         let users = await getUsers();
         // console.log(users);
-        res.render('staffs', {users: users, user: req.session.user});
+        res.render('staffs/staffs', {users: users, user: req.session.user});
     }
 
     async delete(req, res) {
@@ -45,29 +45,20 @@ class userController {
         const users = await getUsersByNameService(name);
         
         if(users.length > 0) {
-            res.render('staffs', {users: users, user: req.session.user});
+            res.render('staffs/staffs', {users: users, user: req.session.user});
         }
         else {
-            res.render('staffs', {users: [], user: req.session.user});
+            res.render('staffs/staffs', {users: [], user: req.session.user});
         }
     }
 
     add(req, res) {
-        res.render('addStaff', {user: req.session.user});
+        res.render('staffs/addStaff', {user: req.session.user});
     }
 
     async handleAdd(req, res) {
-        const { fullname, email, phone, date_of_birth, role, gender } = req.body;
-        const isSuccessful = await addStaffService(fullname, email, phone, date_of_birth, role, gender);
-        // console.log(isSuccessful);
-        // if(isSuccessful) {
-        //     res.json({code: 0, message: 'Staff added successfully'});
-        // }
-        // else {
-        //     res.json({code: 1, message: 'Cannot add staff. Please check the information and try again'});
-
-        // }
-
+        const { fullname, email, phone, dateOfBirth, role, gender } = req.body;
+        const isSuccessful = await addStaffService(fullname, email, phone, dateOfBirth, role, gender);
         return res.json(isSuccessful);
     }
 
