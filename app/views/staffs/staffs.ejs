@@ -15,6 +15,10 @@
                 width: calc(100% - 256px);
             }
         }
+
+        th, td {
+            text-wrap: nowrap;
+        }
         #staff-detail-content tr td {
             padding: 5px;
         }
@@ -36,11 +40,11 @@
         <main class="md:ml-64 h-full p-10 flex flex-col items-center">
             
             <form action="/staffs/search" class="mb-4 w-1/2 flex">
-                <input type="text" name="name" class="p-3 rounded-s-lg outline-none w-full" placeholder="Enter staff name...">
-                <button class="bg-white pr-2 rounded-e-lg"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" name="name" class="p-3 rounded-s-md outline-none w-full" placeholder="Enter staff name...">
+                <button class="bg-white pr-2 rounded-e-md"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
             <div class="grid grid-cols-3 w-full h-full gap-4">
-                <div class=" bg-white col-span-3 h-full p-8 rounded-lg shadow-xl" id="staff-grid">
+                <div class=" bg-white col-span-3 h-full p-8 rounded shadow-xl" id="staff-grid">
                     <div class="w-full">
                         <span class="text-2xl">Staffs</span>
                         <a href="/staffs/add" class="float-right bg-sky-500 px-6 py-3 text-white rounded" ><span class="font-semibold">&plus;</span> Add staff</a>
@@ -66,15 +70,15 @@
                                         <td class="text-center p-4"><%= u.fullname %></td>
                                         <td class="text-center p-4"><%= u.email %></td>
                                         <td class="text-center p-4 text-green-500"><%= u.role %></td>
-                                        <td class="flex justify-center items-center p-4">
-                                            <button class="delete-btn mr-3 text-red-500" data-id="<%= u.user_id %>" data-name="<%= u.fullname %>">
-                                                <i class="fa-solid fa-trash"></i>
+                                        <td class="flex justify-center items-center p-4 gap-x-2">
+                                            <button class="delete-btn text-red-500 border border-red-500 px-4 py-2 rounded" data-id="<%= u.user_id %>" data-name="<%= u.fullname %>">
+                                                <i class="fa-solid fa-trash"></i> <span class="xl:inline-block hidden">Delete</span>
                                             </button>
-                                            <button class="edit-btn mr-3 text-amber-500" data-id="<%= u.user_id %>">
-                                                <i class="fa-solid fa-user-pen"></i>
+                                            <button class="edit-btn text-amber-500 border border-amber-500 px-4 py-2 rounded" data-id="<%= u.user_id %>">
+                                                <i class="fa-solid fa-pen-to-square"></i> <span class="xl:inline-block hidden">Edit</span>
                                             </button>
-                                            <button class="staff-info text-violet-500" data-id="<%= u.user_id %>">
-                                                <i class="fa-solid fa-eye"></i>
+                                            <button class="staff-info text-violet-500 border border-violet-500 px-4 py-2 rounded" data-id="<%= u.user_id %>">
+                                                <i class="fa-solid fa-eye"></i> <span class="xl:inline-block hidden">View</span>
                                             </button>
                                         </td>
                                     </tr>
@@ -85,7 +89,7 @@
                     </div>
                     
                 </div>
-                <div class=" bg-white w-full h-full hidden px-3 rounded-lg shadow-xl" id="staff-detail">
+                <div class=" bg-white w-full h-full hidden px-3 rounded shadow-xl" id="staff-detail">
                     <div class="w-full mb-4">
                         <button class="font-extrabold text-3xl block lg:hidden" onclick="closeDetail()">&LeftArrow;</button>
                         <button class="float-right font-bold text-2xl hidden lg:block" id="close-detail-btn" onclick="closeDetail()">&times;</button>

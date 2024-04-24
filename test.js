@@ -1,7 +1,8 @@
-const bcrypt = require('bcrypt')
-const plainPassword = 'testuser';
-const saltRounds = 10;
+if(false) {
+    var a = 10;
+}
+else {
+    var a = 5;
+}
 
-bcrypt.hash(plainPassword, saltRounds, (err, hashedPassword) => { 
-    console.log(hashedPassword);
-})
+console.log(a);

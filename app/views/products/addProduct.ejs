@@ -37,7 +37,7 @@
                 
                 <form action="/inventory/add" method="POST" enctype="multipart/form-data" class="grid grid-rows-6 px-10 py-5 h-full">
                     <div class="row-span-1">
-                        <a href="/inventory"  class="text-3xl font-extrabold"><span>&leftarrow;</span></a>
+                        <a href="/inventory"  class="text-xl font-extrabold"><i class="fa-solid fa-arrow-left"></i></a>
                         <p class="text-5xl text-sky-500">Add new product</p>
                     </div>
                     <div class="row-span-3 w-full grid grid-cols-2 gap-4 h-full">
@@ -56,7 +56,7 @@
                                 <option value="PC/Gaming">PC/Gaming</option>
                                 <option value="Laptop/Office">Laptop/Office</option>
                                 <option value="Laptop/Gaming">Laptop/Gaming</option>
-                                <option value="Macbook">Macbook</option>
+                                <option value="Laptop/Macbook">Macbook</option>
                                 <option value="Component">Component</option>
                             </select>
                         </div>
@@ -102,11 +102,11 @@
                         </div>
                         <div class="row-span-1">
                             <label for="import-price" class="block font-bold mb-1">Import price ($):</label>
-                            <input type="text" name="importPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="import-price" placeholder="eg: 400">
+                            <input type="number" name="importPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="import-price" placeholder="eg: 400">
                         </div>
                         <div class="row-span-1">
                             <label for="retail-price" class="block font-bold mb-1">Retail price ($):</label>
-                            <input type="text" name="retailPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="retail-price" placeholder="eg: 600">
+                            <input type="number" name="retailPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="retail-price" placeholder="eg: 600">
                         </div>
                         
                         <div class="row-span-1">

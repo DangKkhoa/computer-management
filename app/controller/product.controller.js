@@ -1,9 +1,9 @@
-const { getProductsService, getProductByIdService, updateProductService, deleteProductsService, addProductService } = require('../service/product.service');
+const { getProductsService, getProductByIdService, updateProductService, deleteProductsService, addProductService, searchProductsService } = require('../service/product.service');
 
 class productController {
     async index(req, res) {
         let products = await getProductsService();
-        res.render('products/inventory', {products: products, user: req.session.user});
+        res.render('products/inventory', {products: products, user: req.session.user, message: ''});
     }
 
     async detail(req, res) {
@@ -15,20 +15,20 @@ class productController {
     add(req, res) {
         res.render('products/addProduct', {user: req.session.user, errorMessage: ''});
     }
+
     async update(req, res) {
         const productID = req.params.id;
-        const {productName, category, manufacturer, importPrice, retailPrice, importDate, quantity} = req.body;
-        const isUpdated = await updateProductService(
-            productID, productName, category, manufacturer, 
-            importPrice, retailPrice, importDate, quantity
-        );
+        const {importPrice, retailPrice, quantity} = req.body;
+        if(isNaN(importPrice) || isNaN(retailPrice) || isNaN(quantity)) {
+            return res.send(`
+                <h3>Import price, retail price, quantity in stock must be numbers!</h3>
+                <h4><a href="/inventory/detail/${productID}">Click heare to go back</a></h4>   
+            `);
+        }
+        console.log(req.file);
+        const isUpdated = await updateProductService(productID, importPrice, retailPrice, quantity, req.file);    
 
-        if(isUpdated) {
-            res.json({code: 0, message: 'Product updated successfully'});
-        }
-        else {
-            res.json({code: 1, message: `Error while updating product with id=${productID}`});
-        }
+        res.redirect(`/inventory/detail/${productID}`)
     }
 
     async deleteProducts(req, res) {
@@ -51,10 +51,37 @@ class productController {
         }
         else {
             return res.render('products/addProduct', {user: req.session.user, errorMessage: 'Something went wrong. Make sure you have provided all the information'});
+        }        
+    }
+
+    async search(req, res) {
+        const { product_name, category, ram, ssd, price } = req.query;
+        console.log(product_name);
+        let message = '';
+        if(product_name) {
+            message += ` [name=${product_name}]`;
+        }   
+        if(category) {
+            message += ` [category=${category}]`;
         }
-
+        if(ram) {
+            message += ` [ram=${ram}GB]`;
+        }
+        if(ssd) {
+            message += ` [ssd=${ssd}GB]`;
+        }
+        if(price) {
+            message += ` [price from ${parseInt(price) - 10000000} to ${parseInt(price)}]`;
+        }
         
-
+        const products = await searchProductsService(product_name, category, ram, ssd, price);
+        res.render('products/inventory', {user: req.session.user, products: products, message: `No product with ${message}`});
+        // if(products.length > 0) {
+        //     res.render('products/inventory', {user: req.session.user, products});
+        // }
+        // else {
+        //     res.redirect('/inventory');
+        // }
         
     }
     

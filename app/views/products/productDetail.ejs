@@ -32,6 +32,7 @@
         <%- include('../navbar') %>
         
         <main class="md:ml-64 p-5 h-full">
+            
             <div class="bg-white w-full h-full grid grid-cols-2 gap-x-4 p-2 rounded">
                 <div class="rounded-lg w-full h-full ">
                     <a href="/inventory" class="ml-2"><i class="fa-solid fa-arrow-left"></i></a>
@@ -39,63 +40,65 @@
                 </div>
                 <div class="h-full col-span-1  w-full px-5 overflow-auto">
                     <% if(user.role === 'ADMIN') { %>
-                        <table class="w-full h-full">
-                            <tbody>
-                                <tr>
-                                    <td colspan="2">
-                                        <p class="text-4xl text-sky-500"><%= product.product_name %></p>
-                                        <p class="text-gray-500">Id: <%= product.product_id %></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Category</td>
-                                    <td class="text-right"><%= product.category %></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Manufacturer</td>
-                                    <td class="text-right"><%= product.manufacturer %></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Ram</td>
-                                    <td class="text-right"><%= product.ram + 'GB' %></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">SSD</td>
-                                    <td class="text-right"><%= product.ssd + 'GB' %></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Import price ($)</td>
-                                    <td class="text-right"><input type="text" name="importPrice" id="import-price" class="text-right" value="<%= product.import_price %>"></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Retail price ($)</td>
-                                    <td class="text-right"><input type="text" name="retailPrice" id="retail-price" class="text-right"  value="<%= product.retail_price %>"></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Import date</td>
-                                    <td class="text-right"><%= product.import_date.toLocaleDateString('en-GB') %></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Last update</td>
-                                    <td class="text-right"><%= product.last_update_date == null ? '' : product.last_update_date.toLocaleDateString('en-GB') %></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Quantity in stock</td>
-                                    <td class="text-right"><input type="text" name="quantity" class="text-right"  id="quantity-in-stock" value="<%= product.quantity_in_stock %>"></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">
-                                        <input type="file" name="" id="" accept="image/*" class="w-full">
-                                    </td>
-                                </tr>
-                                <tr class="w-full">
-                                    <td colspan="2" class="text-right">
-                                        <button class="px-6 py-3 rounded bg-green-500 text-white" id="sending-data-btn" data-id="<%= product.product_id %>">Save</button>
-                                    </td>
-                                </tr>
-                                </form>
-                            </tbody>
-                        </table>
+                        <form action="/inventory/update/<%= product.product_id %>" method="POST" enctype="multipart/form-data" class="w-full h-full">
+                            <table class="w-full h-full">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p class="text-4xl text-sky-500"><%= product.product_name %></p>
+                                            <p class="text-gray-500">Id: <%= product.product_id %></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Category</td>
+                                        <td class="text-right"><%= product.category %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Manufacturer</td>
+                                        <td class="text-right"><%= product.manufacturer %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Ram</td>
+                                        <td class="text-right"><%= product.ram + 'GB' %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">SSD</td>
+                                        <td class="text-right"><%= product.ssd + 'GB' %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Import price ($)</td>
+                                        <td class="text-right"><input type="text" name="importPrice" id="import-price" class="text-right" value="<%= product.import_price %>"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Retail price ($)</td>
+                                        <td class="text-right"><input type="text" name="retailPrice" id="retail-price" class="text-right"  value="<%= product.retail_price %>"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Import date</td>
+                                        <td class="text-right"><%= product.import_date.toLocaleDateString('en-GB') %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Last update</td>
+                                        <td class="text-right"><%= product.last_update_date == null ? '' : product.last_update_date.toLocaleDateString('en-GB') %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Quantity in stock</td>
+                                        <td class="text-right"><input type="text`" name="quantity" class="text-right pl-2"  id="quantity-in-stock" value="<%= product.quantity_in_stock %>"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">
+                                            <input type="file" name="productImage" id="" accept="image/*" class="w-full">
+                                        </td>
+                                    </tr>
+                                    <tr class="w-full">
+                                        <td colspan="2" class="text-right">
+                                            <button class="px-6 py-3 rounded bg-green-500 text-white" id="sending-data-btn" data-id="<%= product.product_id %>">Save</button>
+                                        </td>
+                                    </tr>
+                                    </form>
+                                </tbody>
+                            </table>
+                        </form>
                     <% } else {%>
 
                         <table class="w-full h-full">

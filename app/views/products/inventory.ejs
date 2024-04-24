@@ -28,26 +28,53 @@
             <div class="p-5 w-full h-full grid grid-rows-5 gap-y-6 ">
                 
                 <div class="bg-white row-span-1 rounded">
-                    <form action="" class="flex justify-between items-center h-full w-full px-10 gap-x-2">
+                    
+                    <form action="/inventory/search" class="flex justify-between items-center h-full w-full px-10 gap-x-2">
                         <div class="">
                             <input type="text" class="border border-gray-300 p-3 outline-none w-full rounded" placeholder="Enter product name/id..." name="product_name">
                         </div>
-                        
                         <div class="">
-                            <select name="type" id="" class="p-3 outline-none bg-slate-100 w-full rounded">
-                                <option value="">Select type</option>
-                                <option value="all">All</option>
-                                <option value="office">Office computer</option>
-                                <option value="gaming">Gaming computer</option>
-                                <option value="laptop">Laptop</option>
-                                <option value="Macbook">Macbook</option>
-                                <option value="Component">Pc/Laptop components</option>
+                            <select name="ram" id="" class="p-3 outline-none bg-slate-100 w-full rounded">
+                                <option value="">Ram</option>
+                                <option value="4">4GB</option>
+                                <option value="8">8GB</option>
+                                <option value="12">12GB</option>
+                                <option value="16">16GB</option>
+                                <option value="24">24GB</option>
+                                <option value="32">32GB</option>
+                                <option value="64">64GB</option>
+                                <option value="128">128GB</option>
+                            </select>
+                        </div>
+
+                        <div class="">
+                            <select name="ssd" id="" class="p-3 outline-none bg-slate-100 w-full rounded">
+                                <option value="">SSD</option>
+                                <option value="128">128Gb</option>
+                                <option value="240">240GB</option>
+                                <option value="256">256GB</option>
+                                <option value="512">512GB</option>
+                                <option value="1000">1TB</option>
+                                <option value="2000">2TB</option>
+                                <option value="4000">4TB</option>
                             </select>
                         </div>
                         <div class="">
+                            <select name="category" id="" class="p-3 outline-none bg-slate-100 w-full rounded">
+                                <option value="">Category</option>
+                                <option value="PC/Office">Office computer</option>
+                                <option value="PC/Gaming">Gaming computer</option>
+                                <option value="Laptop/Office">Office laptop</option>
+                                <option value="Laptop/Gaming">Gaming laptop</option>
+                                <option value="Laptop/Macbook">Macbook</option>
+                                <option value="Component">Pc/Laptop components</option>
+                            </select>
+                        </div>
+                        
+                        <div class="">
                             
                             <select name="price" id="" class="p-3 outline-none bg-slate-100 w-full rounded">
-                                <option value="">Select price</option>
+                                <option value="">Price</option>
                                 <option value="10000000"> < 10.000.000</option>
                                 <option value="20000000">10.000.000 - 20.000.000 VND</option>
                                 <option value="30000000">20.000.000 - 30.000.000 VND</option>
@@ -67,6 +94,7 @@
                     <% } %>
                     
                     <table class="w-full">
+                        
                         <thead>
                             <tr class="border-b border-slate-300">
                                 <% if(user.role === 'ADMIN') { %>
@@ -84,6 +112,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <% if(products.length == 0) { %>
+                                <tr>
+                                    <td colspan="7" class="text-center pt-4 text-xl">
+                                        <% if(products.length == 0) { %>
+                                            <%= message %>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% } %>
                         <% products.forEach((p, index) =>{ %>
                             <tr class="border-b border-slate-300" data-id="<%= p.product_id %>">
                                 <% if(user.role === 'ADMIN') { %> 

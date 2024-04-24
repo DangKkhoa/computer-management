@@ -30,14 +30,34 @@ async function getProductById(id) {
     }
 }
 
-async function updateProduct(id, name, category, manufacturer, importPrice, retailPrice, importDate, quantity) {
+async function updateProduct(id, productImage, importPrice, retailPrice, quantity, lastUpdateDate) {
     try {
-        const updateQuery = `UPDATE product SET
-            product_name = ?, category = ?, manufacturer = ?, import_price = ?, 
-            retail_price = ?, import_date = ?, quantity_in_stock = ? 
-            WHERE product_id = ?
-        `;
-        const updateParam = [name, category, manufacturer, importPrice, retailPrice, importDate, quantity, id];
+        // const updateQuery = `UPDATE product SET 
+        //     product_image = ?, import_price = ?, retail_price = ?, 
+        //     quantity_in_stock = ?, last_update_date = ?
+        //     WHERE product_id = ?
+        // `;
+        let updateQuery = 'UPDATE product SET last_update_date = ?';
+        let updateParam = [lastUpdateDate];
+        if(productImage) {
+            updateQuery += ' , product_image = ?'
+            updateParam.push(productImage);
+        }
+        if(importPrice) {
+            updateQuery += ' , import_price = ?'
+            updateParam.push(importPrice);
+        }
+        if(retailPrice) {
+            updateQuery += ' , retail_price = ?'
+            updateParam.push(retailPrice);
+        }
+        if(quantity) {
+            updateQuery += ' , quantity_in_stock = ?'
+            updateParam.push(quantity);
+        }
+        updateQuery += ' WHERE product_id = ?'
+        updateParam.push(id);
+        // const updateParam = [productImage, importPrice, retailPrice, quantity, lastUpdateDate, id];
         const [updateResult] = await con.query(updateQuery, updateParam);
         if(updateResult.affectedRows > 0) {
             return true;
@@ -93,6 +113,35 @@ async function addProduct(productName, category, manufacturer, ram, ssd, importP
     }
 }
 
+async function searchProduct(productName, category, ram, ssd, minPrice, maxPrice) {
+    let selectQuery = 'SELECT * FROM product WHERE 1 = 1';
+    let selectParam = [];
+    if(productName) {
+        selectQuery += ' AND product_name LIKE ?';
+        selectParam.push(`%${productName}%`);
+    }
+    if(category) {
+        selectQuery += ' AND category = ?';
+        selectParam.push(category);
+    }
+    if(ram) {
+        selectQuery += ' AND ram = ?';
+        selectParam.push(ram);
+    }
+    if(ssd) {
+        selectQuery += ' AND ssd = ?';
+        selectParam.push(ssd);
+    }
+    if(minPrice && maxPrice) {
+        selectQuery += ' AND retail_price BETWEEN ? AND ?';
+        selectParam.push(minPrice);
+        selectParam.push(maxPrice);
+    }
+    
+    const [products] = await con.query(selectQuery, selectParam);
+    // if no category or price selected, return an empty array of product 
+    return products;
+}
 
-module.exports = { getProducts, getProductById, updateProduct, deleteProducts, addProduct };
+module.exports = { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct };
 

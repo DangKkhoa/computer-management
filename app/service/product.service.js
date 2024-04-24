@@ -1,4 +1,4 @@
-const { getProducts, getProductById, updateProduct, deleteProducts, addProduct } = require('../model/product.model');
+const { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct } = require('../model/product.model');
 
 async function getProductsService() {
     const products = await getProducts();
@@ -10,11 +10,20 @@ async function getProductByIdService(id) {
     return product[0];
 }
 
-async function updateProductService(productID, productName, category, manufacturer, importPrice, retailPrice, importDate, quantity) {
-    const importDateArray = importDate.split('/').reverse();
-    const formattedImportDate = importDateArray.join('-');
-
-    const updateResult = await updateProduct(parseInt(productID), productName, category, manufacturer, importPrice, retailPrice, formattedImportDate, quantity)
+async function updateProductService(productID, importPrice, retailPrice, quantity, productImage) {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const lastUpdateDate = `${year}-${month}-${day}`; 
+    if(!productImage) {
+        var updatedImageFile = null;
+    }
+    else {
+        var updatedImageFile = productImage.filename;
+    }
+    
+    const updateResult = await updateProduct(productID, updatedImageFile, importPrice, retailPrice, quantity, lastUpdateDate);
     return updateResult;
 }
 
@@ -41,5 +50,19 @@ async function addProductService(productName, category, manufacturer, ram, ssd, 
     const addResult = await addProduct(productName, category, manufacturer, ram, ssd, numericImportPrice, numericRetailPrice, importDate, imageFile, quantity);
     return addResult;
 }
+
+async function searchProductsService(productName, category, ram, ssd, price) {
+    
+    if(price) {
+        var maxPrice = parseInt(price);
+        var minPrice = maxPrice - 10000000;
+    }
+    else {
+        var maxPrice = null
+        var minPrice = null;
+    }
+    const products = await searchProduct(productName, category, ram, ssd, minPrice, maxPrice);
+    return products;
+}
 // console.log(products)
-module.exports = { getProductsService, getProductByIdService, updateProductService, deleteProductsService, addProductService };
+module.exports = { getProductsService, getProductByIdService, updateProductService, deleteProductsService, addProductService, searchProductsService };
