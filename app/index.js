@@ -8,6 +8,7 @@ const inventoryRouter = require('./route/inventory.route')
 const userRouter = require('./route/user.route');
 const authRouter = require('./route/auth.route');
 const homeRouter = require('./route/home.route');
+const shopRouter = require('./route/shop.route');
 const { isLoggedIn, roleAuth } = require('./middleware/auth.middleware');
 
 
@@ -26,14 +27,14 @@ app.use(session({
     saveUninitialized: false
 }))
 
-
+app.use('/shop', shopRouter)
 app.use('/auth', authRouter);
-app.use('/', homeRouter);
 
 app.use(isLoggedIn);
 
 app.use('/inventory', inventoryRouter);
 app.use('/staffs', roleAuth, userRouter);
+app.use('/', homeRouter);
 
 
 app.listen(3000, () => console.log('http://localhost:3000'));

@@ -27,18 +27,18 @@
         </header>
         <main class="mt-24 w-full md:w-3/4 lg:w-1/2 m-auto md:px-0 px-10">
             <div id="sort-bar " class="w-full h-16 mb-5 bg-white flex items-center px-2 justify-between text-lg">
-                <a href="/products/PC" class="hover:text-sky-700"><i class="fa-solid fa-computer"></i> PC</a>
-                <a href="/products/Laptop" class="hover:text-sky-700"><i class="fa-solid fa-laptop"></i> Laptop</a>
-                <a href="/products/Macbook" class="hover:text-sky-700"><i class="fa-brands fa-apple"></i> Macbook</a>
-                <a href="/products/Components" class="hover:text-sky-700"><i class="fa-solid fa-memory"></i> Components</a>
+                <a href="/shop/products/PC" class="hover:text-sky-700"><i class="fa-solid fa-computer"></i> PC</a>
+                <a href="/shop/products/Laptop" class="hover:text-sky-700"><i class="fa-solid fa-laptop"></i> Laptop</a>
+                <a href="/shop/products/Macbook" class="hover:text-sky-700"><i class="fa-brands fa-apple"></i> Macbook</a>
+                <a href="/shop/products/Components" class="hover:text-sky-700"><i class="fa-solid fa-memory"></i> Components</a>
             </div>
             <div class="grid grid-cols-3 w-full mx-auto gap-8">
                 <% products.forEach(p => { %>
-                    <a href="/product/detail/<%= p.product_id %>" class="block w-auto h-96 bg-white border border-gray-300 p-4 text-xl">
+                    <a href="/shop/product/detail/<%= p.product_id %>" class="block w-auto h-96 bg-white border border-gray-300 p-4 text-lg">
                         <img src="/images/products/<%= p.product_image %>" alt="" class="w-full ">
                         <div class="">
                             <p class="mb-5 product-name"><%= p.product_name %></p>
-                            <p class="text-red-500 font-semibold text-2xl"><%= p.retail_price %></p>
+                            <p class="text-red-500 font-semibold text-xl"><%= p.retail_price %></p>
                         </div>
                     </a>
                 <% }) %>

@@ -101,15 +101,14 @@
                                 </tbody>
                             </table>
                         </form>
-                    <% } else {%>
+                    <% } else if(user.role === 'BASIC') {%>
 
                         <table class="w-full h-full">
                             <tbody>
-
-                                <tr>
-                                    <td>Product name</td>
-                                    <td class="text-right"><%= product.product_name %></td>
-                                </tr>
+                                <td colspan="2">
+                                    <p class="text-4xl text-sky-500"><%= product.product_name %></p>
+                                    <p class="text-gray-500">Id: <%= product.product_id %></p>
+                                </td>
                                 <tr>
                                     <td>Category</td>
                                     <td class="text-right"><%= product.category %></td>
@@ -137,6 +136,7 @@
                             </tbody>
                         </table>
                     <% } %>
+                        
                 </div>
             </div>
             

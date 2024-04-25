@@ -12,6 +12,12 @@ class productController {
         res.render('products/productDetail', {user: req.session.user, product: product});
     }
 
+    async detailForCustomer(req, res) {
+        const productId = req.params.id;
+        const product = await getProductByIdService(productId);
+        res.render('products/productDetailForCustomer', {product: product});
+    }
+
     add(req, res) {
         res.render('products/addProduct', {user: req.session.user, errorMessage: ''});
     }
