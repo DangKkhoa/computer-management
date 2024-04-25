@@ -121,8 +121,8 @@ async function searchProduct(productName, category, ram, ssd, minPrice, maxPrice
         selectParam.push(`%${productName}%`);
     }
     if(category) {
-        selectQuery += ' AND category = ?';
-        selectParam.push(category);
+        selectQuery += ' AND category LIKE ?';
+        selectParam.push(`%${category}%`);
     }
     if(ram) {
         selectQuery += ' AND ram = ?';

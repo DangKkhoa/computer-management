@@ -75,19 +75,9 @@ class productController {
         }
         
         const products = await searchProductsService(product_name, category, ram, ssd, price);
-        res.render('products/inventory', {user: req.session.user, products: products, message: `No product with ${message}`});
-        // if(products.length > 0) {
-        //     res.render('products/inventory', {user: req.session.user, products});
-        // }
-        // else {
-        //     res.redirect('/inventory');
-        // }
-        
-    }
-    
+        res.render('products/inventory', {user: req.session.user, products: products, message: `No product with ${message}`});12   
+    }    
 }
-
-
 
 // console.log(getProducts)
 module.exports = new productController;

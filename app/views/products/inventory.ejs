@@ -7,7 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         
-        
+        th, td {
+            text-wrap: nowrap;
+        }
         main {
             width: 100%;
         }
@@ -101,13 +103,13 @@
                                     <th class="p-5">Choose</th>
                                 <% } %>
                                 <th class=" p-5">No.</th>
-                                <th class="">Name</th>
-                                <th class="">Category</th>
-                                <th class="">Price</th>
-                                <th class="">Import date</th>
-                                <th class="">Quantity</th>
+                                <th class="p-5">Name</th>
+                                <th class="p-5">Category</th>
+                                <th class="p-5">Price</th>
+                                <th class="p-5">Import date</th>
+                                <th class="p-5">Quantity</th>
                                 <% if(user.role === 'ADMIN') { %>
-                                    <th>Action</th>
+                                    <th class="p-5">Action</th>
                                 <% } %>
                             </tr>
                         </thead>

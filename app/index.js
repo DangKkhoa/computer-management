@@ -4,7 +4,7 @@ const path = require('path');
 const session = require('express-session')
 const nocache = require('nocache');
 // Routes
-const productRouter = require('./route/product.route')
+const inventoryRouter = require('./route/inventory.route')
 const userRouter = require('./route/user.route');
 const authRouter = require('./route/auth.route');
 const homeRouter = require('./route/home.route');
@@ -28,11 +28,12 @@ app.use(session({
 
 
 app.use('/auth', authRouter);
+app.use('/', homeRouter);
+
 app.use(isLoggedIn);
 
-app.use('/inventory', productRouter);
+app.use('/inventory', inventoryRouter);
 app.use('/staffs', roleAuth, userRouter);
-app.use('/', homeRouter);
 
 
 app.listen(3000, () => console.log('http://localhost:3000'));
