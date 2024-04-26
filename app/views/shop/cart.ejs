@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <style>
+        
+
+        th, td {
+            text-align: left;
+            padding: 12px 4px;
+            border-bottom: 1px solid rgb(148, 163, 184);
+            
+        }
+        /* th:nth-child(2), td:nth-child(2) {
+            border-left: 1px solid rgb(148, 163, 184);
+            border-right: 1px solid rgb(148, 163, 184);
+        } */
+        
+        /* tbody tr:last-child > td{
+            border-bottom: none;
+        } */
+        th:last-child, td:last-child {
+            text-align: right;
+            
+        }
+
+        tfoot > tr:last-child > td {
+            border-bottom: none;
+        }
+
+        
+        
+           
+    </style>
+
+</head>
+<body class="h-screen bg-slate-200">
+    <div class="container-xl flex h-full">
+        <header class="absolute bg-white w-full h-fit  top-0 right-0 left-0 mx-auto py-2 px-20"> 
+            <div class="w-full relative flex justify-between items-center mb-5">
+                <div>
+                    <a href="/" class="font-extrabold text-5xl italic">GROUP 8</a>
+                </div>
+                <div class="w-fit">
+                    <input type="text" class="border border-gray-300 p-1 rounded" placeholder="Enter product name...">
+                    <i class="fa-solid fa-magnifying-glass relative right-6"></i>
+                </div>
+                <div class="text-nowrap ">
+                    <a href="/shop/cart" class="pl-6 pr-5 py-3 mr-2 bg-sky-500 border-2 border-sky-300 rounded-lg text-white">
+                        <i class="fa-solid fa-cart-shopping"></i> Your cart 
+                    </a>
+                    <a href="/shop/order" class="px-6 py-3 bg-sky-500 border-2 border-sky-300 rounded-lg text-white">
+                        Your order
+                    </a>
+                </div>
+            </div>
+            <div id="search-bar " class="w-full bg-white flex items-center px-64 justify-between text-lg">
+                <a href="/shop/products/PC" class="hover:text-sky-700"><i class="fa-solid fa-computer"></i> PC</a>
+                <a href="/shop/products/Laptop" class="hover:text-sky-700"><i class="fa-solid fa-laptop"></i> Laptop</a>
+                <a href="/shop/products/Macbook" class="hover:text-sky-700"><i class="fa-brands fa-apple"></i> Macbook</a>
+                <a href="/shop/products/Components" class="hover:text-sky-700"><i class="fa-solid fa-memory"></i> Components</a>
+            </div>
+        </header>
+        <main class="mt-32 p-5 h-full w-full">
+            <div class="relative bg-white w-full h-full gap-x-4 px-5 py-2 rounded">
+                <div class="w-full flex justify-center items-center pt-10">
+                    <table class=" w-1/2 m-auto">
+                        <caption class="text-left text-3xl py-2">Your cart</caption>
+                        <thead>
+                            <tr class="border-b border-slate-400">
+                                <th>Product name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-in-cart">
+                            
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="font-bold">Total</td>
+                                <td id="total-quantity"></td>
+                                <td id="total-price"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" id="delete-column" hidden >
+                                    <button class=" text-red-500 font-bold" id="delete-all-btn"> <i class="fa-solid fa-xmark"></i> Delete all</button>
+                                </td>
+                                <td colspan="3" id="confirm-column">
+                                    <button class="bg-green-500 text-white pr-5 pl-6 py-3 rounded-3xl hover:bg-green-600"><i class="fa-solid fa-check"></i> Confirm</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                    
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let tbody = document.getElementById('products-in-cart');
+            const deleteAllBtn = document.getElementById('delete-all-btn');
+            console.log(cart);
+            if(cart.length > 0) {
+                let totalQuantity = 0;
+                let totalPrice = 0;
+
+                document.getElementById('delete-column').hidden = false;
+                document.getElementById('confirm-column').colSpan = '2';
+                cart.forEach((product) => {
+                    const tr = document.createElement('tr');
+                    const td1 = document.createElement('td');
+                    const td2 = document.createElement('td');
+                    const td3 = document.createElement('td');
+
+                    td1.textContent = product.productName;
+                    td2.textContent = product.quantity;
+                    td3.textContent = product.productPrice;
+                    
+                    tr.append(td1);
+                    tr.append(td2);
+                    tr.append(td3);
+
+                    tbody.append(tr);
+
+                    totalQuantity += parseInt(product.quantity);
+                    totalPrice += parseInt(product.quantity) * parseInt(product.productPrice);
+
+                })
+
+                document.getElementById('total-quantity').textContent = totalQuantity;
+                document.getElementById('total-price').textContent = totalPrice;
+            }
+
+            deleteAllBtn.addEventListener('click', () => {
+                localStorage.clear();
+                window.location.href = '/';
+            })
+        })
+    </script>
+</body>
+</html>

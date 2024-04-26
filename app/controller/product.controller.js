@@ -15,7 +15,7 @@ class productController {
     async detailForCustomer(req, res) {
         const productId = req.params.id;
         const product = await getProductByIdService(productId);
-        res.render('products/productDetailForCustomer', {product: product});
+        res.render('shop/productDetailForCustomer', {product: product});
     }
 
     add(req, res) {

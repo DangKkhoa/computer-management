@@ -5,7 +5,7 @@ const sitesController = require('../controller/sites.controller');
 const productController = require('../controller/product.controller');
 const { isLoggedIn } = require('../middleware/auth.middleware');
 
-app.get('/dashboard', isLoggedIn, sitesController.dashboard)
+app.get('/', isLoggedIn, sitesController.dashboard)
 
 
 module.exports = app;

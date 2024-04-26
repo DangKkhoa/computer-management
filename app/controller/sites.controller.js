@@ -7,13 +7,16 @@ class sitesController {
 
     async shopping(req, res) {
         const products = await getProductsService();
-        res.render('shopping', {products: products});
+        res.render('shop/shopping', {products: products});
     }
 
     async category(req, res) {
         const { category } = req.params;
         const products = await searchProductsService(null, category, null, null, null);
-        res.render('shopping', {products: products});
+        res.render('shop/shopping', {products: products});
+    }
+    cart(req, res) {
+        res.render('shop/cart');
     }
 }
 

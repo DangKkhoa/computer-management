@@ -29,12 +29,13 @@ app.use(session({
 
 app.use('/shop', shopRouter)
 app.use('/auth', authRouter);
+app.use('/', shopRouter)
 
 app.use(isLoggedIn);
 
 app.use('/inventory', inventoryRouter);
 app.use('/staffs', roleAuth, userRouter);
-app.use('/', homeRouter);
+app.use('/dashboard', homeRouter);
 
 
 app.listen(3000, () => console.log('http://localhost:3000'));
