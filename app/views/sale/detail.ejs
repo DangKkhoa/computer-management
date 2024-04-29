@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <style>
+        
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width:calc(100% - 256px);
+            }
+        }
+        
+        th, td {
+            padding: 12px 8px;
+        }
+
+        tbody > tr:last-child {
+            border-bottom: none;
+        }
+    </style>
+
+</head>
+<body class="w-full h-screen bg-slate-200">
+    <div class="container-xl flex h-full w-full">
+        <%- include('../navbar') %>
+        
+        <main class="md:ml-64 flex justify-center p-5 h-full" >
+            
+            <div class="w-full bg-white px-10 py-5">
+                <a href="/sale-history"><i class="fa-solid fa-arrow-left"></i></a>
+                <div class="w-full py-5">
+                    <div class="w-full text-center mb-5 leading-10">
+                        <p class="text-3xl font-bold">Sale Detail</p>
+                        <p class="text-1xl font-bold"><%= saleID %></p>
+                    </div>
+                    <div class="w-1/2 mx-auto">
+                        <div class="w-full grid grid-cols-2 mb-5">
+                            <div class="leading-8">
+                                <p><span class="font-bold">Customer:</span> <%= saleDetails[0].customer_name %></p>
+                                <p><span class="font-bold">Phone:</span> <%= saleDetails[0].customer_phone %></p>
+                                <p><span class="font-bold">Address:</span> <%= saleDetails[0].customer_address %></p>
+                            </div>
+                            <div class="place-self-end self-start leading-8">
+                                <p><span class="font-bold">Date:</span> <%= saleDetails[0].sale_date.toLocaleDateString('en-GB') %></p>
+                                <p><span class="font-bold">Time:</span> <%= saleDetails[0].sale_time %></p>
+                            </div>
+                        </div>
+
+                        <table class="w-full  border-collapse border border-slate-300 text-center">
+                        
+                            <thead>
+                                <tr class="border-b border-slate-300">
+                                    
+                                    <th class="border-r border-slate-300">Product name</th>
+                                    <th class="border-r border-slate-300">Quantity</th>
+                                    <th>Unit price (VND)</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% saleDetails.forEach((detail, index) => { %>
+                                    <tr class="border-b border-slate-300">
+                                        <td class="border-r border-slate-300"><a href="/inventory/detail/<%= detail.product_id %>" class="hover:text-sky-600"><%= detail.product_name %></a></td>
+                                        <td class="border-r border-slate-300"><%= detail.quantity %></td>
+                                        <td class=""><%= detail.unit_price %></td>
+                                    </tr>
+                                <% }) %>
+                                <tr class="font-bold">
+                                    <td colspan="2" class="">
+                                        Total
+                                    </td>
+                                    <td>
+                                        <%= saleDetails[0].total_price %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    
+</body>
+</html>

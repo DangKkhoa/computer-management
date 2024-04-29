@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <style>
+        
+
+        th, td {
+            text-align: left;
+            padding: 12px 4px;
+            border-bottom: 1px solid rgb(148, 163, 184);
+            
+        }
+        
+        th:last-child, td:last-child {
+            text-align: right;
+            
+        }
+
+        tfoot > tr:last-child > td {
+            border-bottom: none;
+        }
+
+        
+        
+           
+    </style>
+
+</head>
+<body class="h-screen bg-slate-200">
+    <div class="container-xl h-full">
+        <%- include('shopNavbar') %>
+        <main class="px-5 h-full w-full">
+            <div class="relative bg-white w-full h-full gap-x-4 p-10 rounded ">
+                <p class="text-4xl font-bold">Customer Information <i class="fa-solid fa-clipboard-check"></i></p>
+                <div class="w-full grid grid-cols-4">
+                    
+                    <div class="col-span-3 flex justify-center">
+                        <form action="" class="w-3/4 h-fit mt-10 grid grid-cols-2  gap-8">
+                            <div>
+                                <label for="name" class="block">Fullname<span class="text-red-600 font-bold">*</span></label>
+                                <input type="text" name="fullname" id="fullname" class="border border-slate-300 p-2 w-full rounded-lg outline-none" placeholder="Your name..." required>
+                            </div>
+        
+                            <div>
+                                <label for="email" class="block">Email address<span class="text-slate-300 italic ">(optional)</span></label>
+                                <input type="email" name="email" id="email" class="border border-slate-300 p-2 w-full rounded-lg outline-none" placeholder="example@gmail.com">
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block">Phone number<span class="text-red-600 font-bold">*</span></label>
+                                <input type="text" name="phone" id="phone" class="border border-slate-300 p-2 w-full rounded-lg outline-none" placeholder="Your phone number..." required>
+                            </div>
+                            
+                            <div>
+                                <label for="address" class="block">Address<span class="text-red-600 font-bold ">*</span></label>
+                                <input type="text" name="address" id="address" class="border border-slate-300 p-2 w-full rounded-lg outline-none" placeholder="Your home address..." required>
+                            </div>
+                            <div class="col-span-full">
+                                
+                                <button class="col-span-2 bg-green-500 text-white pl-5 pr-6 py-3 float-right rounded" id="place-order-btn"><i class="fa-solid fa-check"></i> Place order</button>
+                                <p id="error-message" class="text-red-500 italic"></p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-span-1">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-slate-400">
+                                    <th>Product name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-in-cart">
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="font-bold">Total</td>
+                                    <td id="total-quantity"></td>
+                                    <td id="total-price"></td>
+                                </tr>
+                                
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let tbody = document.getElementById('products-in-cart');
+            
+            if(cart.length > 0) {
+                let totalQuantity = 0;
+                let totalPrice = 0;
+
+                
+                cart.forEach((product) => {
+                    const tr = document.createElement('tr');
+                    const td1 = document.createElement('td');
+                    const td2 = document.createElement('td');
+                    const td3 = document.createElement('td');
+
+                    td1.textContent = product.productName;
+                    td2.textContent = product.quantity;
+                    td3.textContent = product.productPrice;
+                    
+                    tr.append(td1);
+                    tr.append(td2);
+                    tr.append(td3);
+
+                    tbody.append(tr);
+
+                    totalQuantity += parseInt(product.quantity);
+                    totalPrice += parseInt(product.quantity) * parseInt(product.productPrice);
+
+                })
+
+                document.getElementById('total-quantity').textContent = totalQuantity;
+                document.getElementById('total-price').textContent = totalPrice;
+            }
+
+            document.getElementById('place-order-btn')
+                .addEventListener('click', async (e) => {
+                    e.preventDefault();
+
+                    const orderData  = {
+                        customer: {name: document.getElementById('fullname').value,
+                                email: document.getElementById('email').value,
+                                phone: document.getElementById('phone').value,
+                                address: document.getElementById('address').value    
+                        }, 
+                        cart: cart
+                    }
+
+                    const response = await fetch("http://localhost:3000/order-processing", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(orderData)
+                    })
+                    const responseData = await response.json();
+
+                    if(responseData.code === 0) {
+                        localStorage.clear();
+                        window.location.href = '/transaction-complete';
+                    }
+                    else {
+                        document.getElementById('error-message').textContent = responseData.message;
+                    }
+                })
+
+            
+        })
+    </script>
+</body>
+</html>

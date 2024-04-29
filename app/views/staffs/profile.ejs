@@ -4,8 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <link rel="stylesheet" href="/css/output.css">
+
+    <style>
+        
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width:calc(100% - 256px);
+            }
+        }
+        
+        th, td {
+            padding: 12px 8px;
+        }
+
+        tbody > tr:last-child {
+            border-bottom: none;
+        }
+    </style>
+
 </head>
-<body>
+<body class="w-full h-screen bg-slate-200">
+    <div class="container-xl flex h-full w-full">
+        <%- include('../navbar') %>
+        
+        <main class="md:ml-64 flex justify-center p-5 h-full" >
+            <div class="w-full bg-white px-10 py-5 h-screen">
+                <form action="/profile/update/<%= user.user_id %>" method="POST" enctype="multipart/form-data" class="w-full grid grid-cols-2 gap-8">
+                    <div class="col-span-full">
+                        <div class="w-64 m-auto bg-cover bg-center">
+                            <img src="/images/users/<%= user.profile_picture %>" alt="" class="rounded-full">
+                            <input type="file" accept="image/*" name="profilePicture">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="fullname" class="block">Fullname</label>
+                        <input type="text" name="fullname" class="p-2 w-3/4 border border-slate-300 outline-none" value="<%= user.fullname %>" >
+                    </div>
+                    <div>
+                        <label for="email" class="block">Email address</label>
+                        <input type="text" name="email" class="p-2 w-3/4 border border-slate-300 outline-none" value="<%= user.email %>">
+                    </div>
+                    <div>
+                        <label for="username" class="block">Username</label>
+                        <input type="text" name="username" class="p-2 w-3/4 border border-slate-300 outline-none" value="<%= user.username %>">
+                    </div>
+                    <div class="">
+                        <label for="phone" class="block">Phone</label>
+                        <input type="text" name="phone" class="p-2 w-3/4 border border-slate-300 outline-none" value="<%= user.phone %>" placeholder="none">
+                    </div>
+                    
+                    <div class="col-span-full">
+                        <label for="gender" class="block">Gender</label>
+                        <select name="gender" id="" class="p-2 outline-none bg-slate-200">
+                            <option value="<%= user.gender %>"><%= user.gender %></option>
+                            <option value="<%= user.gender == 'Male' ? 'Female' : 'Male' %>"><%= user.gender == 'Male' ? 'Female' : 'Male' %></option>
+                        </select>
+                    </div>
+                    <button class="bg-green-500 text-white px-6 py-3 place-self-start">Save</button>
+                </form>
+            </div>
+            
+        </main>
+    </div>
     
 </body>
 </html>

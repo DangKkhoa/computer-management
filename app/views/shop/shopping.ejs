@@ -11,45 +11,18 @@
 </head>
 <body class="w-full h-screen bg-slate-200">
     <div class="container-xl md:overflow-hidden">
-        <header class="absolute bg-white w-full h-fit  top-0 right-0 left-0 mx-auto py-2 px-20"> 
-            <div class="w-full relative flex justify-between items-center mb-5 gap-8 text-nowrap">
-                <div class="">
-                    <a href="/" class="font-extrabold text-5xl italic">GROUP 8</a>
-                </div>
-                <div class="basis-1/2">
-                    <input type="text" class="border border-gray-300 p-2 rounded-md w-full mx-auto outline-none" placeholder="Enter a product name...">
-                    <i class="fa-solid fa-magnifying-glass relative right-6"></i>
-                </div>
-                <div class="text-nowrap">
-                    <a href="/your-cart" class="px-6 py-3 mr-2 bg-sky-500 border-2 border-sky-300 rounded-lg text-white">
-                        Your cart
-                    </a>
-                    <a href="/shop/order" class="px-6 py-3 bg-sky-500 border-2 border-sky-300 rounded-lg text-white">
-                        Your order
-                    </a>
-                </div>
-            </div>
-            <div id="search-bar " class="w-full bg-white flex items-center justify-center text-lg text-nowrap ">
-                <div class="">
-                    <a href="/shop/products/PC" class="hover:text-sky-700 mr-32"><i class="fa-solid fa-computer"></i> PC</a>
-                    <a href="/shop/products/Laptop" class="hover:text-sky-700 mr-32"><i class="fa-solid fa-laptop"></i> Laptop</a>
-                    <a href="/shop/products/Macbook" class="hover:text-sky-700 mr-32"><i class="fa-brands fa-apple"></i> Macbook</a>
-                    <a href="/shop/products/Components" class="hover:text-sky-700"><i class="fa-solid fa-memory"></i> Components</a>
-                </div>
-            </div>
-        </header>
-        <main class="mt-32 w-full md:w-3/4 lg:w-1/2 m-auto md:px-0 px-10">
+        <%- include('shopNavbar') %>
+        <main class=" w-full md:w-3/4 lg:w-1/2 m-auto md:px-0 px-10">
             <div class="grid grid-cols-3 w-full mx-auto gap-8">
                 <% products.forEach(p => { %>
                     <a href="/shop/product/detail/<%= p.product_id %>" class="block w-auto h-96 bg-white border border-gray-300 p-4 text-lg">
                         <img src="/images/products/<%= p.product_image %>" alt="" class="w-full ">
                         <div class="">
                             <p class="mb-5 product-name"><%= p.product_name %></p>
-                            <p class="text-red-500 font-semibold text-xl"><%= p.retail_price %></p>
+                            <p class="text-red-500 font-semibold text-xl"><%= p.retail_price %><i class="fa-solid fa-dong-sign"></i></p>
                         </div>
                     </a>
                 <% }) %>
-                
                 
             </div>
         </main>

@@ -1,7 +1,8 @@
-const { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail } = require('../model/user.model');
+const { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo } = require('../model/user.model');
 const con = require('../database/db');
 const bcrypt = require('bcrypt');
-// const { add } = require('../controller/user.controller');
+
+const { sendEmailService } = require('./sendEmail.service');
 
 
 function removePassword(user) {
@@ -27,8 +28,6 @@ async function getUsers() {
     }
 
     return usersNotAdmin;
-    
-    // console.log(usersNotAdmin);
 }
 
 
@@ -78,16 +77,14 @@ async function addStaffService(fullname, email, phone, date_of_birth, role, gend
         else if(!validateEmail(email)) {
             return {code: 3, message: 'Invalid email address!'};
         }
-        else {
-            const dobArray = date_of_birth.split('/').reverse();
-            const formattedDoB = dobArray.join('-');
-    
+        else {    
             const username = email.split('@')[0]; // username is the part before the '@';
             const hashedPassword = await bcrypt.hash(username, saltRounds);
             
             // send data to database
             const addResult = await addStaff(fullname, email, username, hashedPassword, phone, date_of_birth, role, gender);
             if(addResult.affectedRows > 0) {
+                await sendEmailService(email, username);
                 return {code: 0, message: 'Staff added successfully'};
             }
             else {
@@ -117,4 +114,32 @@ async function deleteUserByIdService(id) {
     
 }
 
-module.exports = { getUsers, verifyLoginService, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService };
+
+async function updateUserInfoService(id, fullname, email, username, phone, gender, userPicture) {
+
+    if(!fullname || !email) {
+        return {code: 2, message: 'Please provide fullname and email'};
+    }
+    
+    else {
+        
+        if(!userPicture) {
+            var newUserPicture = null;
+        }
+        else {
+            var newUserPicture = userPicture.filename;
+        } 
+        const isUpdated = await updateUserInfo(id, fullname, email, username, phone, gender, newUserPicture);
+        
+        if(isUpdated) {
+            return {code: 0, message: 'User info updated successfully'};
+        }
+        else {
+            return {code: 1, message: 'Something went wrong. Please try again'};
+        }
+    }
+
+    
+}
+
+module.exports = { getUsers, verifyLoginService, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService, updateUserInfoService };

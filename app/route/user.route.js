@@ -4,6 +4,7 @@ const userController = require('../controller/user.controller');
 const authController = require('../controller/auth.controller');
 
 
+
 app.get('/add', userController.add);
 app.post('/add', userController.handleAdd)
 app.get('/search', userController.search);

@@ -5,7 +5,6 @@ const staffGrid = document.getElementById('staff-grid');
 staffInfo.forEach((s) => {
     s.addEventListener('click', async (e) => {
         const id = s.getAttribute('data-id');
-        console.log(id);
         const response = await fetch(`http://localhost:3000/staffs/detail/${id}`)
         const responseData = await response.json();
         
@@ -16,10 +15,12 @@ staffInfo.forEach((s) => {
         
         const fullname = document.getElementById('fullname');
         const username = document.getElementById('username');
-        
+        document.getElementById('userImage').src = `/images/users/${responseData.profile_picture}`;
+
         fullname.textContent = responseData.fullname;
         username.textContent = responseData.username;
         const staffDetailContent = document.getElementById('staff-detail-content');
+
         
         const tr1 = document.createElement('tr');
         const td1 = document.createElement('td');

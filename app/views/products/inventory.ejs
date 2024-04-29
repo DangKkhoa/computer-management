@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>INventory</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         
@@ -176,17 +176,13 @@
         checkboxes.forEach((box) => {
             box.addEventListener('click', () => {
                 if(box.checked == true) {
-                    console.log(`click ${box.value}`);
                     checkedItems.push(parseInt(box.value));
                 }
                 else {
-                    console.log(`unclick ${box.value}`);
                     checkedItems.pop();
                 }
 
                 disableDeleteBtn();
-                // console.log(checkedItems)
-
                 
             })
 
@@ -222,6 +218,10 @@
                 disableDeleteBtn();
                 
             }   
+            else {
+                alert('Unable to delete the product that has been sold!');
+                
+            }
 
         })
         

@@ -74,9 +74,6 @@
                                             <button class="delete-btn text-red-500 border border-red-500 px-4 py-2 rounded" data-id="<%= u.user_id %>" data-name="<%= u.fullname %>">
                                                 <i class="fa-solid fa-trash"></i> <span class="xl:inline-block hidden">Delete</span>
                                             </button>
-                                            <button class="edit-btn text-amber-500 border border-amber-500 px-4 py-2 rounded" data-id="<%= u.user_id %>">
-                                                <i class="fa-solid fa-pen-to-square"></i> <span class="xl:inline-block hidden">Edit</span>
-                                            </button>
                                             <button class="staff-info text-violet-500 border border-violet-500 px-4 py-2 rounded" data-id="<%= u.user_id %>">
                                                 <i class="fa-solid fa-eye"></i> <span class="xl:inline-block hidden">View</span>
                                             </button>
@@ -96,7 +93,7 @@
                     </div>
                     <div class="w-full lg:mt-10">
                         <div class="user-img max-w-52 mb-4 mx-auto">
-                            <img src="/images/cat.jpg" alt="" class="rounded-full">
+                            <img alt="" id="userImage" class="rounded-full">
                         </div>
                         <div class="w-full my-2">
                             <p class="text-center text-lg font-semibold" id="fullname"></p>
@@ -111,23 +108,6 @@
                             </thead>
                             <tbody id="staff-detail-content">
                                 
-                                <tr>
-                                    <td class="text-left text-">Email:</td>
-                                    <td class="text-right">email@email.com</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left">Phone number:</td>
-                                    <td class="text-right">0123456789</td>
-                                </tr>
-
-                                <tr>
-                                    <td class="text-left">Date join:</td>
-                                    <td class="text-right">18/3/2024</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left">Date of birth:</td>
-                                    <td class="text-right">28/09/2003</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -159,7 +139,6 @@
             btn.addEventListener('click',  () => {
                 const userId = btn.getAttribute('data-id');
                 const fullname = btn.getAttribute('data-name');
-                console.log(userId);
                 modal.classList.remove('hidden');
                 container.classList.add('opacity-50', 'pointer-event-none');
                 document.getElementById('fullname-display').textContent = fullname;

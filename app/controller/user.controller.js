@@ -1,9 +1,8 @@
-const { getUsers, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService } = require('../service/user.service');
+const { getUsers, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService, updateUserInfoService } = require('../service/user.service');
 
 class userController {
     async index(req, res) {
         let users = await getUsers();
-        // console.log(users);
         res.render('staffs/staffs', {users: users, user: req.session.user});
     }
 
@@ -20,13 +19,10 @@ class userController {
     }
 
     async detail(req, res) {
-        // console.log(req.params);
         try {
             const userId = parseInt(req.params.id);
             const user = await getUserWithId(userId);
-            
             if(user) {
-                console.log(user)
                 res.status(200).json(user);
             }
             else {
@@ -61,6 +57,27 @@ class userController {
         const isSuccessful = await addStaffService(fullname, email, phone, dateOfBirth, role, gender);
         return res.json(isSuccessful);
     }
+
+    async updateInfo(req, res) {
+        const { id } = req.query;
+        res.render('staffs/profile', {user: req.session.user});
+    }
+
+    async handleUpdateInfo(req, res) {
+        const { id } = req.params;
+        const { fullname, email, username, phone, gender } = req.body;
+        const isUpdated = await updateUserInfoService(id, fullname, email, username, phone, gender, req.file);
+        if(isUpdated.code === 0) {
+            res.send(`<h1>User updated successfully. Please <a href="/auth/logout">Sign out to see the changes</a></h1>
+                    <h2>Click <a href="/profile">here</a> if you want to go back</h2>
+            `)
+        }
+        else {
+            res.send(`<h1>Something went wrong. <a href="/profile">Click here to go back</a></h1>`)
+        }
+        
+    }
+
 
     
 }

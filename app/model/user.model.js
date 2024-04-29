@@ -98,5 +98,44 @@ async function deleteUserById(id) {
     return deleteResult;
 }
 
+async function updateUserInfo(id, fullname, email, username, phone, gender, newUserPicture) {
+    try {
+        let updateQuery = 'UPDATE user set fullname = ?, email = ?'
+        let updateParams = [fullname, email];
 
-module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail };
+        if(username) {
+            updateQuery += ', username = ?';
+            updateParams.push(username);
+        }
+        if(phone) {
+            updateQuery += ', phone = ?';
+            updateParams.push(phone);
+        }
+        if(newUserPicture) {
+            updateQuery += ', profile_picture = ?';
+            updateParams.push(newUserPicture);
+        }
+        if(gender) {
+            updateQuery += ', gender = ?';
+            updateParams.push(gender);
+        }
+
+
+        updateQuery += ' WHERE user_id = ?'
+        updateParams.push(id);
+
+        const [updateResult] = await con.query(updateQuery, updateParams);
+        if(updateResult.affectedRows > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch(err) {
+        console.error(err)
+        return false;
+    }
+}
+
+module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo };

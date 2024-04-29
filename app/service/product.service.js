@@ -46,7 +46,6 @@ async function addProductService(productName, category, manufacturer, ram, ssd, 
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     const importDate = `${year}-${month}-${day}`;
-    console.log(importDate);
     const addResult = await addProduct(productName, category, manufacturer, ram, ssd, numericImportPrice, numericRetailPrice, importDate, imageFile, quantity);
     return addResult;
 }

@@ -9,6 +9,9 @@ const userRouter = require('./route/user.route');
 const authRouter = require('./route/auth.route');
 const homeRouter = require('./route/home.route');
 const shopRouter = require('./route/shop.route');
+const saleRouter = require('./route/sale.route');
+const customerRouter = require('./route/customer.route');
+const profileRouter = require('./route/profile.route');
 const { isLoggedIn, roleAuth } = require('./middleware/auth.middleware');
 
 
@@ -26,16 +29,18 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-
+app.use('/customer', customerRouter);
 app.use('/shop', shopRouter)
 app.use('/auth', authRouter);
 app.use('/', shopRouter)
 
 app.use(isLoggedIn);
 
+app.use('/profile', profileRouter);
 app.use('/inventory', inventoryRouter);
 app.use('/staffs', roleAuth, userRouter);
-app.use('/dashboard', homeRouter);
+// app.use('/dashboard', homeRouter);
+app.use('/sale-history', saleRouter);
 
 
-app.listen(3000, () => console.log('http://localhost:3000'));
+app.listen(3000, () => console.log('http://localhost:3000/auth/login'));

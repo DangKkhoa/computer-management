@@ -1,12 +1,5 @@
 const con = require('../database/db');
 
-
-// let products = [
-//     {id: 1, name: 'asus', import_price: 1000, retail_price: 1200, import_date: '22/12/2023', quantity_in_stock: 7},
-//     {id: 2, name: 'office', import_price: 300, retail_price: 350, import_date: '19/1/2024', quantity_in_stock: 20},
-//     {id: 3, name: 'macbook', import_price: 1200, retail_price: 1500, import_date: '10/7/2023', quantity_in_stock: 10}
-// ];
-
 async function getProducts() {
     try {
         const selectQuery = 'SELECT * FROM product ORDER BY import_date DESC';
@@ -32,11 +25,6 @@ async function getProductById(id) {
 
 async function updateProduct(id, productImage, importPrice, retailPrice, quantity, lastUpdateDate) {
     try {
-        // const updateQuery = `UPDATE product SET 
-        //     product_image = ?, import_price = ?, retail_price = ?, 
-        //     quantity_in_stock = ?, last_update_date = ?
-        //     WHERE product_id = ?
-        // `;
         let updateQuery = 'UPDATE product SET last_update_date = ?';
         let updateParam = [lastUpdateDate];
         if(productImage) {
@@ -57,7 +45,6 @@ async function updateProduct(id, productImage, importPrice, retailPrice, quantit
         }
         updateQuery += ' WHERE product_id = ?'
         updateParam.push(id);
-        // const updateParam = [productImage, importPrice, retailPrice, quantity, lastUpdateDate, id];
         const [updateResult] = await con.query(updateQuery, updateParam);
         if(updateResult.affectedRows > 0) {
             return true;
@@ -143,5 +130,26 @@ async function searchProduct(productName, category, ram, ssd, minPrice, maxPrice
     return products;
 }
 
-module.exports = { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct };
+async function decrementQuantity(productID, quantity) {
+    try {
+        const updateQuery = 'UPDATE product SET quantity_in_stock = quantity_in_stock - ? WHERE product_id = ?';
+        const updateParam = [quantity, productID];
+        const [updateResult] = await con.query(updateQuery, updateParam);
+
+        
+        if(updateResult.affectedRows > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+}
+
+module.exports = { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct, decrementQuantity };
 

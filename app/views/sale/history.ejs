@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sale history</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <style>
+        
+        main {
+            width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+            main {
+                width:calc(100% - 256px);
+            }
+        }
+        
+        th, td {
+            padding: 12px 8px;
+        }
+
+        tbody > tr:last-child {
+            border-bottom: none;
+        }
+    </style>
+
+</head>
+<body class="w-full h-screen bg-slate-200">
+    <div class="container-xl flex h-full w-full">
+        <%- include('../navbar') %>
+        
+        <main class="md:ml-64 flex justify-center p-5 h-full" >
+            
+            <div class="w-full bg-white px-10 py-5">
+                <div class="w-full py-5">
+                    <div class="w-full">
+                        <p class="text-4xl font-bold pb-3">Sale history</p>
+                        
+                    </div>
+                    <table class="w-full text-center">
+                        
+                        <thead>
+                            <tr class="border-b border-slate-300">
+                                <th class="border-r border-slate-300">No.</th>
+                                <th class="relative border-r border-slate-300" id="sale-detail" onmouseover="showInstruction()" onmouseleave="hideInstruction()">
+                                    ID
+                                    <div class="bg-sky-500 text-white absolute top-8 right-10 p-1 rounded" id="info-box" hidden>
+                                        Click the ID to view detail
+                                    </div>
+                                </th>
+                                <th class="border-r border-slate-300">Sale date</th>
+                                <th class="border-r border-slate-300">Sale time</th>
+                                <th class="border-r border-slate-300">Total quantity</th>
+                                <th>Total price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% sales.forEach((sale, index) => { %>
+                                <tr class="border-b border-slate-300">
+                                    <td class="border-r border-slate-300"><%= index + 1 %></a></td>
+                                    <td class="border-r border-slate-300">
+                                        <a href="/sale-history/detail/<%= sale.sale_id %>" class="hover:text-sky-600"><%= sale.sale_id %></a>
+                                        
+                                    </td>
+                                    <td class="border-r border-slate-300"><%= sale.sale_date.toLocaleDateString('en-GB') %></td>
+                                    <td class="border-r border-slate-300"><%= sale.sale_time %></td>
+                                    <td class="border-r border-slate-300"><%= sale.total_quantity %></td>
+                                    <td><%= sale.total_price %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    
+    <script>
+        
+        function showInstruction() {
+            document.getElementById('info-box').hidden = false;
+        }
+        function hideInstruction() {
+            document.getElementById('info-box').hidden = true;
+        }
+    </script>
+</body>
+</html>
