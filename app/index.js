@@ -7,7 +7,6 @@ const nocache = require('nocache');
 const inventoryRouter = require('./route/inventory.route')
 const userRouter = require('./route/user.route');
 const authRouter = require('./route/auth.route');
-const homeRouter = require('./route/home.route');
 const shopRouter = require('./route/shop.route');
 const saleRouter = require('./route/sale.route');
 const customerRouter = require('./route/customer.route');
@@ -39,7 +38,6 @@ app.use(isLoggedIn);
 app.use('/profile', profileRouter);
 app.use('/inventory', inventoryRouter);
 app.use('/staffs', roleAuth, userRouter);
-// app.use('/dashboard', homeRouter);
 app.use('/sale-history', saleRouter);
 
 

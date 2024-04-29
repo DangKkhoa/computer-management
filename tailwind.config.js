@@ -2,7 +2,7 @@
 module.exports = {
   mode: 'jit',
   content: [
-    "./app/views/*"
+    "./app/views/**/*.ejs"
   ],
   theme: {
     container: {

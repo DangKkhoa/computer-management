@@ -1,12 +1,8 @@
 const express = require('express');
 const app = express.Router();
 
-const sitesController = require('../controller/sites.controller');
 const productController = require('../controller/product.controller');
-
 const shopController = require('../controller/shop.controller');
-const { isCustomerLoggedin } = require('../middleware/customer.middleware');
-
 
 
 app.get('/transaction-complete', shopController.transactionStatus);

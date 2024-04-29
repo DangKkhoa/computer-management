@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 8 - Software Engineering</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/output.css">
     <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
     <style>
     </style>
@@ -19,7 +19,7 @@
                         <img src="/images/products/<%= p.product_image %>" alt="" class="w-full ">
                         <div class="">
                             <p class="mb-5 product-name"><%= p.product_name %></p>
-                            <p class="text-red-500 font-semibold text-xl"><%= p.retail_price %><i class="fa-solid fa-dong-sign"></i></p>
+                            <p class="text-red-500 font-semibold text-xl"><%= p.retail_price%><i class="fa-solid fa-dong-sign"></i></p>
                         </div>
                     </a>
                 <% }) %>

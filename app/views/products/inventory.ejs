@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INventory</title>
+    <title>Inventory</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         
@@ -189,8 +189,6 @@
         })
 
         deleteProductsBtn.addEventListener('click', async (e) => {
-            console.log(checkedItems);
-            console.log(`delete ${checkedItems.length} products`);
             const response = await fetch('http://localhost:3000/inventory/delete', {
                 method: 'POST', 
                 headers: {
@@ -200,7 +198,6 @@
             })
 
             const responseData = await response.json();
-            console.log(responseData);
             if(responseData.code === 0) {
                 
                 const tbody = document.querySelector('tbody');

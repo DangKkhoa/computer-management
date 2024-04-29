@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your cart</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>My cart</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
     <style>
         
 
@@ -79,7 +79,6 @@
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             let tbody = document.getElementById('products-in-cart');
             const deleteAllBtn = document.getElementById('delete-all-btn');
-            console.log(cart);
             if(cart.length > 0) {
                 let totalQuantity = 0;
                 let totalPrice = 0;

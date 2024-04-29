@@ -7,7 +7,6 @@ function addZero(time) {
     return time;
 }
 
-
 async function addOrderService(customer, cart) {
     if(cart.length == 0) {
         return {code: 3, message: 'Please buy at least 1 product to continue.'};

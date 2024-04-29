@@ -19,7 +19,6 @@ async function addCustomer(customer) {
             const insertParams = [customer.name, customer.phone, customer.address, customer.email];
             const [insertResult] = await con.query(insertQuery, insertParams);
 
-            console.log(insertResult);
             if(insertResult.affectedRows > 0) {
                 return true;
             }
