@@ -1,6 +1,6 @@
 const { getUsers, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService, updateUserInfoService } = require('../service/user.service');
 
-class userController {
+class UserController {
     async index(req, res) {
         let users = await getUsers();
         res.render('staffs/staffs', {users: users, user: req.session.user});
@@ -83,4 +83,4 @@ class userController {
 }
 
 
-module.exports = new userController;
+module.exports = new UserController;

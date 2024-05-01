@@ -151,5 +151,11 @@ async function decrementQuantity(productID, quantity) {
     }
 }
 
-module.exports = { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct, decrementQuantity };
+async function getQuantityOfProduct(id) {
+    const [result] = await con.query('SELECT quantity_in_stock FROM product WHERE product_id = ?', [id]);
+    console.log(result);
+    return result;
+}
+
+module.exports = { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct, decrementQuantity, getQuantityOfProduct };
 

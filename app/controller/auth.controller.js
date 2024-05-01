@@ -1,11 +1,6 @@
-// const { getUsers, verifyLoginService } = require('../service/user.service');
 const { verifyLoginService } = require('../service/user.service');
-// const passport = require('passport');
-// const initializePassport = require('../config/passport.config');
 
-// initializePassport(passport, verifyLoginService);
-
-class authController {
+class AuthController {
     login(req, res) {
         if(!req.user) {
             return res.render('login');
@@ -39,4 +34,4 @@ class authController {
     }
 }
 
-module.exports = new authController;
+module.exports = new AuthController;

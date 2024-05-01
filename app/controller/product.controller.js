@@ -1,6 +1,6 @@
 const { getProductsService, getProductByIdService, updateProductService, deleteProductsService, addProductService, searchProductsService } = require('../service/product.service');
 
-class productController {
+class ProductController {
     async index(req, res) {
         let products = await getProductsService();
         res.render('products/inventory', {products: products, user: req.session.user, message: ''});
@@ -86,4 +86,4 @@ class productController {
 }
 
 // console.log(getProducts)
-module.exports = new productController;
+module.exports = new ProductController;

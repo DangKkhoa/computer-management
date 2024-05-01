@@ -1,4 +1,4 @@
-const { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct } = require('../model/product.model');
+const { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct, getQuantityOfProduct } = require('../model/product.model');
 
 async function getProductsService() {
     const products = await getProducts();
@@ -63,5 +63,14 @@ async function searchProductsService(productName, category, ram, ssd, price) {
     const products = await searchProduct(productName, category, ram, ssd, minPrice, maxPrice);
     return products;
 }
+
+async function checkOutOfStock(product) {
+    const result = await getQuantityOfProduct(product.productId);
+    if(result[0].quantity_in_stock <= 0) {
+        return true;
+    }
+    return false;
+}
+
 // console.log(products)
-module.exports = { getProductsService, getProductByIdService, updateProductService, deleteProductsService, addProductService, searchProductsService };
+module.exports = { getProductsService, getProductByIdService, updateProductService, deleteProductsService, addProductService, searchProductsService, checkOutOfStock };

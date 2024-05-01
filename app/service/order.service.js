@@ -1,4 +1,5 @@
 const { addOrder, getAllSales, getSaleDetailByID } = require('../model/order.model');
+const { checkOutOfStock } = require('./product.service');
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -8,6 +9,13 @@ function addZero(time) {
 }
 
 async function addOrderService(customer, cart) {
+    for(const product of cart) {
+        const isOutOfStock = await checkOutOfStock(product);
+        if(isOutOfStock) {
+            return {code: 4, message: `${product.productName} is out of stock.`};
+        }
+    }
+
     if(cart.length == 0) {
         return {code: 3, message: 'Please buy at least 1 product to continue.'};
     }

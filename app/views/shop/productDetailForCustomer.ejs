@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product detail</title>
     <link rel="stylesheet" href="/css/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
     <style>
         tr:nth-child(even) {
@@ -76,14 +77,20 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <% if(product.quantity_in_stock != 0) { %>
+                                    <% if(product.quantity_in_stock > 0) { %>
                                         <td class="font-bold">Status: <span class="text-green-500">In stock</span></td>
+                                        <td>
+                                            <button class="px-6 py-3 bg-amber-500 rounded-3xl border-2 border-amber-200 hover:shadow-lg hover:shadow-amber-300" id="add-cart-btn" data-id="<%= product.product_id %>">Add to cart</button>
+                                        </td>
                                     <% } else { %>
                                         <td class="font-bold">Status: <span class="text-red-500">Out of stock</span></td>
+                                        <td>
+                                            <button class="px-6 py-3 bg-amber-200 text-gray-400 rounded-3xl pointer-events-none" id="add-cart-btn" data-id="<%= product.product_id %>">Add to cart</button>
+                                        </td>
                                     <% } %>
-                                    <td>
+                                    <!-- <td>
                                         <button class="px-6 py-3 bg-amber-500 rounded-3xl border-2 border-amber-200 hover:shadow-lg hover:shadow-amber-300" id="add-cart-btn" data-id="<%= product.product_id %>">Add to cart</button>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tfoot>
                         </table>
