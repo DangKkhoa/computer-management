@@ -46,8 +46,8 @@ CREATE TABLE `sale` (
     `sale_date` DATE NOT NULL,
     `sale_time` TIME NOT NULL,
     `customer_phone` VARCHAR(50) COLLATE utf8_unicode_ci,
-    FOREIGN KEY (`customer_phone`) REFERENCES `customer`(`customer_phone`)
-    
+    `status` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT 'PENDING',
+    FOREIGN KEY (`customer_phone`) REFERENCES `customer`(`customer_phone`)  
 );
 
 CREATE TABLE `sale_detail` (

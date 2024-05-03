@@ -34,6 +34,11 @@
                 <ul class="flex flex-col gap-3">
                     <% if(user.role === 'ADMIN') {%>
                         <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
+                            <a href="/dashboard" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
+                                <i class="fa-solid fa-house"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="list-item mx-2 hover:bg-slate-100 hover:rounded-lg">
                             <a href="/inventory" class="link block py-4 px-2 text-slate-500 hover:text-black text-lg">
                                 <i class="fa-solid fa-computer"></i> Inventory
                             </a>

@@ -11,6 +11,7 @@ const shopRouter = require('./route/shop.route');
 const saleRouter = require('./route/sale.route');
 const customerRouter = require('./route/customer.route');
 const profileRouter = require('./route/profile.route');
+const dashboardRouter = require('./route/dashboard.route');
 const { isLoggedIn, roleAuth } = require('./middleware/auth.middleware');
 
 
@@ -39,6 +40,6 @@ app.use('/profile', profileRouter);
 app.use('/inventory', inventoryRouter);
 app.use('/staffs', roleAuth, userRouter);
 app.use('/sale-history', saleRouter);
-
+app.use('/dashboard', roleAuth, dashboardRouter);
 
 app.listen(3000, () => console.log('http://localhost:3000/auth/login'));

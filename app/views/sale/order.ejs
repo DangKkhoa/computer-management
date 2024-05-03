@@ -8,7 +8,6 @@
     <script src="https://kit.fontawesome.com/ad1797946c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
     <style>
-        
         main {
             width: 100%;
         }
@@ -54,7 +53,7 @@
                                 <th class="border-r border-slate-300">Sale date</th>
                                 <th class="border-r border-slate-300">Sale time</th>
                                 <th class="border-r border-slate-300">Total quantity</th>
-                                <th>Total price</th>                                
+                                <th>Total price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,10 +67,7 @@
                                     <td class="border-r border-slate-300"><%= sale.sale_date.toLocaleDateString('en-GB') %></td>
                                     <td class="border-r border-slate-300"><%= sale.sale_time %></td>
                                     <td class="border-r border-slate-300"><%= sale.total_quantity %></td>
-                                    <td class="border-r border-slate-300"><%= sale.total_price %></td>
-                                    
-                                    
-                                    
+                                    <td><%= sale.total_price %></td>
                                 </tr>
                             <% }) %>
                         </tbody>
@@ -90,8 +86,6 @@
         function hideInstruction() {
             document.getElementById('info-box').hidden = true;
         }
-
-        
     </script>
 </body>
 </html>

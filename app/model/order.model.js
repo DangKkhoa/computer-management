@@ -88,4 +88,12 @@ async function getSaleDetailByID(saleID) {
     }
 }
 
-module.exports = { addOrder, getAllSales, addSaleDetail, getSaleDetailByID };
+async function getTotalRevenue() {
+    const selectQuery = 'SELECT SUM(total_price) AS totalRevenue FROM sale';
+    const result = await con.query(selectQuery);
+    console.log(result);
+    console.log(result[0].totalRevenue || 0);
+    return result[0];
+}
+
+module.exports = { addOrder, getAllSales, addSaleDetail, getSaleDetailByID, getTotalRevenue };

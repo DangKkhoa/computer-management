@@ -28,13 +28,47 @@
     <div class="container-xl flex h-full">
         <%- include('navbar') %>
         
-        <main class="md:ml-64 px-5 py-10 lg:px-8 pt-12 pb-5 grid lg:grid-rows-4 sm:grid-rows-3 grid-rows-2 gap-y-4" >
+        <main class="md:ml-64 px-5 py-5 lg:px-8 grid lg:grid-rows-4 sm:grid-rows-3 grid-rows-2 gap-y-4" >
             
-            <div class="grid row-span-1 grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 gap-4  mx-auto lg:row-span-1 md:row-span-2 w-full">
-                <div class="   bg-slate-300 rounded-lg text-center p-2 col-span-1 row-span-1 ">Customer</div>
-                <div class="   bg-slate-300 rounded-lg text-center p-2 col-span-1 row-span-1">Revenue</div>
-                <div class="  bg-slate-300 rounded-lg text-center p-2 col-span-1 row-auto">Profit</div>
-                <div class="  bg-slate-300 rounded-lg text-center p-2 col-span-1 row-auto">Profit</div>
+            <div class="grid row-span-1 text-white text-lg font-bold grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 gap-4  mx-auto lg:row-span-1 md:row-span-2 w-full">
+                <a href="/staffs" class="block bg-gradient-to-tr from-pink-300 to-purple-500 rounded-lg  p-5 col-span-1 row-span-1 ">
+                    <div class="flex justify-between w-full h-full">
+                        <div>
+                            Staff
+                            <p><%= data.numberOfUser %></p>
+                        </div>
+                        <i class="fa-solid fa-users self-center xl:text-5xl text-2xl"></i>
+                    </div>
+                </a>
+                <a href="/sale-history" class=" block bg-gradient-to-tr from-green-300 to-teal-500 rounded-lg p-5 col-span-1 row-span-1">
+                    <div class="flex justify-between w-full h-full">
+                        <div>
+                            Orders
+                            <p><%= data.numberOfUser %></p>
+                        </div>
+                        <i class="fa-solid fa-clipboard-list self-center xl:text-5xl text-2xl"></i>
+                    </div>
+                </a>
+                <a class="a bg-gradient-to-tr from-amber-300 to-orange-500 rounded-lg p-5 col-span-1 row-auto">
+                    
+                    <div class="flex justify-between w-full h-full">
+                        <div>
+                            Revenue
+                            <p><%= data.totalRevenue %></p>
+                        </div>
+                        <i class="fa-solid fa-money-bill self-center xl:text-5xl text-2xl"></i>
+                    </div>
+                    
+                </a>
+                <a class="block bg-gradient-to-tr from-sky-300 to-blue-500 rounded-lg p-5 col-span-1 row-auto">
+                    <div class="flex justify-between w-full h-full">
+                        <div>
+                            Revenue
+                            <p><%= data.totalRevenue %></p>
+                        </div>
+                        <i class="fa-solid fa-money-bill-trend-up self-center xl:text-5xl text-2xl"></i>
+                    </div>
+                </a>
             </div>
             <div class="h-fit lg:h-full w-full  lg:row-span-3 row-span-2 grid xl:grid-cols-3 xl:grid-rows-1 xl:gap-y-0 gap-y-4 grid-cols-1 lg:grid-rows-3 grid-rows-2 xl:gap-x-2">
                 <div class="bg-white rounded-lg shadow-xl col-span-2 h-full flex items-center xl:justify-normal justify-center px-2 xl:row-span-1 lg:row-span-2">
