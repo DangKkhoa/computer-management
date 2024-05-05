@@ -88,6 +88,12 @@ async function getSaleDetailByID(saleID) {
     }
 }
 
+async function getNumberOfOrders() {
+    const selectQuery = 'SELECT Count(*) AS numOfOrders FROM sale';
+    const result = await con.query(selectQuery);
+    return result[0];
+}
+
 async function getTotalRevenue() {
     const selectQuery = 'SELECT SUM(total_price) AS totalRevenue FROM sale';
     const result = await con.query(selectQuery);
@@ -96,4 +102,31 @@ async function getTotalRevenue() {
     return result[0];
 }
 
-module.exports = { addOrder, getAllSales, addSaleDetail, getSaleDetailByID, getTotalRevenue };
+async function getTotalRevenueEachMonth() {
+    const selectQuery = `SELECT MONTH(sale_date) AS sale_month, 
+                        COALESCE(SUM(total_price), 0) AS sale_total FROM sale
+                        GROUP BY MONTH(sale_date)
+                    `
+    const result = await con.query(selectQuery);
+    console.log(result);
+    return result;
+}
+
+async function getTop5ProductsSold() {
+    const selectQuery = `SELECT sd.product_id, 
+                        p.product_name,
+                        SUM(sd.quantity) AS quantitySold, 
+                        SUM(sd.quantity * sd.unit_price) AS totalPrice
+                        FROM sale_detail sd 
+                        INNER JOIN product p 
+                        WHERE sd.product_id = p.product_id 
+                        GROUP BY sd.product_id
+                        LIMIT 5;
+                    `
+    const result = await con.query(selectQuery);
+    return result;
+}
+
+
+
+module.exports = { addOrder, getAllSales, addSaleDetail, getSaleDetailByID, getNumberOfOrders, getTotalRevenue, getTotalRevenueEachMonth, getTop5ProductsSold };

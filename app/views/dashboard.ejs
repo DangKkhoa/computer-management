@@ -28,14 +28,14 @@
     <div class="container-xl flex h-full">
         <%- include('navbar') %>
         
-        <main class="md:ml-64 px-5 py-5 lg:px-8 grid lg:grid-rows-4 sm:grid-rows-3 grid-rows-2 gap-y-4" >
+        <main class="md:ml-64 px-5 py-5  grid lg:grid-rows-4 sm:grid-rows-3 grid-rows-2 gap-y-4" >
             
             <div class="grid row-span-1 text-white text-lg font-bold grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 gap-4  mx-auto lg:row-span-1 md:row-span-2 w-full">
                 <a href="/staffs" class="block bg-gradient-to-tr from-pink-300 to-purple-500 rounded-lg  p-5 col-span-1 row-span-1 ">
                     <div class="flex justify-between w-full h-full">
                         <div>
                             Staff
-                            <p><%= data.numberOfUser %></p>
+                            <p><%= data.numberOfStaffs %></p>
                         </div>
                         <i class="fa-solid fa-users self-center xl:text-5xl text-2xl"></i>
                     </div>
@@ -44,30 +44,29 @@
                     <div class="flex justify-between w-full h-full">
                         <div>
                             Orders
-                            <p><%= data.numberOfUser %></p>
+                            <p><%= data.numberOfOrders %></p>
                         </div>
                         <i class="fa-solid fa-clipboard-list self-center xl:text-5xl text-2xl"></i>
                     </div>
                 </a>
-                <a class="a bg-gradient-to-tr from-amber-300 to-orange-500 rounded-lg p-5 col-span-1 row-auto">
-                    
+                <a href="/customers" class="block bg-gradient-to-tr from-sky-300 to-blue-500 rounded-lg p-5 col-span-1 row-auto">
                     <div class="flex justify-between w-full h-full">
                         <div>
-                            Revenue
+                            Customer
+                            <p><%= data.numberOfCustomers %></p>
+                        </div>
+                        <i class="fa-solid fa-user-tag self-center xl:text-5xl text-2xl"></i>
+                    </div>
+                </a>
+                <a href="/sale-history" class="a bg-gradient-to-tr from-amber-300 to-orange-500 rounded-lg p-5 col-span-1 row-auto">
+                    <div class="flex justify-between w-full h-full">
+                        <div>
+                            Revenue (VND)
                             <p><%= data.totalRevenue %></p>
                         </div>
                         <i class="fa-solid fa-money-bill self-center xl:text-5xl text-2xl"></i>
                     </div>
                     
-                </a>
-                <a class="block bg-gradient-to-tr from-sky-300 to-blue-500 rounded-lg p-5 col-span-1 row-auto">
-                    <div class="flex justify-between w-full h-full">
-                        <div>
-                            Revenue
-                            <p><%= data.totalRevenue %></p>
-                        </div>
-                        <i class="fa-solid fa-money-bill-trend-up self-center xl:text-5xl text-2xl"></i>
-                    </div>
                 </a>
             </div>
             <div class="h-fit lg:h-full w-full  lg:row-span-3 row-span-2 grid xl:grid-cols-3 xl:grid-rows-1 xl:gap-y-0 gap-y-4 grid-cols-1 lg:grid-rows-3 grid-rows-2 xl:gap-x-2">
@@ -76,131 +75,91 @@
                 </div>
                 
                 <div class="bg-white rounded-lg shadow-xl p-2 xl:h-full h-fit w-full col-span-1">
-                <% if(user.role === 'ADMIN') { %>
+                
                     <table class="w-full">
-                        <caption class="border-b border-slate-300 text-lg font-bold py-2 text-sky-500">Staffs of The Month <i class="fa-solid fa-fire text-amber-400"></i></caption>
+                        <caption class=" border-slate-300 text-lg font-bold py-2 text-sky-500">Top 5 Product <i class="fa-solid fa-fire text-amber-400"></i></caption>
                         <thead class="">
                             <tr>
-                                <th class="border-r border-slate-300">Avatar</th>
-                                <th class="border-r border-slate-300">Email</th>
+                                <th class="border-r border-slate-300">No.</th>
                                 <th class="border-r border-slate-300">Name</th>
-                                <th class="">Overall sale</th>
+                                <th class="border-r border-slate-300">Quantity</th>
+                                <th class="">Total revenue</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="border-r border-t border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-t border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-t border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-t border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-y border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-r border-slate-300 "><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border-r border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border-r border-slate-300 text-center">Staff</td>
-                                <td class="text-center">10100</td>
-                            </tr>
+                            <% data.top5ProductsSold.forEach((product, index) => { %>
+                                <tr>
+                                    <td class="border-r border-t border-slate-300 text-center"><%= index %></td>
+                                    <td class="border-r border-t border-slate-300 text-center"><a href="/inventory/detail/<%= product.product_id %>"><%= product.product_name %></a></td>
+                                    <td class="border-r border-t border-slate-300 text-center"><%= product.quantitySold %></td>
+                                    <td class=" border-t border-slate-300 text-center"><%= product.totalPrice %></td>
+                                </tr>
+                            <% }) %>
                         </tbody>
                     </table>
-                <% } else { %>
-                    <table class="w-full">
-                        <caption class="border-b border-slate-300 text-lg font-bold py-2 text-sky-500">Top 5 Product <i class="fa-solid fa-fire text-amber-400"></i></caption>
-                        <thead class="">
-                            <tr>
-                                <th class="border-r border-slate-300">Avatar</th>
-                                <th class="border-r border-slate-300">Email</th>
-                                <th class="border-r border-slate-300">Name</th>
-                                <th class="">Overall sale</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="border-r border-t border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-t border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-t border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-t border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-y border-slate-300"><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border border-slate-300 text-center">Staff</td>
-                                <td class="border-b border-slate-300 text-center">10000</td>
-                            </tr>
-                            <tr>
-                                <td class="border-r border-slate-300 "><a href="" ><img src="/images/user.png" alt="" class="w-7 h-7 m-auto"></a></td>
-                                <td class="border-r border-slate-300 text-center">staff@gmail.com</td>
-                                <td class="border-r border-slate-300 text-center">Staff</td>
-                                <td class="text-center">10100</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                <% } %>
                 </div>
             </div>
         </main>
     </div>
     
     <script>
-        const ctx = document.getElementById('myChart');
-      
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 10, 3, 18, 20, 100, 11, 12],
-                borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'rgb(25, 99, 132)'
-                        },
-                        
-                        // fullsize: true,
-                    }
-                },
-            },
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            const ctx = document.getElementById('myChart');
+            const response = await fetch('http://localhost:3000/dashboard/chart-data', {
+                method: 'POST'
+            })
 
-        });
+            const responseData = await response.json()
+            
+
+
+            labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+            console.log(responseData);
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Revenue of each month',
+                        data: Array.from(responseData, (sale) => sale.sale_total),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Months'
+                            }
+                        },
+
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Revenue'
+                            }
+                        }
+                        
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgb(25, 99, 132)'
+                            },
+
+                            // fullsize: true,
+                        }
+                    },
+                },
+
+            });
+        })
+      
+        
       </script>
 </body>
 </html>

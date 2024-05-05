@@ -138,12 +138,12 @@ async function updateUserInfo(id, fullname, email, username, phone, gender, newU
     }
 }
 
-async function getNumberOfStaff() {
-    const selectQuery = 'SELECT COUNT(*) as numOfStaff FROM user WHERE NOT role = ?';
+async function getNumberOfStaffs() {
+    const selectQuery = 'SELECT COUNT(*) as numOfStaffs FROM user WHERE NOT role = ?';
     const selectParam = ['ADMIN'];
     const result = await con.query(selectQuery, selectParam);
     console.log(result[0]);
     return result[0];
 }
 
-module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo, getNumberOfStaff };
+module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo, getNumberOfStaffs };

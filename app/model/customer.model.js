@@ -34,4 +34,10 @@ async function addCustomer(customer) {
     }
 }
 
-module.exports = { addCustomer };
+async function getNumberOfCustomers() {
+    const selectQuery = 'SELECT COUNT(*) as numOfCustomers FROM customer';
+    const result = await con.query(selectQuery);
+    console.log(result[0]);
+    return result[0];
+}
+module.exports = { addCustomer, getNumberOfCustomers };

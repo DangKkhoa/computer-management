@@ -2,7 +2,6 @@ const { addOrder, getAllSales, getSaleDetailByID } = require('../model/order.mod
 const { checkOutOfStock } = require('./product.service');
 const { v4: uuidv4 } = require('uuid');
 
-
 function addZero(time) {
     if(time < 10) return `0${time}`;
     return time;

@@ -84,7 +84,7 @@ async function addStaffService(fullname, email, phone, date_of_birth, role, gend
             // send data to database
             const addResult = await addStaff(fullname, email, username, hashedPassword, phone, date_of_birth, role, gender);
             if(addResult.affectedRows > 0) {
-                await sendEmailService(email, username);
+                sendEmailService(email, username);
                 return {code: 0, message: 'Staff added successfully'};
             }
             else {
