@@ -1,4 +1,4 @@
-const { verifyLoginService } = require('../service/user.service');
+const { verifyLoginService, updatePasswordService } = require('../service/user.service');
 
 class AuthController {
     login(req, res) {
@@ -27,7 +27,7 @@ class AuthController {
 
     }
 
-    logout(req, res, next) {
+    logout(req, res) {
         req.session.destroy();
 
         res.redirect('/auth/login');

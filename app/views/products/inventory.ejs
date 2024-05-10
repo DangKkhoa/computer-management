@@ -29,7 +29,7 @@
             
             <div class="p-5 w-full h-full grid grid-rows-5 gap-y-6 ">
                 
-                <div class="bg-white row-span-1 rounded">
+                <div class="bg-white row-span-1 rounded shadow-md">
                     
                     <form action="/inventory/search" class="flex justify-between items-center h-full w-full px-10 gap-x-2">
                         <div class="">
@@ -87,7 +87,7 @@
                         <button type="submit" class="py-3 px-6 bg-sky-500 text-white rounded ">Submit</button>
                     </form>
                 </div>
-                <div class="product-table-container p-5 bg-white row-span-4  rounded overflow-auto">
+                <div class="product-table-container p-5 bg-white row-span-4  rounded overflow-auto shadow-md">
                     <% if(user.role === 'ADMIN') { %>
                         <div class="mb-10 w-full ">
                             <button class="px-6 py-3 bg-red-200 text-white pointer-events-none rounded" id="delete-btn">Delete (<span id="delete-quantity">0</span>)</button>

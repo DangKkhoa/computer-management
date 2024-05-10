@@ -1,7 +1,7 @@
-const { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo } = require('../model/user.model');
+const { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo, updatePassword } = require('../model/user.model');
 const con = require('../database/db');
 const bcrypt = require('bcrypt');
-
+const saltRounds = 10;
 const { sendEmailService } = require('./sendEmail.service');
 
 
@@ -70,7 +70,7 @@ async function getUsersByNameService(name) {
 
 async function addStaffService(fullname, email, phone, date_of_birth, role, gender) {
     try {
-        const saltRounds = 10;
+        
         if(!fullname || !email) {
             return {code: 1, message: 'Fullname and email cannot be empty!'};
         }
@@ -137,9 +137,35 @@ async function updateUserInfoService(id, fullname, email, username, phone, gende
         else {
             return {code: 1, message: 'Something went wrong. Please try again'};
         }
-    }
+    }   
+}
 
+async function updatePasswordService(userId, currentPassword, newPassword, confirmNewPassword) {
+    const user = await getUserById(userId);
+    const oldPasswordMatched = bcrypt.compareSync(currentPassword, user[0].password);
+    if(!oldPasswordMatched) {
+        return {code: 1, message: "Wrong password. Please try again."}
+    }
+    else if(newPassword.length < 10) {
+        return {code: 2, message: "New password must be at least 10 characters."};
+    }
+    else if(newPassword !== confirmNewPassword) {
+        return {code: 3, message: "The confirmed password does not match the new password. Please try again."}
+    }
+    else if(newPassword === currentPassword) {
+        return {code: 4, message: "New password must be different from the old one. Please try again."}
+    }
+    else {
+        const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
+        const isPasswordUpdated = await updatePassword(userId, newHashedPassword);
+        if(isPasswordUpdated) {
+            return {code: 0, message: "Password changed successfully"};
+        }
+        else {
+            return {code: 5, message: "Something went wrong. Please try again later."};
+        }
+    }
     
 }
 
-module.exports = { getUsers, verifyLoginService, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService, updateUserInfoService };
+module.exports = { getUsers, verifyLoginService, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService, updateUserInfoService, updatePasswordService };

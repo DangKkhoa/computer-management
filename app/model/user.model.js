@@ -100,7 +100,7 @@ async function deleteUserById(id) {
 
 async function updateUserInfo(id, fullname, email, username, phone, gender, newUserPicture) {
     try {
-        let updateQuery = 'UPDATE user set fullname = ?, email = ?'
+        let updateQuery = 'UPDATE user SET fullname = ?, email = ?'
         let updateParams = [fullname, email];
 
         if(username) {
@@ -139,10 +139,28 @@ async function updateUserInfo(id, fullname, email, username, phone, gender, newU
 }
 
 async function getNumberOfStaffs() {
-    const selectQuery = 'SELECT COUNT(*) as numOfStaffs FROM user WHERE NOT role = ?';
+    const selectQuery = 'SELECT COUNT(*) AS numOfStaffs FROM user WHERE NOT role = ?';
     const selectParam = ['ADMIN'];
     const result = await con.query(selectQuery, selectParam);
     return result[0];
 }
 
-module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo, getNumberOfStaffs };
+async function updatePassword(userId, newHashedPassword) {
+    try {
+        const updateQuery = 'UPDATE user SET password = ? WHERE user_id = ?';
+        const updateParams = [newHashedPassword, userId];
+        const [updateResult] = await con.query(updateQuery, updateParams);
+    
+        if(updateResult.affectedRows > 0) {
+            return true;
+        }
+        return false;
+    }
+    catch(err) {
+        console.error(err);
+        return false;
+    }
+    
+}
+
+module.exports = { getUserByUsername, getUsersNotAdmin, getUserById, getUsersByName, addStaff, deleteUserById, getUserByEmail, updateUserInfo, getNumberOfStaffs, updatePassword };

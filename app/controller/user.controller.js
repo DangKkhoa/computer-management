@@ -1,4 +1,4 @@
-const { getUsers, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService, updateUserInfoService } = require('../service/user.service');
+const { getUsers, getUserWithId, getUsersByNameService, addStaffService, deleteUserByIdService, updateUserInfoService, updatePasswordService } = require('../service/user.service');
 
 class UserController {
     async index(req, res) {
@@ -80,7 +80,16 @@ class UserController {
         
     }
 
+    changePassword(req, res) {
+        res.render('changePassword', {user: req.session.user});
+    }
 
+    async handleChangepassword(req, res) {
+        const userId = req.session.user.user_id;
+        const { currentPassword, newPassword, confirmNewPassword } = req.body;
+        const updatePasswordMessge =  await updatePasswordService(userId, currentPassword, newPassword, confirmNewPassword);
+        return res.json(updatePasswordMessge);
+    }
     
 }
 
