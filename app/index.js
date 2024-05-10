@@ -1,8 +1,10 @@
+// Libraries
 const express = require('express');
 const app = express();
 const path = require('path');
 const session = require('express-session')
 const nocache = require('nocache');
+const { rateLimit } = require('express-rate-limit');
 // Routes
 const inventoryRouter = require('./route/inventory.route')
 const userRouter = require('./route/user.route');
@@ -29,6 +31,15 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 100,
+	standardHeaders: true,
+	legacyHeaders: false,
+})
+
+app.use(limiter);
 app.use('/customer', customerRouter);
 app.use('/shop', shopRouter)
 app.use('/auth', authRouter);
@@ -40,6 +51,7 @@ app.use('/profile', profileRouter);
 app.use('/inventory', inventoryRouter);
 app.use('/staffs', roleAuth, userRouter);
 app.use('/sale-history', saleRouter);
-app.use('/dashboard', roleAuth, dashboardRouter);
+app.use('/dashboard', dashboardRouter);
+
 
 app.listen(3000, () => console.log('http://localhost:3000/auth/login'));

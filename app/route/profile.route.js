@@ -24,6 +24,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.get('/', userController.updateInfo);
-app.post('/update/:id',upload.single('profilePicture'), userController.handleUpdateInfo);
+app.post('/update',upload.single('profilePicture'), userController.handleUpdateInfo);
 
 module.exports = app;

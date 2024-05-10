@@ -114,6 +114,7 @@
                 const productId = addToCartBtn.getAttribute('data-id');
                 const productName = document.getElementById('product-name').textContent;
                 const productPrice = document.getElementById('product-price').textContent;
+                
                 const productExistedInCart = cart.findIndex((product) => product.productId == productId);
 
                 if(productExistedInCart !== -1) {

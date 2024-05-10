@@ -44,8 +44,7 @@ async function addSaleDetail(cart, saleID) {
             const insertQuery = `INSERT INTO sale_detail
                             (sale_id, product_id, quantity, unit_price)
                             VALUES (?, ?, ?, ?)
-            `;
-            // console.log(cart[i].productId);
+                        `;
             const insertParams = [saleID, cart[i].productId, cart[i].quantity, cart[i].productPrice]
     
             const [insertResult] = await con.query(insertQuery, insertParams);
@@ -97,8 +96,7 @@ async function getNumberOfOrders() {
 async function getTotalRevenue() {
     const selectQuery = 'SELECT SUM(total_price) AS totalRevenue FROM sale';
     const result = await con.query(selectQuery);
-    console.log(result);
-    console.log(result[0].totalRevenue || 0);
+
     return result[0];
 }
 
@@ -108,7 +106,6 @@ async function getTotalRevenueEachMonth() {
                         GROUP BY MONTH(sale_date)
                     `
     const result = await con.query(selectQuery);
-    console.log(result);
     return result;
 }
 

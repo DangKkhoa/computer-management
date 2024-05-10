@@ -11,7 +11,7 @@ async function addOrderService(customer, cart) {
     for(const product of cart) {
         const isOutOfStock = await checkOutOfStock(product);
         if(isOutOfStock) {
-            return {code: 4, message: `${product.productName} is out of stock.`};
+            return {code: 4, message: `There are not enough ${product.productName} in stock.`};
         }
     }
 

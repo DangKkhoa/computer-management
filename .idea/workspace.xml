@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="580de1f7-c3fc-4e57-a11f-ba859af0740b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/app/controller/customer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/customer.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/shop.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/shop.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/user.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/customer.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/customer.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/order.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/order.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/user.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/user.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/route/customer.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/route/customer.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/route/inventory.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/route/inventory.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/route/profile.route.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/route/profile.route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/dashboard.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/dashboard.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/order.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/order.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/product.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/product.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/dashboard.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/dashboard.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/login.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/navbar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/navbar.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/shop/cart.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shop/cart.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/shop/productDetailForCustomer.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shop/productDetailForCustomer.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/shop/shopping.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/shop/shopping.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/staffs/profile.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/staffs/profile.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/staffs/staffs.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/staffs/staffs.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2gF5VGaRZIzKDkU5tR8hBVIoKaN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="580de1f7-c3fc-4e57-a11f-ba859af0740b" name="Changes" comment="" />
+      <created>1715280507910</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715280507910</updated>
+      <workItem from="1715280509325" duration="23000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

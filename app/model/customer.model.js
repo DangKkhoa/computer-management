@@ -1,5 +1,10 @@
 const con = require('../database/db');
 
+async function getAllCustomers() {
+    const selectQuery = 'SELECT * FROM customer';
+    const result = await con.query(selectQuery);
+    return result;
+}
 
 async function addCustomer(customer) {
     try {
@@ -37,7 +42,6 @@ async function addCustomer(customer) {
 async function getNumberOfCustomers() {
     const selectQuery = 'SELECT COUNT(*) as numOfCustomers FROM customer';
     const result = await con.query(selectQuery);
-    console.log(result[0]);
     return result[0];
 }
-module.exports = { addCustomer, getNumberOfCustomers };
+module.exports = { addCustomer, getNumberOfCustomers, getAllCustomers };

@@ -31,43 +31,83 @@
         <main class="md:ml-64 px-5 py-5  grid lg:grid-rows-4 sm:grid-rows-3 grid-rows-2 gap-y-4" >
             
             <div class="grid row-span-1 text-white text-lg font-bold grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 gap-4  mx-auto lg:row-span-1 md:row-span-2 w-full">
-                <a href="/staffs" class="block bg-gradient-to-tr from-pink-300 to-purple-500 rounded-lg  p-5 col-span-1 row-span-1 ">
-                    <div class="flex justify-between w-full h-full">
-                        <div>
-                            Staff
-                            <p><%= data.numberOfStaffs %></p>
+                <% if(user.role === 'ADMIN') { %>
+                    <a href="/staffs" class="hover:scale-105 block bg-gradient-to-tr from-pink-300 to-purple-500 rounded-lg  p-5 col-span-1 row-span-1 ">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Staff
+                                <p><%= data.numberOfStaffs %></p>
+                            </div>
+                            <i class="fa-solid fa-users self-center xl:text-5xl text-2xl"></i>
                         </div>
-                        <i class="fa-solid fa-users self-center xl:text-5xl text-2xl"></i>
-                    </div>
-                </a>
-                <a href="/sale-history" class=" block bg-gradient-to-tr from-green-300 to-teal-500 rounded-lg p-5 col-span-1 row-span-1">
-                    <div class="flex justify-between w-full h-full">
-                        <div>
-                            Orders
-                            <p><%= data.numberOfOrders %></p>
+                    </a>
+                    <a href="/sale-history" class="hover:scale-105 block bg-gradient-to-tr from-green-300 to-teal-500 rounded-lg p-5 col-span-1 row-span-1">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Orders
+                                <p><%= data.numberOfOrders %></p>
+                            </div>
+                            <i class="fa-solid fa-clipboard-list self-center xl:text-5xl text-2xl"></i>
                         </div>
-                        <i class="fa-solid fa-clipboard-list self-center xl:text-5xl text-2xl"></i>
-                    </div>
-                </a>
-                <a href="/customers" class="block bg-gradient-to-tr from-sky-300 to-blue-500 rounded-lg p-5 col-span-1 row-auto">
-                    <div class="flex justify-between w-full h-full">
-                        <div>
-                            Customer
-                            <p><%= data.numberOfCustomers %></p>
+                    </a>
+                    <div href="/customers" class="bg-gradient-to-tr from-sky-300 to-blue-500 rounded-lg p-5 col-span-1 row-auto">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Customer
+                                <p><%= data.numberOfCustomers %></p>
+                            </div>
+                            <i class="fa-solid fa-user-tag self-center xl:text-5xl text-2xl"></i>
                         </div>
-                        <i class="fa-solid fa-user-tag self-center xl:text-5xl text-2xl"></i>
                     </div>
-                </a>
-                <a href="/sale-history" class="a bg-gradient-to-tr from-amber-300 to-orange-500 rounded-lg p-5 col-span-1 row-auto">
-                    <div class="flex justify-between w-full h-full">
-                        <div>
-                            Revenue (VND)
-                            <p><%= data.totalRevenue %></p>
+                    <a href="/sale-history" class="hover:scale-105 block bg-gradient-to-tr from-amber-300 to-orange-500 rounded-lg p-5 col-span-1 row-auto">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Revenue (VND)
+                                <p><%= data.totalRevenue %></p>
+                            </div>
+                            <i class="fa-solid fa-money-bill self-center xl:text-5xl text-2xl"></i>
                         </div>
-                        <i class="fa-solid fa-money-bill self-center xl:text-5xl text-2xl"></i>
+                        
+                    </a>
+                <% } else { %>
+                    <div href="/staffs" class="bg-gradient-to-tr from-pink-300 to-purple-500 rounded-lg  p-5 col-span-1 row-span-1 ">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Staff
+                                <p><%= data.numberOfStaffs %></p>
+                            </div>
+                            <i class="fa-solid fa-users self-center xl:text-5xl text-2xl"></i>
+                        </div>
                     </div>
-                    
-                </a>
+                    <div href="/sale-history" class="bg-gradient-to-tr from-green-300 to-teal-500 rounded-lg p-5 col-span-1 row-span-1">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Orders
+                                <p><%= data.numberOfOrders %></p>
+                            </div>
+                            <i class="fa-solid fa-clipboard-list self-center xl:text-5xl text-2xl"></i>
+                        </div>
+                    </div>
+                    <div href="/customers" class="bg-gradient-to-tr from-sky-300 to-blue-500 rounded-lg p-5 col-span-1 row-auto">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Customer
+                                <p><%= data.numberOfCustomers %></p>
+                            </div>
+                            <i class="fa-solid fa-user-tag self-center xl:text-5xl text-2xl"></i>
+                        </div>
+                    </div>
+                    <div href="/sale-history" class="bg-gradient-to-tr from-amber-300 to-orange-500 rounded-lg p-5 col-span-1 row-auto">
+                        <div class="flex justify-between w-full h-full">
+                            <div>
+                                Revenue (VND)
+                                <p><%= data.totalRevenue %></p>
+                            </div>
+                            <i class="fa-solid fa-money-bill self-center xl:text-5xl text-2xl"></i>
+                        </div>
+                        
+                    </div>
+                <% } %>
             </div>
             <div class="h-fit lg:h-full w-full  lg:row-span-3 row-span-2 grid xl:grid-cols-3 xl:grid-rows-1 xl:gap-y-0 gap-y-4 grid-cols-1 lg:grid-rows-3 grid-rows-2 xl:gap-x-2">
                 <div class="bg-white rounded-lg shadow-xl col-span-2 h-full flex items-center xl:justify-normal justify-center px-2 xl:row-span-1 lg:row-span-2">
@@ -76,23 +116,23 @@
                 
                 <div class="bg-white rounded-lg shadow-xl p-2 xl:h-full h-fit w-full col-span-1">
                 
-                    <table class="w-full">
+                    <table class="w-full text-center">
                         <caption class=" border-slate-300 text-lg font-bold py-2 text-sky-500">Top 5 Product <i class="fa-solid fa-fire text-amber-400"></i></caption>
                         <thead class="">
                             <tr>
-                                <th class="border-r border-slate-300">No.</th>
-                                <th class="border-r border-slate-300">Name</th>
-                                <th class="border-r border-slate-300">Quantity</th>
-                                <th class="">Total revenue</th>
+                                <th class="border-b border-slate-300 p-2">No.</th>
+                                <th class="border-b border-slate-300 p-2">Name</th>
+                                <th class="border-b border-slate-300 p-2">Quantity</th>
+                                <th class="border-b border-slate-300 p-2">Total revenue</th>
                             </tr>
                         </thead>
                         <tbody>
                             <% data.top5ProductsSold.forEach((product, index) => { %>
                                 <tr>
-                                    <td class="border-r border-t border-slate-300 text-center"><%= index %></td>
-                                    <td class="border-r border-t border-slate-300 text-center"><a href="/inventory/detail/<%= product.product_id %>"><%= product.product_name %></a></td>
-                                    <td class="border-r border-t border-slate-300 text-center"><%= product.quantitySold %></td>
-                                    <td class=" border-t border-slate-300 text-center"><%= product.totalPrice %></td>
+                                    <td class="border-r border-t border-slate-300 p-2"><%= index %></td>
+                                    <td class="border-r border-t border-slate-300 p-2"><a href="/inventory/detail/<%= product.product_id %>"><%= product.product_name %></a></td>
+                                    <td class="border-r border-t border-slate-300 p-2"><%= product.quantitySold %></td>
+                                    <td class=" border-t border-slate-300 p-2"><%= product.totalPrice %></td>
                                 </tr>
                             <% }) %>
                         </tbody>
@@ -100,7 +140,7 @@
                 </div>
             </div>
         </main>
-    </div>
+    </>
     
     <script>
         
@@ -111,15 +151,10 @@
             })
 
             const responseData = await response.json()
-            
-
-
-            labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-            console.log(responseData);
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                     datasets: [{
                         label: 'Revenue of each month',
                         data: Array.from(responseData, (sale) => sale.sale_total),

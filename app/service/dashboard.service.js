@@ -2,10 +2,8 @@ const { getNumberOfStaffs } = require('../model/user.model');
 const { getTotalRevenue } = require('../model/order.model');
 const { getNumberOfCustomers } = require('../model/customer.model');
 const { getNumberOfOrders, getTotalRevenueEachMonth, getTop5ProductsSold } = require('../model/order.model');
+const { formatNumber } = require('../utils/formatNumber');
 
-function formatNumber(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
 
 async function sendDataToDashboardService() {
     const numberOfStaffs = await getNumberOfStaffs();
@@ -14,25 +12,23 @@ async function sendDataToDashboardService() {
     const numberOfOrders = await getNumberOfOrders();
     const top5ProductsSold = await getTop5ProductsSold();
 
-    const top5ProductsSoldNormalized = top5ProductsSold[0].map(({totalPrice, ...product}) => {
+    var top5ProductsSoldNormalized = top5ProductsSold[0].map(({totalPrice, ...product}) => {
         return {...product, totalPrice: formatNumber(totalPrice)};
-    });
+    });    
 
-    const dataToSend = {
+    const dashboardData = {
         numberOfStaffs: numberOfStaffs[0].numOfStaffs,
-        totalRevenue: formatNumber(totalRevenue[0].totalRevenue) || 0,
+        totalRevenue: formatNumber(totalRevenue[0].totalRevenue || 0),
         numberOfCustomers: numberOfCustomers[0].numOfCustomers,
         numberOfOrders: numberOfOrders[0].numOfOrders, 
         top5ProductsSold: top5ProductsSoldNormalized
     }
-    return dataToSend;
+    return dashboardData;
     
 }
 
 async function getTotalRevenueEachMonthService() {
     const saleRevenueEachMonth = await getTotalRevenueEachMonth();
-    // return saleRevenueEachMonth[0];
-    console.log(saleRevenueEachMonth);
 
     let dataTosend = saleRevenueEachMonth[0]
 

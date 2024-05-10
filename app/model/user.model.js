@@ -142,7 +142,6 @@ async function getNumberOfStaffs() {
     const selectQuery = 'SELECT COUNT(*) as numOfStaffs FROM user WHERE NOT role = ?';
     const selectParam = ['ADMIN'];
     const result = await con.query(selectQuery, selectParam);
-    console.log(result[0]);
     return result[0];
 }
 

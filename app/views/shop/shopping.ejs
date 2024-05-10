@@ -13,13 +13,13 @@
     <div class="container-xl md:overflow-hidden">
         <%- include('shopNavbar') %>
         <main class=" w-full md:w-3/4 lg:w-1/2 m-auto md:px-0 px-10">
-            <div class="grid grid-cols-3 w-full mx-auto gap-8">
+            <div class="grid grid-cols-3 w-full mx-auto gap-8 py-5">
                 <% products.forEach(p => { %>
                     <a href="/shop/product/detail/<%= p.product_id %>" class="block w-auto h-96 bg-white border border-gray-300 p-4 text-lg rounded-lg">
                         <img src="/images/products/<%= p.product_image %>" alt="" class="w-full ">
                         <div class="">
                             <p class="mb-5 product-name"><%= p.product_name %></p>
-                            <p class="text-red-500 font-semibold text-xl mb-5"><%= p.retail_price%><i class="fa-solid fa-dong-sign"></i></p>
+                            <p class="text-red-500 font-semibold text-xl mb-5"><%= p.retail_price%>&#8363;</p>
                             <% if(p.quantity_in_stock > 0) { %>
                                 <p class="">Status: <span class="text-green-500">In stock</span></p>
                             <% } else { %>

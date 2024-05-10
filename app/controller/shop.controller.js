@@ -2,10 +2,6 @@ const { getProductsService, searchProductsService } = require('../service/produc
 const { addOrderService } = require('../service/order.service');
 
 class ShopController {
-    dashboard(req, res) {
-        res.render('dashboard', {user: req.session.user});
-    }
-
     async shopping(req, res) {
         const products = await getProductsService();
         res.render('shop/shopping', {products: products});

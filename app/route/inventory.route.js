@@ -31,6 +31,6 @@ app.get('/search', productController.search);
 app.get('/detail/:id', authMiddleware.roleAuth, productController.detail);
 app.get('/add', authMiddleware.roleAuth, productController.add);
 app.post('/add', authMiddleware.roleAuth, upload.single('productImage'), productController.handleAdd);
-app.use('/', productController.index);
+app.get('/', productController.index);
 
 module.exports = app;

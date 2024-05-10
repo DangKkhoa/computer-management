@@ -1,8 +1,12 @@
+const { formatNumber } = require('../utils/formatNumber');
 const { getProducts, getProductById, updateProduct, deleteProducts, addProduct, searchProduct, getQuantityOfProduct } = require('../model/product.model');
 
 async function getProductsService() {
     const products = await getProducts();
-    return products;
+    const normalizeProducts = products.map(({retail_price, ...products}) => {
+        return {retail_price: formatNumber(retail_price), ...products};
+    })
+    return normalizeProducts;
 }
 
 async function getProductByIdService(id) {
@@ -66,7 +70,7 @@ async function searchProductsService(productName, category, ram, ssd, price) {
 
 async function checkOutOfStock(product) {
     const result = await getQuantityOfProduct(product.productId);
-    if(result[0].quantity_in_stock <= 0) {
+    if(result[0].quantity_in_stock - product.quantity <= 0) {
         return true;
     }
     return false;

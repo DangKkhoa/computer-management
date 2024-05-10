@@ -26,6 +26,10 @@
         tbody > tr:last-child {
             border-bottom: none;
         }
+        
+        #profile-image {
+            background-image: url("/images/cat.jpg");
+        }
     </style>
 
 </head>
@@ -35,10 +39,10 @@
         
         <main class="md:ml-64 flex justify-center p-5 h-full" >
             <div class="w-full bg-white px-10 py-5 h-screen">
-                <form action="/profile/update/<%= user.user_id %>" method="POST" enctype="multipart/form-data" class="w-full grid grid-cols-2 gap-8">
+                <form action="/profile/update" method="POST" enctype="multipart/form-data" class="w-full grid grid-cols-2 gap-8">
                     <div class="col-span-full">
-                        <div class="w-64 m-auto bg-cover bg-center">
-                            <img src="/images/users/<%= user.profile_picture %>" alt="" class="rounded-full">
+                        <div class="w-64 h-64 m-auto">
+                            <div class="w-full h-full bg-contain bg-center rounded-full" id="profile-image" style="background-image: url('/images/users/<%= user.profile_picture %>');"></div>
                             <input type="file" accept="image/*" name="profilePicture">
                         </div>
                     </div>

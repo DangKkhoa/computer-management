@@ -64,9 +64,11 @@ class UserController {
     }
 
     async handleUpdateInfo(req, res) {
-        const { id } = req.params;
+        // const { id } = req.params;
+        const userId = req.session.user.user_id;
         const { fullname, email, username, phone, gender } = req.body;
-        const isUpdated = await updateUserInfoService(id, fullname, email, username, phone, gender, req.file);
+        
+        const isUpdated = await updateUserInfoService(userId, fullname, email, username, phone, gender, req.file);
         if(isUpdated.code === 0) {
             res.send(`<h1>User updated successfully. Please <a href="/auth/logout">Sign out to see the changes</a></h1>
                     <h2>Click <a href="/profile">here</a> if you want to go back</h2>
