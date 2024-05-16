@@ -28,7 +28,7 @@
         
         <main class="md:ml-64 flex justify-center items-center p-5 h-full" >
             <% if(errorMessage.length > 0) {%>
-                <div id="message-box" class="absolute right-4 p-2 top-4 w-fit text-xl text-white bg-red-500">
+                <div id="message-box" class="absolute right-4 p-2 top-4 w-fit text-lg text-white bg-red-500 shadow-lg">
                     <%= errorMessage %>
                 </div>
             <% } %>
@@ -101,12 +101,12 @@
                             </select>
                         </div>
                         <div class="row-span-1">
-                            <label for="import-price" class="block font-bold mb-1">Import price ($):</label>
-                            <input type="number" name="importPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="import-price" placeholder="eg: 400">
+                            <label for="import-price" class="block font-bold mb-1">Import price (VND):</label>
+                            <input type="number" name="importPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="import-price" placeholder="eg: 10000000">
                         </div>
                         <div class="row-span-1">
-                            <label for="retail-price" class="block font-bold mb-1">Retail price ($):</label>
-                            <input type="number" name="retailPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="retail-price" placeholder="eg: 600">
+                            <label for="retail-price" class="block font-bold mb-1">Retail price (VND):</label>
+                            <input type="number" name="retailPrice" class="border border-slate-300 w-1/2 p-2 outline-none" id="retail-price" placeholder="eg: 12000000">
                         </div>
                         
                         <div class="row-span-1">

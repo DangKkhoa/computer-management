@@ -59,6 +59,7 @@ async function searchProductsService(productName, category, ram, ssd, price) {
     if(price) {
         var maxPrice = parseInt(price);
         var minPrice = maxPrice - 10000000;
+        console.log(maxPrice, minPrice);
     }
     else {
         var maxPrice = null
@@ -70,7 +71,7 @@ async function searchProductsService(productName, category, ram, ssd, price) {
 
 async function checkOutOfStock(product) {
     const result = await getQuantityOfProduct(product.productId);
-    if(result[0].quantity_in_stock - product.quantity <= 0) {
+    if(result[0].quantity_in_stock - product.quantity < 0) {
         return true;
     }
     return false;

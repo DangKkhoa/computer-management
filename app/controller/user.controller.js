@@ -65,18 +65,26 @@ class UserController {
 
     async handleUpdateInfo(req, res) {
         // const { id } = req.params;
-        const userId = req.session.user.user_id;
+        const user = req.session.user;
         const { fullname, email, username, phone, gender } = req.body;
         
-        const isUpdated = await updateUserInfoService(userId, fullname, email, username, phone, gender, req.file);
-        if(isUpdated.code === 0) {
-            res.send(`<h1>User updated successfully. Please <a href="/auth/logout">Sign out to see the changes</a></h1>
-                    <h2>Click <a href="/profile">here</a> if you want to go back</h2>
+        if(fullname == user.fullname && email == user.email && gender == user.gender && !req.file && phone == user.phone) {
+            res.send(`<h1>Nothing was changed.</h1>
+                    <h2>Click <a href="/profile">here</a> to go back</h2>
             `)
         }
         else {
-            res.send(`<h1>Something went wrong. <a href="/profile">Click here to go back</a></h1>`)
+            const isUpdated = await updateUserInfoService(user.user_id, fullname, email, username, phone, gender, req.file);
+            if(isUpdated.code === 0) {
+                res.send(`<h1>User updated successfully. Please <a href="/auth/logout">Sign out to see the changes</a></h1>
+                        <h2>Click <a href="/profile">here</a> if you want to go back</h2>
+                `)
+            }
+            else {
+                res.send(`<h1>Something went wrong. <a href="/profile">Click here to go back</a></h1>`)
+            }
         }
+        
         
     }
 

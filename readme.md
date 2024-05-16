@@ -7,6 +7,13 @@
 5. Run **npm start** to start the project.
 
 ## Default account
+### Admin
 **Email:** admin@gmail.com\
 **Password:** admin\
+
+### Staff
+**Email:** testuser@gmail.com\
+**Password:** testuser\
+
 ***Note: Password is the part in front of the '@' symbol in the email address***
+

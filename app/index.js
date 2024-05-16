@@ -49,9 +49,10 @@ app.use(isLoggedIn);
 
 app.use('/profile', profileRouter);
 app.use('/inventory', inventoryRouter);
-app.use('/staffs', roleAuth, userRouter);
+app.use('/staffs', userRouter);
 app.use('/sale-history', saleRouter);
 app.use('/dashboard', dashboardRouter);
+
 
 
 app.listen(3000, () => console.log('http://localhost:3000/auth/login'));

@@ -137,7 +137,12 @@
                                 <td class="text-center "><%= p.category %></td>
                                 <td class="text-center "><%= p.retail_price %></td>
                                 <td class="text-center "><%= p.import_date.toLocaleDateString('en-GB') %></td>
-                                <td class="text-center "><%= p.quantity_in_stock %></td>
+                                <% if(p.quantity_in_stock !== 0) { %>
+                                    <td class="text-center text-green-500 font-semibold"><%= p.quantity_in_stock %></td>
+                                <% } else { %>
+                                    <td class="text-center text-red-500 font-semibold"><%= p.quantity_in_stock %></td>
+                                <% } %>
+
                                 <% if(user.role === 'ADMIN') { %>
                                 <td class="text-center">
                                     <a href="/inventory/detail/<%= p.product_id %>" class="pl-3 pr-3 py-3 text-white bg-teal-500 rounded hover:bg-teal-600 text-nowrap">

@@ -22,6 +22,10 @@ async function addOrderService(customer, cart) {
     if(!customer.name || !customer.phone || !customer.address) {
         return {code: 2, message: 'Please provide your name, phone number and your current address.'};
     }
+
+    if(customer.phone.length > 10) {
+        return {code: 4, message: 'The maximum length for phone number is 10.'};
+    }
     let totalPrice = 0;
     let totalQuantity = 0;
     const saleID = uuidv4(); 

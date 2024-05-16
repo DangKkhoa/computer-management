@@ -119,7 +119,7 @@ async function searchProduct(productName, category, ram, ssd, minPrice, maxPrice
         selectQuery += ' AND ssd = ?';
         selectParam.push(ssd);
     }
-    if(minPrice && maxPrice) {
+    if(minPrice != null  && maxPrice) {
         selectQuery += ' AND retail_price BETWEEN ? AND ?';
         selectParam.push(minPrice);
         selectParam.push(maxPrice);
@@ -153,7 +153,6 @@ async function decrementQuantity(productID, quantity) {
 
 async function getQuantityOfProduct(id) {
     const [result] = await con.query('SELECT quantity_in_stock FROM product WHERE product_id = ?', [id]);
-    console.log(result);
     return result;
 }
 
